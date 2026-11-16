@@ -6,6 +6,8 @@ import {
   answersMatch,
   keywordsMatch,
   shuffle,
+  shuffleChoices,
+  type ShuffledChoice,
 } from "@/lib/questions";
 import type { Course, Question } from "@/lib/types";
 
@@ -38,7 +40,7 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
   const [peek, setPeek] = useState<string | null>(null);
   const [answered, setAnswered] = useState(false);
   const [stats, setStats] = useState({ seen: 0, correct: 0 });
-  const [cycle, setCycle] = useState(1);
+  const [pass, setPass] = useState(1);
 
   useEffect(() => {
     if (!activeCourse) return;
@@ -51,10 +53,18 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     setPeek(null);
     setAnswered(false);
     setStats({ seen: 0, correct: 0 });
-    setCycle(1);
+    setPass(1);
   }, [activeCourse]);
 
   const question = deck[index];
+
+  // Shuffle once per question id so choice position isn't learnable.
+  const choiceOrder: ShuffledChoice[] = useMemo(() => {
+    if (!question || question.type !== "multiple_choice") return [];
+    return shuffleChoices(question.choices);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional: shuffle only when question id changes
+  }, [question?.id]);
+
   const progress =
     activeCourse && activeCourse.questions.length > 0
       ? Math.min((index + 1) / activeCourse.questions.length, 1)
@@ -76,62 +86,77 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     }));
   }
 
-  function checkAnswer() {
-    if (!question || answered) return;
-
-    let correct = false;
-    let message = question.explanation;
-
-    if (question.type === "multiple_choice") {
-      if (selectedChoice === null) return;
-      correct = selectedChoice === question.answer;
-      message = correct
-        ? `Correct! ${question.explanation}`
-        : `Not quite. ${question.explanation}`;
-    }
-
-    if (question.type === "true_false") {
-      if (trueFalseValue === null) return;
-      correct = trueFalseValue === question.answer;
-      message = correct
-        ? `Correct! ${question.explanation}`
-        : `Not quite. ${question.explanation}`;
-    }
-
-    if (question.type === "fill_blank") {
-      correct = answersMatch(textAnswer, question.answers);
-      message = correct
-        ? `Correct! ${question.explanation}`
-        : `Close — expected something like: ${question.answers[0]}. ${question.explanation}`;
-    }
-
-    if (question.type === "short_answer") {
-      const keywordOk = question.keywords
-        ? keywordsMatch(textAnswer, question.keywords)
-        : false;
-      correct = keywordOk || answersMatch(textAnswer, [question.modelAnswer]);
-      message = correct
-        ? `Nice work! ${question.explanation}`
-        : `Model answer: ${question.modelAnswer} ${question.explanation}`;
-    }
-
+  function finishAnswer(correct: boolean, message: string) {
     setPeek(null);
     setFeedback({ correct, message });
     setAnswered(true);
     recordResult(correct);
   }
 
+  function checkMultipleChoice(choiceIndex: number) {
+    if (!question || question.type !== "multiple_choice" || answered) return;
+
+    const picked = choiceOrder[choiceIndex];
+    if (!picked) return;
+
+    const correct = picked.originalIndex === question.answer;
+    finishAnswer(
+      correct,
+      correct
+        ? `Correct! ${question.explanation}`
+        : `Not quite. ${question.explanation}`,
+    );
+  }
+
+  function checkTrueFalse(value: boolean) {
+    if (!question || question.type !== "true_false" || answered) return;
+
+    const correct = value === question.answer;
+    finishAnswer(
+      correct,
+      correct
+        ? `Correct! ${question.explanation}`
+        : `Not quite. ${question.explanation}`,
+    );
+  }
+
+  function checkTextAnswer() {
+    if (!question || answered) return;
+
+    if (question.type === "fill_blank") {
+      const correct = answersMatch(textAnswer, question.answers);
+      finishAnswer(
+        correct,
+        correct
+          ? `Correct! ${question.explanation}`
+          : `Close — expected something like: ${question.answers[0]}. ${question.explanation}`,
+      );
+      return;
+    }
+
+    if (question.type === "short_answer") {
+      const keywordOk = question.keywords
+        ? keywordsMatch(textAnswer, question.keywords)
+        : false;
+      const correct =
+        keywordOk || answersMatch(textAnswer, [question.modelAnswer]);
+      finishAnswer(
+        correct,
+        correct
+          ? `Nice work! ${question.explanation}`
+          : `Model answer: ${question.modelAnswer} ${question.explanation}`,
+      );
+    }
+  }
+
   function markSelfCheck(correct: boolean) {
     if (!question || answered || question.type !== "short_answer") return;
-    setPeek(null);
-    setFeedback({
+    finishAnswer(
       correct,
-      message: correct
+      correct
         ? `Nice work! ${question.explanation}`
         : `Model answer: ${question.modelAnswer} ${question.explanation}`,
-    });
-    setAnswered(true);
-    recordResult(correct);
+    );
   }
 
   function goNext() {
@@ -142,7 +167,9 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
 
     if (feedback && !feedback.correct) {
       const [missed] = working.splice(index, 1);
-      const insertAt = Math.min(index + 2, working.length);
+      // Space misses out so they return later this pass, not immediately.
+      const gap = Math.max(8, Math.min(14, Math.floor(working.length / 3)));
+      const insertAt = Math.min(index + gap, working.length);
       working.splice(insertAt, 0, missed);
       nextIndex = index;
     }
@@ -150,7 +177,7 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     if (nextIndex >= working.length) {
       setDeck(buildDeck(activeCourse.questions));
       setIndex(0);
-      setCycle((prev) => prev + 1);
+      setPass((prev) => prev + 1);
     } else {
       setDeck(working);
       setIndex(nextIndex);
@@ -169,12 +196,10 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
 
   const accuracy =
     stats.seen === 0 ? 0 : Math.round((stats.correct / stats.seen) * 100);
+  const needsTextCheck =
+    question.type === "fill_blank" || question.type === "short_answer";
   const canCheck =
-    !answered &&
-    ((question.type === "multiple_choice" && selectedChoice !== null) ||
-      (question.type === "true_false" && trueFalseValue !== null) ||
-      ((question.type === "fill_blank" || question.type === "short_answer") &&
-        textAnswer.trim().length > 0));
+    !answered && needsTextCheck && textAnswer.trim().length > 0;
 
   return (
     <div className="study-shell">
@@ -193,8 +218,8 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
             <span className="stat-label">accuracy</span>
           </div>
           <div>
-            <span className="stat-value">{cycle}</span>
-            <span className="stat-label">loop</span>
+            <span className="stat-value">{pass}</span>
+            <span className="stat-label">pass</span>
           </div>
         </div>
       </header>
@@ -214,14 +239,15 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
 
         {question.type === "multiple_choice" && (
           <div className="choice-list" role="group" aria-label="Choices">
-            {question.choices.map((choice, choiceIndex) => {
+            {choiceOrder.map((choice, choiceIndex) => {
               const isSelected = selectedChoice === choiceIndex;
               const showResult = answered && isSelected;
-              const isCorrectChoice = choiceIndex === question.answer;
+              const isCorrectChoice =
+                choice.originalIndex === question.answer;
 
               return (
                 <button
-                  key={`${question.id}-${choiceIndex}`}
+                  key={`${question.id}-${choice.originalIndex}-${choiceIndex}`}
                   type="button"
                   className={[
                     "choice-btn",
@@ -232,12 +258,15 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
                     .filter(Boolean)
                     .join(" ")}
                   disabled={answered}
-                  onClick={() => setSelectedChoice(choiceIndex)}
+                  onClick={() => {
+                    setSelectedChoice(choiceIndex);
+                    checkMultipleChoice(choiceIndex);
+                  }}
                 >
                   <span className="choice-letter">
                     {String.fromCharCode(65 + choiceIndex)}
                   </span>
-                  <span>{choice}</span>
+                  <span>{choice.text}</span>
                 </button>
               );
             })}
@@ -266,7 +295,10 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
                     .filter(Boolean)
                     .join(" ")}
                   disabled={answered}
-                  onClick={() => setTrueFalseValue(value)}
+                  onClick={() => {
+                    setTrueFalseValue(value);
+                    checkTrueFalse(value);
+                  }}
                 >
                   {label}
                 </button>
@@ -275,8 +307,7 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
           </div>
         )}
 
-        {(question.type === "fill_blank" ||
-          question.type === "short_answer") && (
+        {needsTextCheck && (
           <div className="text-answer">
             <label className="sr-only" htmlFor="answer-input">
               Your answer
@@ -342,20 +373,26 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
         )}
 
         <div className="action-row">
-          {!answered ? (
+          {!answered && needsTextCheck ? (
             <button
               type="button"
               className="primary-btn"
               disabled={!canCheck}
-              onClick={checkAnswer}
+              onClick={checkTextAnswer}
             >
               Check answer
             </button>
-          ) : (
+          ) : null}
+          {answered ? (
             <button type="button" className="primary-btn" onClick={goNext}>
               Next question
             </button>
-          )}
+          ) : null}
+          {!answered &&
+          (question.type === "multiple_choice" ||
+            question.type === "true_false") ? (
+            <p className="tap-hint">Tap an answer to check</p>
+          ) : null}
         </div>
       </main>
 

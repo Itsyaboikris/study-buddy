@@ -30,24 +30,15 @@
           "explanation": "Ministering to the Lord, fasting, and praying."
         },
         {
-          "id": "acts-antioch-call-03",
-          "type": "true_false",
-          "prompt": "Barnabas and Saul were called as missionaries while the Church at Antioch was ministering to the Lord, fasting, and praying.",
-          "answer": true,
-          "explanation": "True. Those were the three things they were doing when the Holy Ghost called them."
-        },
-        {
-          "id": "acts-antioch-start-01",
-          "type": "true_false",
-          "prompt": "Antioch was the starting point for Paul’s three missionary journeys.",
-          "answer": true,
-          "explanation": "True. Paul’s three missionary journeys began from Antioch."
-        },
-        {
           "id": "acts-antioch-start-02",
           "type": "multiple_choice",
           "prompt": "Which city was the starting point for Paul’s three missionary journeys?",
-          "choices": ["Jerusalem", "Antioch", "Ephesus", "Rome"],
+          "choices": [
+            "Jerusalem",
+            "Antioch",
+            "Ephesus",
+            "Rome"
+          ],
           "answer": 1,
           "explanation": "Antioch was the starting point for Paul’s three missionary journeys."
         },
@@ -55,21 +46,22 @@
           "id": "acts-antioch-start-03",
           "type": "fill_blank",
           "prompt": "Paul’s three missionary journeys started from what city?",
-          "answers": ["antioch", "the church at antioch"],
+          "answers": [
+            "antioch",
+            "the church at antioch"
+          ],
           "explanation": "Antioch."
-        },
-        {
-          "id": "acts-seleucia-01",
-          "type": "true_false",
-          "prompt": "The seaport for Antioch was Seleucia.",
-          "answer": true,
-          "explanation": "True. Seleucia was the seaport for Antioch."
         },
         {
           "id": "acts-seleucia-02",
           "type": "multiple_choice",
           "prompt": "What was the seaport for Antioch?",
-          "choices": ["Perga", "Seleucia", "Iconium", "Caesarea"],
+          "choices": [
+            "Perga",
+            "Seleucia",
+            "Iconium",
+            "Caesarea"
+          ],
           "answer": 1,
           "explanation": "Seleucia was the seaport for Antioch."
         },
@@ -77,7 +69,9 @@
           "id": "acts-seleucia-03",
           "type": "fill_blank",
           "prompt": "The seaport for Antioch was ____.",
-          "answers": ["seleucia"],
+          "answers": [
+            "seleucia"
+          ],
           "explanation": "Seleucia."
         },
         {
@@ -91,7 +85,12 @@
           "id": "acts-john-mark-02",
           "type": "multiple_choice",
           "prompt": "Where did John Mark turn back?",
-          "choices": ["Iconium", "Cyprus", "Perga", "Antioch"],
+          "choices": [
+            "Iconium",
+            "Cyprus",
+            "Perga",
+            "Antioch"
+          ],
           "answer": 2,
           "explanation": "John Mark turned back at Perga."
         },
@@ -99,43 +98,43 @@
           "id": "acts-john-mark-03",
           "type": "fill_blank",
           "prompt": "John Mark turned back at ____.",
-          "answers": ["perga"],
+          "answers": [
+            "perga"
+          ],
           "explanation": "Perga."
         },
         {
           "id": "acts-paul-name-01",
           "type": "fill_blank",
           "prompt": "The name Paul means ____.",
-          "answers": ["little"],
+          "answers": [
+            "little"
+          ],
           "explanation": "Paul means little."
         },
         {
           "id": "acts-paul-name-02",
           "type": "multiple_choice",
           "prompt": "What does the name Paul mean?",
-          "choices": ["Chosen", "Little", "Light", "Messenger"],
+          "choices": [
+            "Chosen",
+            "Little",
+            "Light",
+            "Messenger"
+          ],
           "answer": 1,
           "explanation": "Paul means little."
-        },
-        {
-          "id": "acts-paul-name-03",
-          "type": "true_false",
-          "prompt": "The name Paul means little.",
-          "answer": true,
-          "explanation": "True. Paul means little."
-        },
-        {
-          "id": "acts-cyprus-01",
-          "type": "true_false",
-          "prompt": "The apostles crossed Cyprus from east to west.",
-          "answer": true,
-          "explanation": "True. They crossed Cyprus from east to west."
         },
         {
           "id": "acts-cyprus-02",
           "type": "multiple_choice",
           "prompt": "In which direction did the apostles cross Cyprus?",
-          "choices": ["West to east", "North to south", "East to west", "South to north"],
+          "choices": [
+            "West to east",
+            "North to south",
+            "East to west",
+            "South to north"
+          ],
           "answer": 2,
           "explanation": "They crossed Cyprus from east to west."
         },
@@ -143,7 +142,10 @@
           "id": "acts-cyprus-03",
           "type": "fill_blank",
           "prompt": "The apostles crossed Cyprus from ____ to ____.",
-          "answers": ["east to west", "east, west"],
+          "answers": [
+            "east to west",
+            "east, west"
+          ],
           "explanation": "East to west."
         },
         {
@@ -173,18 +175,17 @@
           "explanation": "They were to abstain from blood, fornication, meat offered to idols, and meat that was strangled."
         },
         {
-          "id": "acts-council-03",
-          "type": "true_false",
-          "prompt": "The council decided Gentile converts should not be troubled about circumcision, but should abstain from blood, fornication, meat offered to idols, and meat that was strangled.",
-          "answer": true,
-          "explanation": "True. That summarizes the council’s decision."
-        },
-        {
           "id": "acts-titus-01",
           "type": "short_answer",
           "prompt": "Why was the presence of Titus at the council important?",
           "modelAnswer": "He was a Gentile believer who served as an uncircumcised test case. He was not compelled to be circumcised, confirming circumcision was not essential to salvation under grace.",
-          "keywords": ["gentile", "uncircumcised", "not compelled", "grace", "salvation"],
+          "keywords": [
+            "gentile",
+            "uncircumcised",
+            "not compelled",
+            "grace",
+            "salvation"
+          ],
           "explanation": "Titus was an uncircumcised Gentile believer used as a test case; he was not compelled to be circumcised, showing it was not essential to salvation under grace."
         },
         {
@@ -221,17 +222,14 @@
           "explanation": "Those six steps describe the Philippian jailer’s conversion."
         },
         {
-          "id": "acts-jailer-02",
-          "type": "true_false",
-          "prompt": "The Philippian jailer was baptized straightway after believing.",
-          "answer": true,
-          "explanation": "True. He was baptized straightway as part of his conversion."
-        },
-        {
           "id": "acts-jailer-03",
           "type": "fill_blank",
           "prompt": "After the Philippian jailer recognized his need and cried out for instruction, he was told to ____.",
-          "answers": ["believe", "believed", "believe on the lord jesus christ"],
+          "answers": [
+            "believe",
+            "believed",
+            "believe on the lord jesus christ"
+          ],
           "explanation": "He was told to believe."
         },
         {
@@ -251,15 +249,10 @@
           "id": "acts-epicureans-02",
           "type": "fill_blank",
           "prompt": "Epicureans were materialists and atheists who believed the chief aim of existence is ____.",
-          "answers": ["pleasure"],
+          "answers": [
+            "pleasure"
+          ],
           "explanation": "Pleasure."
-        },
-        {
-          "id": "acts-epicureans-03",
-          "type": "true_false",
-          "prompt": "Epicureans believed the chief aim of existence is pleasure.",
-          "answer": true,
-          "explanation": "True. They were materialists and atheists with that belief."
         },
         {
           "id": "acts-stoics-01",
@@ -286,13 +279,6 @@
           "explanation": "God was everything and in everything."
         },
         {
-          "id": "acts-stoics-03",
-          "type": "true_false",
-          "prompt": "Stoics believed that God was everything and in everything.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "acts-areopagus-01",
           "type": "multiple_choice",
           "prompt": "What was the Areopagus?",
@@ -309,72 +295,66 @@
           "id": "acts-areopagus-02",
           "type": "fill_blank",
           "prompt": "The Areopagus was formally known as ____.",
-          "answers": ["mars hill"],
+          "answers": [
+            "mars hill"
+          ],
           "explanation": "Mars Hill."
-        },
-        {
-          "id": "acts-areopagus-03",
-          "type": "true_false",
-          "prompt": "Philosophers took Paul to the Areopagus (Mars Hill) to hear him further.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "acts-ephesus-diana-01",
           "type": "fill_blank",
           "prompt": "At Ephesus stood the Temple of ____.",
-          "answers": ["diana"],
+          "answers": [
+            "diana"
+          ],
           "explanation": "Diana."
         },
         {
           "id": "acts-ephesus-diana-02",
           "type": "multiple_choice",
           "prompt": "Which temple stood at Ephesus?",
-          "choices": ["Temple of Diana", "Temple of Solomon", "Temple of Jupiter", "Temple of Caesar"],
+          "choices": [
+            "Temple of Diana",
+            "Temple of Solomon",
+            "Temple of Jupiter",
+            "Temple of Caesar"
+          ],
           "answer": 0,
           "explanation": "The Temple of Diana stood at Ephesus."
-        },
-        {
-          "id": "acts-ephesus-diana-03",
-          "type": "true_false",
-          "prompt": "At Ephesus stood the Temple of Diana.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "acts-ephesus-years-01",
           "type": "fill_blank",
           "prompt": "Paul spent ____ years at Ephesus.",
-          "answers": ["three", "3"],
+          "answers": [
+            "three",
+            "3"
+          ],
           "explanation": "Three years."
         },
         {
           "id": "acts-ephesus-years-02",
           "type": "multiple_choice",
           "prompt": "How long did Paul spend at Ephesus?",
-          "choices": ["One year", "Two years", "Three years", "Fourteen days"],
+          "choices": [
+            "One year",
+            "Two years",
+            "Three years",
+            "Fourteen days"
+          ],
           "answer": 2,
           "explanation": "Paul spent three years at Ephesus."
-        },
-        {
-          "id": "acts-ephesus-years-03",
-          "type": "true_false",
-          "prompt": "Paul spent three years at Ephesus.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
-          "id": "acts-sceva-01",
-          "type": "true_false",
-          "prompt": "The sons of Sceva tried to cast out a demon.",
-          "answer": true,
-          "explanation": "True. The sons of Sceva tried to cast out a demon."
         },
         {
           "id": "acts-sceva-02",
           "type": "multiple_choice",
           "prompt": "Who tried to cast out a demon?",
-          "choices": ["The sons of Sceva", "Julius the centurion", "Rhoda", "Claudius Lysias"],
+          "choices": [
+            "The sons of Sceva",
+            "Julius the centurion",
+            "Rhoda",
+            "Claudius Lysias"
+          ],
           "answer": 0,
           "explanation": "The sons of Sceva tried to cast out a demon."
         },
@@ -382,7 +362,9 @@
           "id": "acts-sceva-03",
           "type": "fill_blank",
           "prompt": "The sons of ____ tried to cast out a demon.",
-          "answers": ["sceva"],
+          "answers": [
+            "sceva"
+          ],
           "explanation": "Sceva."
         },
         {
@@ -390,30 +372,37 @@
           "type": "short_answer",
           "prompt": "What was the plot to kill Paul in Jerusalem?",
           "modelAnswer": "Forty Jews banded together under an oath not to eat anything until they killed Paul.",
-          "keywords": ["forty", "oath", "not eat", "kill paul"],
+          "keywords": [
+            "forty",
+            "oath",
+            "not eat",
+            "kill paul"
+          ],
           "explanation": "Forty Jews banded together under an oath not to eat anything until they killed Paul."
         },
         {
           "id": "acts-plot-02",
           "type": "multiple_choice",
           "prompt": "How many Jews banded together under an oath to kill Paul in Jerusalem?",
-          "choices": ["Twelve", "Twenty", "Forty", "Seventy"],
+          "choices": [
+            "Twelve",
+            "Twenty",
+            "Forty",
+            "Seventy"
+          ],
           "answer": 2,
           "explanation": "Forty Jews banded together under that oath."
-        },
-        {
-          "id": "acts-plot-03",
-          "type": "true_false",
-          "prompt": "Forty Jews swore not to eat anything until they killed Paul.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "acts-sanhedrin-01",
           "type": "short_answer",
           "prompt": "How did Paul throw the Sanhedrin into confusion?",
           "modelAnswer": "By stating he was being called into question concerning the hope and resurrection of the dead.",
-          "keywords": ["hope", "resurrection", "dead"],
+          "keywords": [
+            "hope",
+            "resurrection",
+            "dead"
+          ],
           "explanation": "He said he was being called into question concerning the hope and resurrection of the dead."
         },
         {
@@ -430,24 +419,15 @@
           "explanation": "He cited the hope and resurrection of the dead."
         },
         {
-          "id": "acts-sanhedrin-03",
-          "type": "true_false",
-          "prompt": "Paul confused the Sanhedrin by stating he was called into question concerning the hope and resurrection of the dead.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
-          "id": "acts-lysias-01",
-          "type": "true_false",
-          "prompt": "Claudius Lysias wrote Felix a letter.",
-          "answer": true,
-          "explanation": "True. Claudius Lysias wrote Felix a letter."
-        },
-        {
           "id": "acts-lysias-02",
           "type": "multiple_choice",
           "prompt": "Who wrote a letter to Felix?",
-          "choices": ["Julius", "Claudius Lysias", "John Mark", "Rhoda"],
+          "choices": [
+            "Julius",
+            "Claudius Lysias",
+            "John Mark",
+            "Rhoda"
+          ],
           "answer": 1,
           "explanation": "Claudius Lysias wrote Felix a letter."
         },
@@ -455,21 +435,21 @@
           "id": "acts-lysias-03",
           "type": "fill_blank",
           "prompt": "Claudius Lysias wrote a letter to ____.",
-          "answers": ["felix"],
+          "answers": [
+            "felix"
+          ],
           "explanation": "Felix."
-        },
-        {
-          "id": "acts-caesar-01",
-          "type": "true_false",
-          "prompt": "Paul appealed to Caesar.",
-          "answer": true,
-          "explanation": "True. Paul appealed to Caesar."
         },
         {
           "id": "acts-caesar-02",
           "type": "multiple_choice",
           "prompt": "To whom did Paul appeal?",
-          "choices": ["Felix", "Caesar", "The Sanhedrin", "Barnabas"],
+          "choices": [
+            "Felix",
+            "Caesar",
+            "The Sanhedrin",
+            "Barnabas"
+          ],
           "answer": 1,
           "explanation": "Paul appealed to Caesar."
         },
@@ -477,7 +457,9 @@
           "id": "acts-caesar-03",
           "type": "fill_blank",
           "prompt": "Paul appealed to ____.",
-          "answers": ["caesar"],
+          "answers": [
+            "caesar"
+          ],
           "explanation": "Caesar."
         },
         {
@@ -491,7 +473,12 @@
           "id": "acts-johnmark-nephew-02",
           "type": "multiple_choice",
           "prompt": "John Mark was whose nephew?",
-          "choices": ["Paul’s", "Barnabas’s", "Julius’s", "Felix’s"],
+          "choices": [
+            "Paul’s",
+            "Barnabas’s",
+            "Julius’s",
+            "Felix’s"
+          ],
           "answer": 1,
           "explanation": "John Mark was Barnabas’s nephew."
         },
@@ -499,36 +486,46 @@
           "id": "acts-johnmark-nephew-03",
           "type": "fill_blank",
           "prompt": "John Mark was ____’s nephew.",
-          "answers": ["barnabas", "barnabas's", "barnabas’"],
+          "answers": [
+            "barnabas",
+            "barnabas's",
+            "barnabas’"
+          ],
           "explanation": "Barnabas’s."
         },
         {
           "id": "acts-storm-01",
           "type": "fill_blank",
           "prompt": "The storm lasted for ____ days.",
-          "answers": ["14", "fourteen", "14 days", "fourteen days"],
+          "answers": [
+            "14",
+            "fourteen",
+            "14 days",
+            "fourteen days"
+          ],
           "explanation": "14 days."
         },
         {
           "id": "acts-storm-02",
           "type": "multiple_choice",
           "prompt": "How long did the storm last?",
-          "choices": ["3 days", "7 days", "14 days", "40 days"],
+          "choices": [
+            "3 days",
+            "7 days",
+            "14 days",
+            "40 days"
+          ],
           "answer": 2,
           "explanation": "The storm lasted for 14 days."
-        },
-        {
-          "id": "acts-storm-03",
-          "type": "true_false",
-          "prompt": "The storm lasted for 14 days.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "acts-believe-god-01",
           "type": "fill_blank",
           "prompt": "During the storm, Paul said, “I believe ____.”",
-          "answers": ["god", "i believe god"],
+          "answers": [
+            "god",
+            "i believe god"
+          ],
           "explanation": "Paul said, “I believe God.”"
         },
         {
@@ -545,39 +542,40 @@
           "explanation": "Paul said, “I believe God.”"
         },
         {
-          "id": "acts-believe-god-03",
-          "type": "true_false",
-          "prompt": "Paul said, “I believe God.”",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "acts-rome-miles-01",
           "type": "fill_blank",
           "prompt": "The brethren at Rome travelled ____ miles to meet Paul.",
-          "answers": ["43", "forty-three", "forty three", "43 miles"],
+          "answers": [
+            "43",
+            "forty-three",
+            "forty three",
+            "43 miles"
+          ],
           "explanation": "43 miles."
         },
         {
           "id": "acts-rome-miles-02",
           "type": "multiple_choice",
           "prompt": "How many miles did the brethren at Rome travel to meet Paul?",
-          "choices": ["14", "20", "43", "70"],
+          "choices": [
+            "14",
+            "20",
+            "43",
+            "70"
+          ],
           "answer": 2,
           "explanation": "They travelled 43 miles to meet Paul."
-        },
-        {
-          "id": "acts-rome-miles-03",
-          "type": "true_false",
-          "prompt": "The brethren at Rome travelled forty-three (43) miles to meet Paul.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "acts-salvation-refs-01",
           "type": "multiple_choice",
           "prompt": "Which book and chapter describe the Samaritans’ experience of salvation?",
-          "choices": ["Acts 8", "Acts 16", "Acts 19", "Acts 27"],
+          "choices": [
+            "Acts 8",
+            "Acts 16",
+            "Acts 19",
+            "Acts 27"
+          ],
           "answer": 0,
           "explanation": "The Samaritans — Acts 8."
         },
@@ -585,7 +583,12 @@
           "id": "acts-salvation-refs-02",
           "type": "multiple_choice",
           "prompt": "Which book and chapter describe the Philippian jailer’s experience of salvation?",
-          "choices": ["Acts 8", "Acts 16", "Acts 19", "Acts 2"],
+          "choices": [
+            "Acts 8",
+            "Acts 16",
+            "Acts 19",
+            "Acts 2"
+          ],
           "answer": 1,
           "explanation": "The Philippian jailer — Acts 16."
         },
@@ -593,7 +596,12 @@
           "id": "acts-salvation-refs-03",
           "type": "multiple_choice",
           "prompt": "Which book and chapter describe the Ephesians’ experience of salvation?",
-          "choices": ["Acts 8", "Acts 16", "Acts 19", "Acts 28"],
+          "choices": [
+            "Acts 8",
+            "Acts 16",
+            "Acts 19",
+            "Acts 28"
+          ],
           "answer": 2,
           "explanation": "The Ephesians — Acts 19."
         },
@@ -601,45 +609,101 @@
           "id": "acts-julius-01",
           "type": "fill_blank",
           "prompt": "The centurion who took Paul to Rome was ____.",
-          "answers": ["julius"],
+          "answers": [
+            "julius"
+          ],
           "explanation": "Julius."
         },
         {
           "id": "acts-julius-02",
           "type": "multiple_choice",
           "prompt": "Who was the centurion who took Paul to Rome?",
-          "choices": ["Felix", "Claudius Lysias", "Julius", "Sceva"],
+          "choices": [
+            "Felix",
+            "Claudius Lysias",
+            "Julius",
+            "Sceva"
+          ],
           "answer": 2,
           "explanation": "Julius was the centurion who took Paul to Rome."
-        },
-        {
-          "id": "acts-julius-03",
-          "type": "true_false",
-          "prompt": "Julius was the centurion who took Paul to Rome.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "acts-rhoda-01",
           "type": "fill_blank",
           "prompt": "The name of Mark’s mother’s servant girl was ____.",
-          "answers": ["rhoda"],
+          "answers": [
+            "rhoda"
+          ],
           "explanation": "Rhoda."
         },
         {
           "id": "acts-rhoda-02",
           "type": "multiple_choice",
           "prompt": "Who was Mark’s mother’s servant girl?",
-          "choices": ["Rhoda", "Diana", "Lydia", "Priscilla"],
+          "choices": [
+            "Rhoda",
+            "Diana",
+            "Lydia",
+            "Priscilla"
+          ],
           "answer": 0,
           "explanation": "Rhoda was Mark’s mother’s servant girl."
         },
         {
-          "id": "acts-rhoda-03",
-          "type": "true_false",
-          "prompt": "Rhoda was the name of Mark’s mother’s servant girl.",
-          "answer": true,
-          "explanation": "True."
+          "id": "acts-jailer-recall-01",
+          "type": "short_answer",
+          "prompt": "List the steps taken in the conversion of the Philippian jailer.",
+          "modelAnswer": "Recognized his need; Cried out for instruction; Was told to believe; Washed the stripes of the apostles revealing repentance; Was baptized straightway; Rejoiced, believing in God",
+          "keywords": [
+            "need",
+            "instruction",
+            "believe",
+            "washed",
+            "repentance",
+            "baptized",
+            "rejoiced"
+          ],
+          "explanation": "Need → instruction → believe → washed stripes (repentance) → baptized straightway → rejoiced believing in God."
+        },
+        {
+          "id": "acts-council-recall-01",
+          "type": "short_answer",
+          "prompt": "What four things were Gentile converts told to abstain from according to the council?",
+          "modelAnswer": "Blood; Fornication; Meat offered to idols; Meat that was strangled",
+          "keywords": [
+            "blood",
+            "fornication",
+            "idols",
+            "strangled"
+          ],
+          "explanation": "Blood, fornication, meat offered to idols, and meat that was strangled."
+        },
+        {
+          "id": "acts-antioch-call-recall-01",
+          "type": "fill_blank",
+          "prompt": "Name the three things the Church at Antioch was doing when Barnabas and Saul were called.",
+          "answers": [
+            "ministering to the lord, fasting, and praying",
+            "ministering to the lord, fasting, praying",
+            "ministering, fasting, praying",
+            "praying, fasting, and ministering to the lord"
+          ],
+          "explanation": "Ministering to the Lord, fasting, and praying."
+        },
+        {
+          "id": "acts-define-recall-01",
+          "type": "short_answer",
+          "prompt": "Define Epicureans, Stoics, and Areopagus.",
+          "modelAnswer": "Epicureans: materialists/atheists who believed pleasure is the chief aim of existence. Stoics: believed God was everything and in everything. Areopagus: Mars Hill, where philosophers took Paul to hear him further.",
+          "keywords": [
+            "pleasure",
+            "everything",
+            "mars hill",
+            "epicurean",
+            "stoic",
+            "areopagus"
+          ],
+          "explanation": "Epicureans sought pleasure; Stoics saw God in everything; Areopagus is Mars Hill."
         }
       ]
     },
@@ -671,13 +735,6 @@
           "explanation": "James 5:16 says the effectual fervent prayer of a righteous man availeth much."
         },
         {
-          "id": "ptr-james-516-03",
-          "type": "true_false",
-          "prompt": "James 5:16 says we should confess our faults one to another and pray one for another, that we may be healed.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "ptr-isaiah-586-01",
           "type": "fill_blank",
           "prompt": "Write Isaiah 58:6 (Is not this the fast that I have chosen…).",
@@ -699,13 +756,6 @@
           ],
           "answer": 0,
           "explanation": "God’s chosen fast includes loosing wickedness, undoing burdens, freeing the oppressed, and breaking every yoke."
-        },
-        {
-          "id": "ptr-isaiah-586-03",
-          "type": "true_false",
-          "prompt": "Isaiah 58:6 says God’s chosen fast includes letting the oppressed go free and breaking every yoke.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "ptr-joshua-2415-01",
@@ -731,55 +781,50 @@
           "explanation": "Joshua declares: but as for me and my house, we will serve the Lord."
         },
         {
-          "id": "ptr-joshua-2415-03",
-          "type": "true_false",
-          "prompt": "Joshua 24:15 says, “but as for me and my house, we will serve the Lord.”",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "ptr-prayer-voice-01",
           "type": "fill_blank",
           "prompt": "Prayer is need finding ____.",
-          "answers": ["a voice", "voice"],
+          "answers": [
+            "a voice",
+            "voice"
+          ],
           "explanation": "Prayer is need finding a voice."
         },
         {
           "id": "ptr-prayer-voice-02",
           "type": "multiple_choice",
           "prompt": "Prayer is need finding what?",
-          "choices": ["A voice", "A fast", "A temple", "A miracle"],
+          "choices": [
+            "A voice",
+            "A fast",
+            "A temple",
+            "A miracle"
+          ],
           "answer": 0,
           "explanation": "Prayer is need finding a voice."
-        },
-        {
-          "id": "ptr-prayer-voice-03",
-          "type": "true_false",
-          "prompt": "Prayer is need finding a voice.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "ptr-god-desire-01",
           "type": "fill_blank",
           "prompt": "What does God desire?",
-          "answers": ["our praise", "praise"],
+          "answers": [
+            "our praise",
+            "praise"
+          ],
           "explanation": "Our praise."
         },
         {
           "id": "ptr-god-desire-02",
           "type": "multiple_choice",
           "prompt": "What does God desire?",
-          "choices": ["Our praise", "Our silence", "Our wealth only", "Our opinions"],
+          "choices": [
+            "Our praise",
+            "Our silence",
+            "Our wealth only",
+            "Our opinions"
+          ],
           "answer": 0,
           "explanation": "God desires our praise."
-        },
-        {
-          "id": "ptr-god-desire-03",
-          "type": "true_false",
-          "prompt": "God desires our praise.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "ptr-god-inhabit-01",
@@ -806,13 +851,6 @@
           "explanation": "God inhabits the praise of his people."
         },
         {
-          "id": "ptr-god-inhabit-03",
-          "type": "true_false",
-          "prompt": "God inhabits the praise of his people.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "ptr-intercession-01",
           "type": "fill_blank",
           "prompt": "What is intercession?",
@@ -835,13 +873,6 @@
           ],
           "answer": 0,
           "explanation": "Intercession is talking to God for someone else’s needs."
-        },
-        {
-          "id": "ptr-intercession-03",
-          "type": "true_false",
-          "prompt": "Intercession is talking to God for someone else’s needs.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "ptr-prayer-blocks-01",
@@ -868,13 +899,6 @@
           ],
           "answer": 0,
           "explanation": "Those eleven items are the prayer blockers from the course."
-        },
-        {
-          "id": "ptr-prayer-blocks-03",
-          "type": "true_false",
-          "prompt": "Pride, unbelief, and refusing to forgive or be forgiven are among the things that block prayers.",
-          "answer": true,
-          "explanation": "True. They are included in the eleven prayer blockers."
         },
         {
           "id": "ptr-fasting-types-01",
@@ -906,7 +930,9 @@
           "id": "ptr-fasting-types-03",
           "type": "fill_blank",
           "prompt": "A normal fast is abstaining from all food solid or liquid but not ____.",
-          "answers": ["water"],
+          "answers": [
+            "water"
+          ],
           "explanation": "Water."
         },
         {
@@ -935,17 +961,13 @@
           "explanation": "Jesus our Saviour."
         },
         {
-          "id": "ptr-purpose-03",
-          "type": "true_false",
-          "prompt": "Our greatest example of purpose and meaning is Jesus our Saviour.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "ptr-ministry-01",
           "type": "fill_blank",
           "prompt": "What was Jesus’ entire ministry devoted to?",
-          "answers": ["reaching the lost", "the lost"],
+          "answers": [
+            "reaching the lost",
+            "the lost"
+          ],
           "explanation": "Reaching the lost."
         },
         {
@@ -960,13 +982,6 @@
           ],
           "answer": 0,
           "explanation": "Reaching the lost."
-        },
-        {
-          "id": "ptr-ministry-03",
-          "type": "true_false",
-          "prompt": "Jesus’ entire ministry was devoted to reaching the lost.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "ptr-disciples-wait-01",
@@ -993,18 +1008,18 @@
           "explanation": "They were waiting to be imbued with power from on high."
         },
         {
-          "id": "ptr-disciples-wait-03",
-          "type": "true_false",
-          "prompt": "The disciples waited in Jerusalem to be imbued with power from on high.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "ptr-jesus-plan-01",
           "type": "short_answer",
           "prompt": "What is the final result of Jesus’ plan?",
           "modelAnswer": "That He be made known, loved, honored and praised and made Lord of His chosen people.",
-          "keywords": ["known", "loved", "honored", "praised", "lord", "chosen people"],
+          "keywords": [
+            "known",
+            "loved",
+            "honored",
+            "praised",
+            "lord",
+            "chosen people"
+          ],
           "explanation": "That He be made known, loved, honored and praised and made Lord of His chosen people."
         },
         {
@@ -1021,18 +1036,15 @@
           "explanation": "He is to be made known, loved, honored, praised, and made Lord of His chosen people."
         },
         {
-          "id": "ptr-jesus-plan-03",
-          "type": "true_false",
-          "prompt": "The final result of Jesus’ plan is that He be made known, loved, honored and praised and made Lord of His chosen people.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "ptr-world-reached-01",
           "type": "short_answer",
           "prompt": "How will the world be reached?",
           "modelAnswer": "When every believer takes responsibility as a soul winner. One soul at a time.",
-          "keywords": ["every believer", "soul winner", "one soul"],
+          "keywords": [
+            "every believer",
+            "soul winner",
+            "one soul"
+          ],
           "explanation": "When every believer takes responsibility as a soul winner, one soul at a time."
         },
         {
@@ -1047,13 +1059,6 @@
           ],
           "answer": 0,
           "explanation": "Every believer must take responsibility as a soul winner, one soul at a time."
-        },
-        {
-          "id": "ptr-world-reached-03",
-          "type": "true_false",
-          "prompt": "The world will be reached when every believer takes responsibility as a soul winner, one soul at a time.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "ptr-worship-mean-01",
@@ -1080,18 +1085,18 @@
           "explanation": "Worship means recognizing God’s supreme worth."
         },
         {
-          "id": "ptr-worship-mean-03",
-          "type": "true_false",
-          "prompt": "Worship means recognizing God’s supreme worth.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "ptr-worship-foremost-01",
           "type": "short_answer",
           "prompt": "What is worship first and foremost?",
           "modelAnswer": "Those actions and attitudes that honor and give exaltation to God for His worthiness as the great Creator of all things both in heaven and on earth.",
-          "keywords": ["actions", "attitudes", "honor", "exaltation", "worthiness", "creator"],
+          "keywords": [
+            "actions",
+            "attitudes",
+            "honor",
+            "exaltation",
+            "worthiness",
+            "creator"
+          ],
           "explanation": "Actions and attitudes that honor and exalt God for His worthiness as Creator of all things in heaven and on earth."
         },
         {
@@ -1106,13 +1111,6 @@
           ],
           "answer": 0,
           "explanation": "Worship first honors and exalts God for His worthiness as Creator."
-        },
-        {
-          "id": "ptr-worship-foremost-03",
-          "type": "true_false",
-          "prompt": "Worship is first and foremost actions and attitudes that honor and exalt God for His worthiness as Creator.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "ptr-attitude-areas-01",
@@ -1141,13 +1139,6 @@
           "explanation": "We must make things right before we can truly worship God."
         },
         {
-          "id": "ptr-attitude-areas-03",
-          "type": "true_false",
-          "prompt": "A correct attitude toward our circumstances means worshiping God at all times because He is worthy.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "ptr-marriage-first-01",
           "type": "fill_blank",
           "prompt": "What should come first in every marriage?",
@@ -1172,13 +1163,6 @@
           "explanation": "A love for God and His Word should come first."
         },
         {
-          "id": "ptr-marriage-first-03",
-          "type": "true_false",
-          "prompt": "A love for God and His Word should come first in every marriage.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "ptr-endure-01",
           "type": "fill_blank",
           "prompt": "What is the definition of endure?",
@@ -1201,13 +1185,6 @@
           ],
           "answer": 0,
           "explanation": "Endure means to tolerate, suffer or survive."
-        },
-        {
-          "id": "ptr-endure-03",
-          "type": "true_false",
-          "prompt": "Endure means to tolerate, suffer or survive.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "ptr-return-scripture-01",
@@ -1235,11 +1212,91 @@
           "explanation": "1 Cor 15:51-55."
         },
         {
-          "id": "ptr-return-scripture-03",
-          "type": "true_false",
-          "prompt": "1 Cor 15:51-55 is the scripture with several clues for the return of the Lord.",
-          "answer": true,
-          "explanation": "True."
+          "id": "ptr-prayer-blocks-recall-01",
+          "type": "short_answer",
+          "prompt": "List as many of the 11 things that block prayers as you can remember.",
+          "modelAnswer": "Unconfessed sin; Insincerity; Carnal motives; Unbelief; Satanic Activity; Domestic Problems; Pride; Robbing God; Refusing to submit to biblical teaching; Refusing to forgive or be forgiven; Refusing to help the needy",
+          "keywords": [
+            "unconfessed sin",
+            "insincerity",
+            "carnal motives",
+            "unbelief",
+            "satanic",
+            "domestic",
+            "pride",
+            "robbing god",
+            "biblical teaching",
+            "forgive",
+            "needy"
+          ],
+          "explanation": "The eleven prayer blockers are unconfessed sin, insincerity, carnal motives, unbelief, satanic activity, domestic problems, pride, robbing God, refusing biblical teaching, refusing to forgive or be forgiven, and refusing to help the needy."
+        },
+        {
+          "id": "ptr-fasting-types-recall-01",
+          "type": "short_answer",
+          "prompt": "Name the three types of fasting and briefly define each.",
+          "modelAnswer": "Normal Fast — abstain from all food but not water. Absolute Fast — abstain from food and water. Partial Fast — restrict diet rather than complete absence of food.",
+          "keywords": [
+            "normal",
+            "absolute",
+            "partial",
+            "water",
+            "food"
+          ],
+          "explanation": "Normal (no food, water ok), Absolute (no food or water), Partial (diet restriction)."
+        },
+        {
+          "id": "ptr-attitude-areas-recall-01",
+          "type": "fill_blank",
+          "prompt": "It is important that we have a correct attitude in what three areas?",
+          "answers": [
+            "towards others, ourselves, and our circumstances",
+            "others, ourselves, and our circumstances",
+            "towards others ourselves and our circumstances",
+            "others ourselves circumstances"
+          ],
+          "explanation": "Towards others, ourselves, and our circumstances."
+        },
+        {
+          "id": "ptr-james-516-recall-01",
+          "type": "fill_blank",
+          "prompt": "Write James 5:16 from memory (reference only — no verse text shown).",
+          "answers": [
+            "confess your faults one to another, and pray one for another, that ye may be healed. the effectual fervent prayer of a righteous man availeth much",
+            "confess your faults one to another and pray one for another that ye may be healed the effectual fervent prayer of a righteous man availeth much"
+          ],
+          "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much."
+        },
+        {
+          "id": "ptr-isaiah-586-recall-01",
+          "type": "fill_blank",
+          "prompt": "Write Isaiah 58:6 from memory (reference only).",
+          "answers": [
+            "is not this the fast that i have chosen? to loose the bands of wickedness, to undo the heavy burdens, and to let the oppressed go free, and that ye break every yoke",
+            "is not this the fast that i have chosen to loose the bands of wickedness to undo the heavy burdens and to let the oppressed go free and that ye break every yoke"
+          ],
+          "explanation": "Is not this the fast that I have chosen? to loose the bands of wickedness, to undo the heavy burdens, and to let the oppressed go free, and that ye break every yoke?"
+        },
+        {
+          "id": "ptr-joshua-2415-recall-01",
+          "type": "fill_blank",
+          "prompt": "Complete Joshua 24:15 from memory, ending with: but as for me and my house…",
+          "answers": [
+            "but as for me and my house, we will serve the lord",
+            "as for me and my house we will serve the lord",
+            "but as for me and my house we will serve the lord"
+          ],
+          "explanation": "…but as for me and my house, we will serve the Lord."
+        },
+        {
+          "id": "ptr-james-516-letters-01",
+          "type": "fill_blank",
+          "prompt": "James 5:16 first-letter hint: C y f o t a, a p o f a, t y m b h. T e f p o a r m a m. Write the verse.",
+          "answers": [
+            "confess your faults one to another, and pray one for another, that ye may be healed. the effectual fervent prayer of a righteous man availeth much",
+            "confess your faults one to another and pray one for another that ye may be healed the effectual fervent prayer of a righteous man availeth much"
+          ],
+          "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much."
         }
       ]
     },
@@ -1271,13 +1328,6 @@
           "explanation": "They are new every morning: great is thy faithfulness."
         },
         {
-          "id": "fl-lam-322-03",
-          "type": "true_false",
-          "prompt": "Lamentations 3:22-23 says it is of the Lord’s mercies that we are not consumed, because His compassions fail not.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-joy-peace-01",
           "type": "multiple_choice",
           "prompt": "Which list correctly shows seven suggestions for finding joy and peace on earth, especially in marriage?",
@@ -1304,13 +1354,6 @@
           "explanation": "Follow God’s pattern in the choice of a mate."
         },
         {
-          "id": "fl-joy-peace-03",
-          "type": "true_false",
-          "prompt": "Teaching children and those under you the biblical principles of marriage is one suggestion for finding joy and peace.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-fathers-design-01",
           "type": "fill_blank",
           "prompt": "What did God design fathers to be for their children?",
@@ -1334,13 +1377,6 @@
           ],
           "answer": 0,
           "explanation": "Fathers are to be the living picture of God’s likeness."
-        },
-        {
-          "id": "fl-fathers-design-03",
-          "type": "true_false",
-          "prompt": "God designed fathers to be the living picture of God’s likeness for their children.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "fl-father-duties-01",
@@ -1369,13 +1405,6 @@
           "explanation": "Being spiritual head of the family remains a father’s responsibility."
         },
         {
-          "id": "fl-father-duties-03",
-          "type": "true_false",
-          "prompt": "Wise and loving discipline and education of children in God’s law are still responsibilities of fathers.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-abraham-01",
           "type": "fill_blank",
           "prompt": "What can we learn from Abraham as a father?",
@@ -1400,13 +1429,6 @@
           "explanation": "Abraham teaches waiting patiently for God’s promise."
         },
         {
-          "id": "fl-abraham-03",
-          "type": "true_false",
-          "prompt": "From Abraham we learn that we should wait patiently for God’s promise.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-joshua-01",
           "type": "fill_blank",
           "prompt": "What can we learn from Joshua as a father figure / leader?",
@@ -1428,13 +1450,6 @@
           ],
           "answer": 0,
           "explanation": "Train the next generation to know and love God."
-        },
-        {
-          "id": "fl-joshua-03",
-          "type": "true_false",
-          "prompt": "From Joshua we learn to train the next generation to know and love God.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "fl-samuel-01",
@@ -1461,13 +1476,6 @@
           "explanation": "Samuel shows the effects of failing to discipline our children."
         },
         {
-          "id": "fl-samuel-03",
-          "type": "true_false",
-          "prompt": "From Samuel we learn the effects of failing to discipline our children.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-habits-01",
           "type": "fill_blank",
           "prompt": "What two habits need to be cultivated in our children as we train them to live for God?",
@@ -1490,13 +1498,6 @@
           ],
           "answer": 0,
           "explanation": "Bible reading and prayer."
-        },
-        {
-          "id": "fl-habits-03",
-          "type": "true_false",
-          "prompt": "Bible reading and prayer are two habits that need to be cultivated in our children.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "fl-children-need-01",
@@ -1523,17 +1524,14 @@
           "explanation": "To know the Lord personally."
         },
         {
-          "id": "fl-children-need-03",
-          "type": "true_false",
-          "prompt": "Children need to know the Lord personally more than anything else.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-jesus-baby-01",
           "type": "fill_blank",
           "prompt": "How did Jesus begin His life on earth?",
-          "answers": ["as a baby", "a baby", "baby"],
+          "answers": [
+            "as a baby",
+            "a baby",
+            "baby"
+          ],
           "explanation": "As a baby."
         },
         {
@@ -1548,13 +1546,6 @@
           ],
           "answer": 0,
           "explanation": "Jesus began His life on earth as a baby."
-        },
-        {
-          "id": "fl-jesus-baby-03",
-          "type": "true_false",
-          "prompt": "Jesus began His life on earth as a baby.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "fl-ordinary-baby-01",
@@ -1581,18 +1572,15 @@
           "explanation": "Every child is God’s miracle of hope."
         },
         {
-          "id": "fl-ordinary-baby-03",
-          "type": "true_false",
-          "prompt": "Every child is God’s miracle of hope, so “ordinary baby” is not a correct term.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-cain-01",
           "type": "short_answer",
           "prompt": "What do we gain from the story of Cain?",
           "modelAnswer": "God remains patient and is prepared to show mercy if we turn to Him.",
-          "keywords": ["patient", "mercy", "turn"],
+          "keywords": [
+            "patient",
+            "mercy",
+            "turn"
+          ],
           "explanation": "God remains patient and is prepared to show mercy if we turn to Him."
         },
         {
@@ -1607,13 +1595,6 @@
           ],
           "answer": 0,
           "explanation": "God remains patient and will show mercy if we turn to Him."
-        },
-        {
-          "id": "fl-cain-03",
-          "type": "true_false",
-          "prompt": "From Cain’s story we learn that God remains patient and is prepared to show mercy if we turn to Him.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "fl-psalm-139-01",
@@ -1638,13 +1619,6 @@
           ],
           "answer": 0,
           "explanation": "Psalm 139:14."
-        },
-        {
-          "id": "fl-psalm-139-03",
-          "type": "true_false",
-          "prompt": "Psalm 139:14 says, “I will praise thee; for I am fearfully and wonderfully made.”",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "fl-walls-01",
@@ -1672,13 +1646,6 @@
           "explanation": "Walls are protective boundaries/rules in the home."
         },
         {
-          "id": "fl-walls-03",
-          "type": "true_false",
-          "prompt": "Walls in family life are the boundaries (rules) we erect for protection and control of our home, especially with our children.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-discipline-walls-01",
           "type": "multiple_choice",
           "prompt": "Which four materials belong in our walls of discipline?",
@@ -1695,16 +1662,14 @@
           "id": "fl-discipline-walls-02",
           "type": "multiple_choice",
           "prompt": "“Keeping God’s temple pure” as a material in walls of discipline is supported by which scripture?",
-          "choices": ["Col 3:5-6", "Heb 13:17", "John 14:15", "Romans 12:1-2"],
+          "choices": [
+            "Col 3:5-6",
+            "Heb 13:17",
+            "John 14:15",
+            "Romans 12:1-2"
+          ],
           "answer": 0,
           "explanation": "Col 3:5-6."
-        },
-        {
-          "id": "fl-discipline-walls-03",
-          "type": "true_false",
-          "prompt": "Respect for elders and each other (Heb 13:17) is one material needed in our walls of discipline.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "fl-noah-01",
@@ -1733,18 +1698,16 @@
           "explanation": "God will bring us safely through to where He wants us to be."
         },
         {
-          "id": "fl-noah-03",
-          "type": "true_false",
-          "prompt": "From Noah we learn to obey God’s plan, depend on His timing, and trust Him for direction and guidance.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-submission-01",
           "type": "short_answer",
           "prompt": "What is the underlying principle of submission that makes the meaning different from what most people think?",
           "modelAnswer": "It's a voluntary choice you make to place yourself under the authority, protection and provisions of someone else.",
-          "keywords": ["voluntary", "authority", "protection", "provisions"],
+          "keywords": [
+            "voluntary",
+            "authority",
+            "protection",
+            "provisions"
+          ],
           "explanation": "Submission is a voluntary choice to place yourself under someone’s authority, protection, and provisions."
         },
         {
@@ -1759,13 +1722,6 @@
           ],
           "answer": 0,
           "explanation": "Submission is voluntary placement under authority, protection, and provision."
-        },
-        {
-          "id": "fl-submission-03",
-          "type": "true_false",
-          "prompt": "Submission is a voluntary choice to place yourself under the authority, protection, and provisions of someone else.",
-          "answer": true,
-          "explanation": "True."
         },
         {
           "id": "fl-save-marriage-01",
@@ -1794,13 +1750,6 @@
           "explanation": "Pray together and never give up."
         },
         {
-          "id": "fl-save-marriage-03",
-          "type": "true_false",
-          "prompt": "Keeping yourself pure in body and always talking with God are among the things that can help save a marriage.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-conflict-01",
           "type": "multiple_choice",
           "prompt": "Which points belong to resolving conflict?",
@@ -1827,13 +1776,6 @@
           "explanation": "Answer slowly and speak gently."
         },
         {
-          "id": "fl-conflict-03",
-          "type": "true_false",
-          "prompt": "One point in resolving conflict is to make sure everything is settled before you sleep at night.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-prov-151-01",
           "type": "fill_blank",
           "prompt": "Write Proverbs 15:1.",
@@ -1857,17 +1799,14 @@
           "explanation": "A soft answer turneth away wrath."
         },
         {
-          "id": "fl-prov-151-03",
-          "type": "true_false",
-          "prompt": "Proverbs 15:1 says a soft answer turneth away wrath, but grievous words stir up anger.",
-          "answer": true,
-          "explanation": "True."
-        },
-        {
           "id": "fl-forgiveness-01",
           "type": "fill_blank",
           "prompt": "What is one basic commandment of Jesus that will help preserve the family more than anything else?",
-          "answers": ["forgiveness", "forgive", "to forgive"],
+          "answers": [
+            "forgiveness",
+            "forgive",
+            "to forgive"
+          ],
           "explanation": "Forgiveness."
         },
         {
@@ -1884,11 +1823,128 @@
           "explanation": "Forgiveness."
         },
         {
-          "id": "fl-forgiveness-03",
-          "type": "true_false",
-          "prompt": "Forgiveness is one basic commandment of Jesus that will help preserve the family more than anything else.",
-          "answer": true,
-          "explanation": "True."
+          "id": "fl-joy-peace-recall-01",
+          "type": "short_answer",
+          "prompt": "List the seven suggestions for finding a life of joy and peace on earth, especially in marriage.",
+          "modelAnswer": "Turn to God; Listen to his voice; Do his will; Obey his word; Follow God’s pattern in the choice of a mate; Work together; Teach children and those under you the biblical principles of marriage",
+          "keywords": [
+            "turn to god",
+            "listen",
+            "do his will",
+            "obey",
+            "mate",
+            "work together",
+            "teach children"
+          ],
+          "explanation": "Turn to God, listen to His voice, do His will, obey His word, follow God’s pattern choosing a mate, work together, teach biblical marriage principles."
+        },
+        {
+          "id": "fl-father-duties-recall-01",
+          "type": "short_answer",
+          "prompt": "List the four responsibilities of fathers (from Bible times) that still apply today.",
+          "modelAnswer": "Wise and loving discipline; Education of children in God’s law; Provide for his family’s needs; Spiritual head of the family",
+          "keywords": [
+            "discipline",
+            "education",
+            "god's law",
+            "provide",
+            "spiritual head"
+          ],
+          "explanation": "Wise and loving discipline; education in God’s law; provide for the family; spiritual head."
+        },
+        {
+          "id": "fl-discipline-walls-recall-01",
+          "type": "short_answer",
+          "prompt": "List the four materials needed in our walls of discipline (include the scripture refs if you can).",
+          "modelAnswer": "Respect for elders and each other (Heb 13:17); Love and obedience to God and His word (John 14:15); Keeping God’s temple pure (Col 3:5-6); Seeking God's Will (Romans 12:1-2)",
+          "keywords": [
+            "respect",
+            "heb 13",
+            "love",
+            "john 14",
+            "temple",
+            "col 3",
+            "god's will",
+            "romans 12"
+          ],
+          "explanation": "Respect (Heb 13:17); love/obedience (John 14:15); temple pure (Col 3:5-6); seeking God’s will (Romans 12:1-2)."
+        },
+        {
+          "id": "fl-save-marriage-recall-01",
+          "type": "short_answer",
+          "prompt": "List as many of the eight things that can be done to “save the marriage” as you remember.",
+          "modelAnswer": "Obey God’s word; Understand God’s will and purpose for marriage; Remember God made us in his image; Keep yourself pure in body; Know your duties and obligations; Always talk with God; Pray together; Never give up, keep working on the marriage",
+          "keywords": [
+            "obey",
+            "will",
+            "image",
+            "pure",
+            "duties",
+            "talk with god",
+            "pray together",
+            "never give up"
+          ],
+          "explanation": "Obey God’s word; understand His will for marriage; remember His image; keep pure; know duties; talk with God; pray together; never give up."
+        },
+        {
+          "id": "fl-conflict-recall-01",
+          "type": "short_answer",
+          "prompt": "List as many of the eleven points to resolving conflict as you can remember.",
+          "modelAnswer": "Patience; Calmness; Listen Carefully; Answer slowly; Speak Gently; Be careful when you do speak; Be careful not to cause the problem to get worse; Don't seek revenge; Don't say everything that comes to mind; Trust the Lord to solve your conflicts; Make sure everything is settled before you sleep at night",
+          "keywords": [
+            "patience",
+            "calmness",
+            "listen",
+            "answer slowly",
+            "speak gently",
+            "careful",
+            "revenge",
+            "everything that comes",
+            "trust the lord",
+            "settled",
+            "sleep"
+          ],
+          "explanation": "Patience, calmness, listen carefully, answer slowly, speak gently, be careful when speaking, don’t worsen the problem, don’t seek revenge, don’t say everything, trust the Lord, settle before sleep."
+        },
+        {
+          "id": "fl-lam-322-recall-01",
+          "type": "fill_blank",
+          "prompt": "Write Lamentations 3:22-23 from memory (reference only).",
+          "answers": [
+            "it is of the lord's mercies that we are not consumed, because his compassions fail not. they are new every morning: great is thy faithfulness",
+            "it is of the lords mercies that we are not consumed because his compassions fail not they are new every morning great is thy faithfulness"
+          ],
+          "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness."
+        },
+        {
+          "id": "fl-prov-151-recall-01",
+          "type": "fill_blank",
+          "prompt": "Write Proverbs 15:1 from memory (reference only).",
+          "answers": [
+            "a soft answer turneth away wrath: but grievous words stir up anger",
+            "a soft answer turneth away wrath but grievous words stir up anger"
+          ],
+          "explanation": "A soft answer turneth away wrath: but grievous words stir up anger."
+        },
+        {
+          "id": "fl-psalm-139-recall-01",
+          "type": "fill_blank",
+          "prompt": "Write Psalm 139:14 from memory (reference only).",
+          "answers": [
+            "i will praise thee; for i am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well",
+            "i will praise thee for i am fearfully and wonderfully made marvellous are thy works and that my soul knoweth right well"
+          ],
+          "explanation": "I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well."
+        },
+        {
+          "id": "fl-lam-322-letters-01",
+          "type": "fill_blank",
+          "prompt": "Lamentations 3:22-23 first-letter hint: I i o t L m t w a n c, b h c f n. T a n e m: g i t f. Write the verses.",
+          "answers": [
+            "it is of the lord's mercies that we are not consumed, because his compassions fail not. they are new every morning: great is thy faithfulness",
+            "it is of the lords mercies that we are not consumed because his compassions fail not they are new every morning great is thy faithfulness"
+          ],
+          "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness."
         }
       ]
     }

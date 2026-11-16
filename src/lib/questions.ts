@@ -31,18 +31,14 @@ export function normalizeAnswer(value: string): string {
     .trim();
 }
 
+/** Exact match against accepted answers after normalization (no fuzzy includes). */
 export function answersMatch(userAnswer: string, accepted: string[]): boolean {
   const normalized = normalizeAnswer(userAnswer);
   if (!normalized) return false;
 
-  return accepted.some((option) => {
-    const target = normalizeAnswer(option);
-    return (
-      normalized === target ||
-      normalized.includes(target) ||
-      target.includes(normalized)
-    );
-  });
+  return accepted.some(
+    (option) => normalized === normalizeAnswer(option),
+  );
 }
 
 export function keywordsMatch(userAnswer: string, keywords: string[]): boolean {
@@ -54,4 +50,17 @@ export function keywordsMatch(userAnswer: string, keywords: string[]): boolean {
   );
 
   return hits.length >= Math.ceil(keywords.length * 0.6);
+}
+
+export type ShuffledChoice = {
+  text: string;
+  originalIndex: number;
+};
+
+export function shuffleChoices(
+  choices: string[],
+): ShuffledChoice[] {
+  return shuffle(
+    choices.map((text, originalIndex) => ({ text, originalIndex })),
+  );
 }
