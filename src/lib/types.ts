@@ -4,6 +4,9 @@ export type QuestionType =
   | "fill_blank"
   | "short_answer";
 
+/** flexible = any order (lists); ordered = sequence/verse wording matters */
+export type MatchMode = "flexible" | "ordered";
+
 export type BaseQuestion = {
   id: string;
   type: QuestionType;
@@ -25,12 +28,14 @@ export type TrueFalseQuestion = BaseQuestion & {
 export type FillBlankQuestion = BaseQuestion & {
   type: "fill_blank";
   answers: string[];
+  matchMode?: MatchMode;
 };
 
 export type ShortAnswerQuestion = BaseQuestion & {
   type: "short_answer";
   modelAnswer: string;
   keywords?: string[];
+  matchMode?: MatchMode;
 };
 
 export type Question =

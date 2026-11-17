@@ -25,7 +25,9 @@
             "ministering to the lord, fasting, and praying",
             "ministering to the lord, fasting, praying",
             "ministering, fasting, praying",
-            "praying, fasting, and ministering to the lord"
+            "praying, fasting, and ministering to the lord",
+            "ministering to the lord, praying and fasting",
+            "ministering to the lord praying and fasting"
           ],
           "explanation": "Ministering to the Lord, fasting, and praying."
         },
@@ -663,7 +665,8 @@
             "baptized",
             "rejoiced"
           ],
-          "explanation": "Need → instruction → believe → washed stripes (repentance) → baptized straightway → rejoiced believing in God."
+          "explanation": "Need → instruction → believe → washed stripes (repentance) → baptized straightway → rejoiced believing in God.",
+          "matchMode": "ordered"
         },
         {
           "id": "acts-council-recall-01",
@@ -686,7 +689,9 @@
             "ministering to the lord, fasting, and praying",
             "ministering to the lord, fasting, praying",
             "ministering, fasting, praying",
-            "praying, fasting, and ministering to the lord"
+            "praying, fasting, and ministering to the lord",
+            "ministering to the lord, praying and fasting",
+            "ministering to the lord praying and fasting"
           ],
           "explanation": "Ministering to the Lord, fasting, and praying."
         },
@@ -719,7 +724,8 @@
             "confess your faults one to another, and pray one for another, that ye may be healed. the effectual fervent prayer of a righteous man availeth much",
             "confess your faults one to another and pray one for another that ye may be healed the effectual fervent prayer of a righteous man availeth much"
           ],
-          "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much."
+          "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much.",
+          "matchMode": "ordered"
         },
         {
           "id": "ptr-james-516-02",
@@ -742,7 +748,8 @@
             "is not this the fast that i have chosen? to loose the bands of wickedness, to undo the heavy burdens, and to let the oppressed go free, and that ye break every yoke",
             "is not this the fast that i have chosen to loose the bands of wickedness to undo the heavy burdens and to let the oppressed go free and that ye break every yoke"
           ],
-          "explanation": "Is not this the fast that I have chosen? to loose the bands of wickedness, to undo the heavy burdens, and to let the oppressed go free, and that ye break every yoke?"
+          "explanation": "Is not this the fast that I have chosen? to loose the bands of wickedness, to undo the heavy burdens, and to let the oppressed go free, and that ye break every yoke?",
+          "matchMode": "ordered"
         },
         {
           "id": "ptr-isaiah-586-02",
@@ -765,7 +772,8 @@
             "and if it seem evil unto you to serve the lord, choose you this day whom ye will serve; whether the gods which your fathers served that were on the other side of the flood, or the gods of the amorites, in whose land ye dwell: but as for me and my house, we will serve the lord",
             "choose you this day whom ye will serve but as for me and my house we will serve the lord"
           ],
-          "explanation": "…but as for me and my house, we will serve the Lord."
+          "explanation": "…but as for me and my house, we will serve the Lord.",
+          "matchMode": "ordered"
         },
         {
           "id": "ptr-joshua-2415-02",
@@ -1265,7 +1273,8 @@
             "confess your faults one to another, and pray one for another, that ye may be healed. the effectual fervent prayer of a righteous man availeth much",
             "confess your faults one to another and pray one for another that ye may be healed the effectual fervent prayer of a righteous man availeth much"
           ],
-          "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much."
+          "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much.",
+          "matchMode": "ordered"
         },
         {
           "id": "ptr-isaiah-586-recall-01",
@@ -1275,7 +1284,8 @@
             "is not this the fast that i have chosen? to loose the bands of wickedness, to undo the heavy burdens, and to let the oppressed go free, and that ye break every yoke",
             "is not this the fast that i have chosen to loose the bands of wickedness to undo the heavy burdens and to let the oppressed go free and that ye break every yoke"
           ],
-          "explanation": "Is not this the fast that I have chosen? to loose the bands of wickedness, to undo the heavy burdens, and to let the oppressed go free, and that ye break every yoke?"
+          "explanation": "Is not this the fast that I have chosen? to loose the bands of wickedness, to undo the heavy burdens, and to let the oppressed go free, and that ye break every yoke?",
+          "matchMode": "ordered"
         },
         {
           "id": "ptr-joshua-2415-recall-01",
@@ -1286,7 +1296,8 @@
             "as for me and my house we will serve the lord",
             "but as for me and my house we will serve the lord"
           ],
-          "explanation": "…but as for me and my house, we will serve the Lord."
+          "explanation": "…but as for me and my house, we will serve the Lord.",
+          "matchMode": "ordered"
         },
         {
           "id": "ptr-james-516-letters-01",
@@ -1296,7 +1307,8 @@
             "confess your faults one to another, and pray one for another, that ye may be healed. the effectual fervent prayer of a righteous man availeth much",
             "confess your faults one to another and pray one for another that ye may be healed the effectual fervent prayer of a righteous man availeth much"
           ],
-          "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much."
+          "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much.",
+          "matchMode": "ordered"
         }
       ]
     },
@@ -1312,7 +1324,8 @@
             "it is of the lord's mercies that we are not consumed, because his compassions fail not. they are new every morning: great is thy faithfulness",
             "it is of the lords mercies that we are not consumed because his compassions fail not they are new every morning great is thy faithfulness"
           ],
-          "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness."
+          "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.",
+          "matchMode": "ordered"
         },
         {
           "id": "fl-lam-322-02",
@@ -1605,7 +1618,8 @@
             "psalm 139:14 i will praise thee; for i am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well",
             "i will praise thee for i am fearfully and wonderfully made marvellous are thy works and that my soul knoweth right well"
           ],
-          "explanation": "Psalm 139:14 — I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well."
+          "explanation": "Psalm 139:14 — I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well.",
+          "matchMode": "ordered"
         },
         {
           "id": "fl-psalm-139-02",
@@ -1783,7 +1797,8 @@
             "a soft answer turneth away wrath: but grievous words stir up anger",
             "a soft answer turneth away wrath but grievous words stir up anger"
           ],
-          "explanation": "A soft answer turneth away wrath: but grievous words stir up anger."
+          "explanation": "A soft answer turneth away wrath: but grievous words stir up anger.",
+          "matchMode": "ordered"
         },
         {
           "id": "fl-prov-151-02",
@@ -1914,7 +1929,8 @@
             "it is of the lord's mercies that we are not consumed, because his compassions fail not. they are new every morning: great is thy faithfulness",
             "it is of the lords mercies that we are not consumed because his compassions fail not they are new every morning great is thy faithfulness"
           ],
-          "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness."
+          "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.",
+          "matchMode": "ordered"
         },
         {
           "id": "fl-prov-151-recall-01",
@@ -1924,7 +1940,8 @@
             "a soft answer turneth away wrath: but grievous words stir up anger",
             "a soft answer turneth away wrath but grievous words stir up anger"
           ],
-          "explanation": "A soft answer turneth away wrath: but grievous words stir up anger."
+          "explanation": "A soft answer turneth away wrath: but grievous words stir up anger.",
+          "matchMode": "ordered"
         },
         {
           "id": "fl-psalm-139-recall-01",
@@ -1934,7 +1951,8 @@
             "i will praise thee; for i am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well",
             "i will praise thee for i am fearfully and wonderfully made marvellous are thy works and that my soul knoweth right well"
           ],
-          "explanation": "I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well."
+          "explanation": "I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well.",
+          "matchMode": "ordered"
         },
         {
           "id": "fl-lam-322-letters-01",
@@ -1944,7 +1962,8 @@
             "it is of the lord's mercies that we are not consumed, because his compassions fail not. they are new every morning: great is thy faithfulness",
             "it is of the lords mercies that we are not consumed because his compassions fail not they are new every morning great is thy faithfulness"
           ],
-          "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness."
+          "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.",
+          "matchMode": "ordered"
         }
       ]
     }

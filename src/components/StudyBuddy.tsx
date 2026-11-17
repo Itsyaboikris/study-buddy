@@ -124,7 +124,11 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     if (!question || answered) return;
 
     if (question.type === "fill_blank") {
-      const correct = answersMatch(textAnswer, question.answers);
+      const correct = answersMatch(
+        textAnswer,
+        question.answers,
+        question.matchMode ?? "flexible",
+      );
       finishAnswer(
         correct,
         correct
@@ -135,11 +139,16 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     }
 
     if (question.type === "short_answer") {
-      const keywordOk = question.keywords
-        ? keywordsMatch(textAnswer, question.keywords)
-        : false;
+      const matchMode = question.matchMode ?? "flexible";
+      const keywordOk =
+        matchMode === "ordered"
+          ? false
+          : question.keywords
+            ? keywordsMatch(textAnswer, question.keywords)
+            : false;
       const correct =
-        keywordOk || answersMatch(textAnswer, [question.modelAnswer]);
+        keywordOk ||
+        answersMatch(textAnswer, [question.modelAnswer], matchMode);
       finishAnswer(
         correct,
         correct
