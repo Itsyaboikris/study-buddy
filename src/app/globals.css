@@ -65,10 +65,20 @@ textarea {
   width: min(100%, 42rem);
   margin: 0 auto;
   min-height: 100dvh;
-  padding: 1rem 1rem calc(var(--tab-h) + var(--safe-bottom) + 1rem);
+  padding: 1rem 1rem calc(var(--tab-h) + var(--safe-bottom) + 5rem);
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+}
+
+.study-shell.is-typing {
+  padding-bottom: calc(5.5rem + var(--safe-bottom));
+}
+
+.study-shell.is-typing .course-tabs {
+  transform: translate(-50%, 120%);
+  pointer-events: none;
+  opacity: 0;
 }
 
 .study-header {
@@ -265,25 +275,36 @@ textarea {
   font-size: 1.05rem;
 }
 
-textarea {
+.answer-input,
+.answer-textarea {
   width: 100%;
-  resize: vertical;
-  min-height: 6rem;
   border-radius: 0.95rem;
   border: 1px solid rgba(21, 38, 29, 0.14);
   background: white;
   padding: 0.95rem 1rem;
   color: var(--ink);
   line-height: 1.45;
+  font: inherit;
 }
 
-textarea:focus {
+.answer-input {
+  min-height: 3.25rem;
+}
+
+.answer-textarea {
+  resize: vertical;
+  min-height: 5rem;
+}
+
+.answer-input:focus,
+.answer-textarea:focus {
   outline: none;
   border-color: var(--leaf);
   box-shadow: 0 0 0 3px rgba(31, 107, 74, 0.14);
 }
 
-textarea:disabled {
+.answer-input:disabled,
+.answer-textarea:disabled {
   opacity: 0.85;
 }
 
@@ -337,9 +358,21 @@ textarea:disabled {
   color: #7a4d14;
 }
 
-.action-row {
-  margin-top: auto;
-  padding-top: 0.35rem;
+.action-dock {
+  position: sticky;
+  bottom: calc(var(--tab-h) + var(--safe-bottom) + 0.35rem);
+  z-index: 25;
+  padding: 0.35rem 0 0.15rem;
+  background: linear-gradient(
+    180deg,
+    rgba(231, 240, 232, 0) 0%,
+    rgba(231, 240, 232, 0.92) 28%,
+    rgba(238, 243, 238, 0.98) 100%
+  );
+}
+
+.study-shell.is-typing .action-dock {
+  bottom: 0.35rem;
 }
 
 .tap-hint {
@@ -380,6 +413,9 @@ textarea:disabled {
   border-top: 1px solid rgba(21, 38, 29, 0.08);
   backdrop-filter: blur(14px);
   z-index: 20;
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease;
 }
 
 .course-tab {

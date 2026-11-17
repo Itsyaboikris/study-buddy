@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CourseTabs } from "@/components/CourseTabs";
 import {
   answersMatch,
@@ -41,6 +41,9 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
   const [answered, setAnswered] = useState(false);
   const [stats, setStats] = useState({ seen: 0, correct: 0 });
   const [pass, setPass] = useState(1);
+  const [isTyping, setIsTyping] = useState(false);
+  const actionRef = useRef<HTMLDivElement>(null);
+  const blurTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!activeCourse) return;
@@ -54,7 +57,34 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     setAnswered(false);
     setStats({ seen: 0, correct: 0 });
     setPass(1);
+    setIsTyping(false);
   }, [activeCourse]);
+
+  useEffect(() => {
+    return () => {
+      if (blurTimerRef.current !== null) {
+        window.clearTimeout(blurTimerRef.current);
+      }
+    };
+  }, []);
+
+  function handleAnswerFocus() {
+    if (blurTimerRef.current !== null) {
+      window.clearTimeout(blurTimerRef.current);
+      blurTimerRef.current = null;
+    }
+    setIsTyping(true);
+    window.requestAnimationFrame(() => {
+      actionRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    });
+  }
+
+  function handleAnswerBlur() {
+    blurTimerRef.current = window.setTimeout(() => {
+      setIsTyping(false);
+      blurTimerRef.current = null;
+    }, 180);
+  }
 
   const question = deck[index];
 
@@ -212,7 +242,7 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     !answered && needsTextCheck && textAnswer.trim().length > 0;
 
   return (
-    <div className="study-shell">
+    <div className={`study-shell ${isTyping ? "is-typing" : ""}`}>
       <header className="study-header">
         <div>
           <p className="brand">Study Buddy</p>
@@ -322,18 +352,40 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
             <label className="sr-only" htmlFor="answer-input">
               Your answer
             </label>
-            <textarea
-              id="answer-input"
-              value={textAnswer}
-              onChange={(event) => setTextAnswer(event.target.value)}
-              placeholder={
-                question.type === "fill_blank"
-                  ? "Type your answer…"
-                  : "Type what you remember…"
-              }
-              rows={question.type === "short_answer" ? 4 : 3}
-              disabled={answered}
-            />
+            {question.type === "fill_blank" ? (
+              <input
+                id="answer-input"
+                className="answer-input"
+                type="text"
+                enterKeyHint="done"
+                autoComplete="off"
+                autoCorrect="off"
+                value={textAnswer}
+                onChange={(event) => setTextAnswer(event.target.value)}
+                onFocus={handleAnswerFocus}
+                onBlur={handleAnswerBlur}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    checkTextAnswer();
+                  }
+                }}
+                placeholder="Type your answer…"
+                disabled={answered}
+              />
+            ) : (
+              <textarea
+                id="answer-input"
+                className="answer-textarea"
+                value={textAnswer}
+                onChange={(event) => setTextAnswer(event.target.value)}
+                onFocus={handleAnswerFocus}
+                onBlur={handleAnswerBlur}
+                placeholder="Type what you remember…"
+                rows={3}
+                disabled={answered}
+              />
+            )}
             {question.type === "short_answer" && !answered && (
               <div className="self-check">
                 <p>Prefer a self-check?</p>
@@ -382,12 +434,21 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
           </div>
         )}
 
-        <div className="action-row">
+        {!answered &&
+        (question.type === "multiple_choice" ||
+          question.type === "true_false") ? (
+          <p className="tap-hint">Tap an answer to check</p>
+        ) : null}
+      </main>
+
+      {(!answered && needsTextCheck) || answered ? (
+        <div className="action-dock" ref={actionRef}>
           {!answered && needsTextCheck ? (
             <button
               type="button"
               className="primary-btn"
               disabled={!canCheck}
+              onMouseDown={(event) => event.preventDefault()}
               onClick={checkTextAnswer}
             >
               Check answer
@@ -398,13 +459,8 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
               Next question
             </button>
           ) : null}
-          {!answered &&
-          (question.type === "multiple_choice" ||
-            question.type === "true_false") ? (
-            <p className="tap-hint">Tap an answer to check</p>
-          ) : null}
         </div>
-      </main>
+      ) : null}
 
       <CourseTabs
         courses={courses}

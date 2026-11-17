@@ -887,12 +887,12 @@
           "prompt": "Which of the following is one of the 11 things that block prayers?",
           "choices": [
             "Unconfessed sin",
-            "Public worship",
-            "Soul winning",
-            "Effectual fervent prayer"
+            "Intercessory prayer",
+            "Effectual fervent prayer",
+            "Ministering to the Lord"
           ],
           "answer": 0,
-          "explanation": "Unconfessed sin is one of the things that block prayers."
+          "explanation": "Unconfessed sin is a prayer blocker; the others are prayer/worship practices."
         },
         {
           "id": "ptr-prayer-blocks-02",
@@ -900,12 +900,219 @@
           "prompt": "Which list correctly names things that block prayers?",
           "choices": [
             "Unconfessed sin, insincerity, carnal motives, unbelief, satanic activity, domestic problems, pride, robbing God, refusing biblical teaching, refusing to forgive or be forgiven, refusing to help the needy",
-            "Fasting, praise, intercession, and worship",
-            "Marriage, children, and family prayer only",
-            "Reading scripture aloud and attending church"
+            "Unconfessed sin, fasting, praise, unbelief, pride, robbing God, soul winning, worship, baptism, communion, tithing",
+            "Insincerity, carnal motives, absolute fasting, pride, domestic problems, public worship, unbelief, prayer, faith, hope, love",
+            "Satanic activity, pride, unbelief, marriage conflict, church attendance, Bible reading, fasting, giving, serving, witnessing, singing"
           ],
           "answer": 0,
           "explanation": "Those eleven items are the prayer blockers from the course."
+        },
+        {
+          "id": "ptr-prayer-blocks-count-01",
+          "type": "fill_blank",
+          "prompt": "How many things block prayers according to the course?",
+          "answers": [
+            "11",
+            "eleven"
+          ],
+          "explanation": "There are 11 things that block prayers."
+        },
+        {
+          "id": "ptr-prayer-blocks-not-01",
+          "type": "multiple_choice",
+          "prompt": "Which of these is NOT one of the 11 things that block prayers?",
+          "choices": [
+            "Fasting without water for one day",
+            "Pride",
+            "Unbelief",
+            "Robbing God"
+          ],
+          "answer": 0,
+          "explanation": "Fasting is not listed among the eleven prayer blockers."
+        },
+        {
+          "id": "ptr-prayer-blocks-not-02",
+          "type": "multiple_choice",
+          "prompt": "Which item is a prayer blocker, not a spiritual discipline?",
+          "choices": [
+            "Carnal motives",
+            "Intercession",
+            "Worship",
+            "Soul winning"
+          ],
+          "answer": 0,
+          "explanation": "Carnal motives are one of the eleven things that block prayers."
+        },
+        {
+          "id": "ptr-prayer-blocks-pair-01",
+          "type": "multiple_choice",
+          "prompt": "Which pair are both prayer blockers?",
+          "choices": [
+            "Insincerity and unbelief",
+            "Praise and fasting",
+            "Soul winning and worship",
+            "Baptism and communion"
+          ],
+          "answer": 0,
+          "explanation": "Insincerity and unbelief are both on the list of prayer blockers."
+        },
+        {
+          "id": "ptr-prayer-blocks-near-01",
+          "type": "multiple_choice",
+          "prompt": "A home filled with ongoing conflict may relate to which prayer blocker?",
+          "choices": [
+            "Domestic Problems",
+            "Absolute fasting",
+            "Public worship",
+            "Soul winning"
+          ],
+          "answer": 0,
+          "explanation": "Domestic problems are listed among the things that block prayers."
+        },
+        {
+          "id": "ptr-prayer-blocks-near-02",
+          "type": "multiple_choice",
+          "prompt": "Withholding tithes/offerings most closely matches which prayer blocker?",
+          "choices": [
+            "Robbing God",
+            "Insincerity",
+            "Satanic Activity",
+            "Unconfessed sin only when spoken publicly"
+          ],
+          "answer": 0,
+          "explanation": "Robbing God is one of the eleven prayer blockers."
+        },
+        {
+          "id": "ptr-prayer-blocks-near-03",
+          "type": "multiple_choice",
+          "prompt": "Holding a grudge against someone points especially to which blocker?",
+          "choices": [
+            "Refusing to forgive or be forgiven",
+            "Carnal motives",
+            "Domestic Problems",
+            "Effectual fervent prayer"
+          ],
+          "answer": 0,
+          "explanation": "Refusing to forgive or be forgiven blocks prayer."
+        },
+        {
+          "id": "ptr-prayer-blocks-fill-01",
+          "type": "fill_blank",
+          "prompt": "Name three things that block prayers.",
+          "answers": [
+            "unconfessed sin, insincerity, unbelief",
+            "pride, unbelief, unconfessed sin",
+            "robbing god, pride, unbelief",
+            "insincerity, carnal motives, pride",
+            "domestic problems, pride, unconfessed sin",
+            "satanic activity, unbelief, pride",
+            "refusing to forgive, pride, unbelief",
+            "refusing to help the needy, pride, unconfessed sin"
+          ],
+          "explanation": "Any three from the eleven: unconfessed sin, insincerity, carnal motives, unbelief, satanic activity, domestic problems, pride, robbing God, refusing biblical teaching, refusing to forgive or be forgiven, refusing to help the needy."
+        },
+        {
+          "id": "ptr-prayer-blocks-fill-02",
+          "type": "fill_blank",
+          "prompt": "Unconfessed ____ is one of the things that block prayers.",
+          "answers": [
+            "sin"
+          ],
+          "explanation": "Unconfessed sin."
+        },
+        {
+          "id": "ptr-prayer-blocks-fill-03",
+          "type": "fill_blank",
+          "prompt": "____ motives are one of the eleven prayer blockers.",
+          "answers": [
+            "carnal"
+          ],
+          "explanation": "Carnal motives."
+        },
+        {
+          "id": "ptr-prayer-blocks-fill-04",
+          "type": "fill_blank",
+          "prompt": "Robbing ____ is listed among the things that block prayers.",
+          "answers": [
+            "god"
+          ],
+          "explanation": "Robbing God."
+        },
+        {
+          "id": "ptr-prayer-blocks-fill-05",
+          "type": "fill_blank",
+          "prompt": "Refusing to ____ or be forgiven blocks prayer.",
+          "answers": [
+            "forgive"
+          ],
+          "explanation": "Refusing to forgive or be forgiven."
+        },
+        {
+          "id": "ptr-prayer-blocks-fill-06",
+          "type": "fill_blank",
+          "prompt": "Refusing to help the ____ is a prayer blocker.",
+          "answers": [
+            "needy"
+          ],
+          "explanation": "Refusing to help the needy."
+        },
+        {
+          "id": "ptr-prayer-blocks-fill-07",
+          "type": "fill_blank",
+          "prompt": "Refusing to submit to ____ teaching blocks prayer.",
+          "answers": [
+            "biblical",
+            "bible",
+            "biblical teaching"
+          ],
+          "explanation": "Refusing to submit to biblical teaching."
+        },
+        {
+          "id": "ptr-prayer-blocks-tf-01",
+          "type": "true_false",
+          "prompt": "Pride is one of the eleven things that block prayers.",
+          "answer": true,
+          "explanation": "True. Pride is on the list."
+        },
+        {
+          "id": "ptr-prayer-blocks-tf-02",
+          "type": "true_false",
+          "prompt": "Public worship is one of the eleven things that block prayers.",
+          "answer": false,
+          "explanation": "False. Public worship is not a prayer blocker."
+        },
+        {
+          "id": "ptr-prayer-blocks-odd-01",
+          "type": "multiple_choice",
+          "prompt": "Which list includes a fake prayer blocker mixed with real ones?",
+          "choices": [
+            "Unbelief, pride, speaking in tongues, robbing God",
+            "Unconfessed sin, insincerity, carnal motives, unbelief",
+            "Pride, domestic problems, satanic activity, robbing God",
+            "Refusing to forgive, refusing to help the needy, pride, unbelief"
+          ],
+          "answer": 0,
+          "explanation": "Speaking in tongues is not one of the eleven prayer blockers."
+        },
+        {
+          "id": "ptr-prayer-blocks-recall-02",
+          "type": "short_answer",
+          "prompt": "Without looking, write the 11 things that block prayers.",
+          "modelAnswer": "Unconfessed sin; Insincerity; Carnal motives; Unbelief; Satanic Activity; Domestic Problems; Pride; Robbing God; Refusing to submit to biblical teaching; Refusing to forgive or be forgiven; Refusing to help the needy",
+          "keywords": [
+            "unconfessed sin",
+            "insincerity",
+            "carnal motives",
+            "unbelief",
+            "satanic",
+            "domestic",
+            "pride",
+            "robbing god",
+            "biblical teaching",
+            "forgive",
+            "needy"
+          ],
+          "explanation": "Aim to recall all eleven prayer blockers from the course."
         },
         {
           "id": "ptr-fasting-types-01",
