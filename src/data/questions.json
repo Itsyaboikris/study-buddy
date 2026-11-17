@@ -10,9 +10,9 @@
           "prompt": "The Church at Antioch was doing what three things when the Holy Ghost called Barnabas and Saul as missionaries?",
           "choices": [
             "Ministering to the Lord, fasting, and praying",
-            "Preaching, baptizing, and collecting offerings",
-            "Building a synagogue, teaching, and traveling",
-            "Writing letters, appointing elders, and fasting"
+            "Preaching, fasting, and baptizing",
+            "Ministering to the Lord, praying, and collecting offerings",
+            "Teaching, fasting, and appointing elders"
           ],
           "answer": 0,
           "explanation": "They were ministering to the Lord, fasting, and praying when the Holy Ghost called Barnabas and Saul."
@@ -38,8 +38,8 @@
           "choices": [
             "Jerusalem",
             "Antioch",
-            "Ephesus",
-            "Rome"
+            "Seleucia",
+            "Ephesus"
           ],
           "answer": 1,
           "explanation": "Antioch was the starting point for Paul’s three missionary journeys."
@@ -62,7 +62,7 @@
             "Perga",
             "Seleucia",
             "Iconium",
-            "Caesarea"
+            "Cyprus"
           ],
           "answer": 1,
           "explanation": "Seleucia was the seaport for Antioch."
@@ -91,7 +91,7 @@
             "Iconium",
             "Cyprus",
             "Perga",
-            "Antioch"
+            "Seleucia"
           ],
           "answer": 2,
           "explanation": "John Mark turned back at Perga."
@@ -121,8 +121,8 @@
           "choices": [
             "Chosen",
             "Little",
-            "Light",
-            "Messenger"
+            "Saul",
+            "Apostle"
           ],
           "answer": 1,
           "explanation": "Paul means little."
@@ -135,7 +135,7 @@
             "West to east",
             "North to south",
             "East to west",
-            "South to north"
+            "From Perga to Iconium"
           ],
           "answer": 2,
           "explanation": "They crossed Cyprus from east to west."
@@ -157,8 +157,8 @@
           "choices": [
             "All Gentile converts must be circumcised",
             "Gentile converts should not be troubled about circumcision",
-            "Only Jewish believers needed baptism",
-            "Circumcision was optional only in Rome"
+            "Gentiles must keep the whole law of Moses",
+            "Only Titus needed to be circumcised"
           ],
           "answer": 1,
           "explanation": "Gentile converts should not be troubled about circumcision."
@@ -169,9 +169,9 @@
           "prompt": "According to the council, Gentile converts should abstain from which of the following?",
           "choices": [
             "Blood, fornication, meat offered to idols, and meat that was strangled",
-            "Wine, pork, and marriage",
-            "Travel, teaching, and fasting",
-            "Only meat offered to idols"
+            "Blood, fornication, and circumcision",
+            "Meat offered to idols, wine, and travel",
+            "Blood, fasting, and meat that was strangled"
           ],
           "answer": 0,
           "explanation": "They were to abstain from blood, fornication, meat offered to idols, and meat that was strangled."
@@ -196,8 +196,8 @@
           "choices": [
             "He was a Jewish elder arguing for circumcision",
             "He was a Gentile believer and uncircumcised test case who was not compelled to be circumcised",
-            "He wrote the council’s letter to the churches",
-            "He translated for Paul and Barnabas"
+            "He was compelled to be circumcised to keep peace",
+            "He wrote the council’s decision about abstaining from blood"
           ],
           "answer": 1,
           "explanation": "Titus was a Gentile believer serving as an uncircumcised test case and was not compelled to be circumcised."
@@ -215,9 +215,9 @@
           "prompt": "Which list correctly shows the steps in the Philippian jailer’s conversion?",
           "choices": [
             "Recognized his need; cried out for instruction; was told to believe; washed the apostles’ stripes (repentance); was baptized straightway; rejoiced, believing in God",
-            "Heard a sermon; was baptized weeks later; joined a synagogue; wrote a letter to Paul",
-            "Fled the prison; hid Paul; paid a fine; later believed in private",
-            "Asked for a sign; refused baptism; waited for circumcision; then rejoiced"
+            "Recognized his need; was baptized weeks later; then believed; rejoiced",
+            "Cried out for instruction; refused baptism; waited for circumcision; then rejoiced",
+            "Believed; rejoiced; later washed the stripes; was never baptized"
           ],
           "answer": 0,
           "explanation": "Those six steps describe the Philippian jailer’s conversion."
@@ -239,9 +239,9 @@
           "prompt": "Who were the Epicureans?",
           "choices": [
             "Materialists and atheists who believed the chief aim of existence is pleasure",
+            "Philosophers who believed God was everything and in everything",
             "Jews who required circumcision of Gentiles",
-            "Roman soldiers guarding Paul",
-            "Prophets from Antioch"
+            "Men who met Paul at Mars Hill as Stoics"
           ],
           "answer": 0,
           "explanation": "Epicureans were materialists and atheists who believed pleasure was the chief aim of existence."
@@ -262,8 +262,8 @@
           "choices": [
             "That God was everything and in everything",
             "That pleasure is the chief aim of life",
-            "That only Jews could be saved",
-            "That idols have no power at all"
+            "That Mars Hill had no spiritual meaning",
+            "That Diana’s temple was the true place of worship"
           ],
           "answer": 0,
           "explanation": "Stoics believed that God was everything and in everything."
@@ -285,8 +285,8 @@
           "prompt": "What was the Areopagus?",
           "choices": [
             "Formally known as Mars Hill, where philosophers took Paul to hear him further",
-            "The seaport of Antioch",
-            "Paul’s prison cell in Rome",
+            "The seaport of Antioch called Seleucia",
+            "The council that decided about circumcision",
             "The temple of Diana in Ephesus"
           ],
           "answer": 0,
@@ -317,8 +317,8 @@
           "choices": [
             "Temple of Diana",
             "Temple of Solomon",
-            "Temple of Jupiter",
-            "Temple of Caesar"
+            "Mars Hill",
+            "The Areopagus"
           ],
           "answer": 0,
           "explanation": "The Temple of Diana stood at Ephesus."
@@ -353,8 +353,8 @@
           "choices": [
             "The sons of Sceva",
             "Julius the centurion",
-            "Rhoda",
-            "Claudius Lysias"
+            "Claudius Lysias",
+            "The Stoics"
           ],
           "answer": 0,
           "explanation": "The sons of Sceva tried to cast out a demon."
@@ -387,9 +387,9 @@
           "prompt": "How many Jews banded together under an oath to kill Paul in Jerusalem?",
           "choices": [
             "Twelve",
-            "Twenty",
+            "Fourteen",
             "Forty",
-            "Seventy"
+            "Forty-three"
           ],
           "answer": 2,
           "explanation": "Forty Jews banded together under that oath."
@@ -412,9 +412,9 @@
           "prompt": "Paul threw the Sanhedrin into confusion by saying he was on trial concerning what?",
           "choices": [
             "The hope and resurrection of the dead",
-            "Paying temple taxes",
-            "Destroying Diana’s temple",
-            "Crossing Cyprus unlawfully"
+            "Meat offered to idols",
+            "The Temple of Diana",
+            "His appeal to Caesar"
           ],
           "answer": 0,
           "explanation": "He cited the hope and resurrection of the dead."
@@ -426,8 +426,8 @@
           "choices": [
             "Julius",
             "Claudius Lysias",
-            "John Mark",
-            "Rhoda"
+            "Felix",
+            "Barnabas"
           ],
           "answer": 1,
           "explanation": "Claudius Lysias wrote Felix a letter."
@@ -449,7 +449,7 @@
             "Felix",
             "Caesar",
             "The Sanhedrin",
-            "Barnabas"
+            "Claudius Lysias"
           ],
           "answer": 1,
           "explanation": "Paul appealed to Caesar."
@@ -478,7 +478,7 @@
             "Paul’s",
             "Barnabas’s",
             "Julius’s",
-            "Felix’s"
+            "Mark’s mother’s"
           ],
           "answer": 1,
           "explanation": "John Mark was Barnabas’s nephew."
@@ -514,7 +514,7 @@
             "3 days",
             "7 days",
             "14 days",
-            "40 days"
+            "43 days"
           ],
           "answer": 2,
           "explanation": "The storm lasted for 14 days."
@@ -536,8 +536,8 @@
           "choices": [
             "I believe God",
             "We are all going to perish",
-            "Abandon the ship",
-            "Return to Antioch"
+            "Abandon the ship at Perga",
+            "Appeal to Felix"
           ],
           "answer": 0,
           "explanation": "Paul said, “I believe God.”"
@@ -560,7 +560,7 @@
           "prompt": "How many miles did the brethren at Rome travel to meet Paul?",
           "choices": [
             "14",
-            "20",
+            "40",
             "43",
             "70"
           ],
@@ -588,7 +588,7 @@
             "Acts 8",
             "Acts 16",
             "Acts 19",
-            "Acts 2"
+            "Acts 28"
           ],
           "answer": 1,
           "explanation": "The Philippian jailer — Acts 16."
@@ -601,7 +601,7 @@
             "Acts 8",
             "Acts 16",
             "Acts 19",
-            "Acts 28"
+            "Acts 2"
           ],
           "answer": 2,
           "explanation": "The Ephesians — Acts 19."
@@ -643,9 +643,9 @@
           "prompt": "Who was Mark’s mother’s servant girl?",
           "choices": [
             "Rhoda",
-            "Diana",
             "Lydia",
-            "Priscilla"
+            "Priscilla",
+            "Diana"
           ],
           "answer": 0,
           "explanation": "Rhoda was Mark’s mother’s servant girl."
@@ -732,9 +732,9 @@
           "prompt": "According to James 5:16, what does the effectual fervent prayer of a righteous man do?",
           "choices": [
             "Availeth much",
-            "Replaces fasting",
-            "Ends all persecution",
-            "Removes the need for confession"
+            "Replaces confession",
+            "Removes the need for intercession",
+            "Ends all unbelief forever"
           ],
           "answer": 0,
           "explanation": "James 5:16 says the effectual fervent prayer of a righteous man availeth much."
@@ -756,9 +756,9 @@
           "prompt": "Isaiah 58:6 describes the fast God has chosen as doing what?",
           "choices": [
             "Loosing bands of wickedness, undoing heavy burdens, freeing the oppressed, and breaking every yoke",
-            "Abstaining only from water for three days",
-            "Gathering offerings for the temple",
-            "Choosing which gods to serve"
+            "Abstaining from food but not water only",
+            "Abstaining from both food and water only",
+            "Choosing which gods your house will serve"
           ],
           "answer": 0,
           "explanation": "God’s chosen fast includes loosing wickedness, undoing burdens, freeing the oppressed, and breaking every yoke."
@@ -780,9 +780,9 @@
           "prompt": "How does Joshua 24:15 end?",
           "choices": [
             "But as for me and my house, we will serve the Lord",
-            "But as for me, I will fast alone",
+            "But as for me and my house, we will endure quietly",
             "But as for me, I will praise only in public",
-            "But as for me and my house, we will endure quietly"
+            "But as for me and my house, we will fast absolutely"
           ],
           "answer": 0,
           "explanation": "Joshua declares: but as for me and my house, we will serve the Lord."
@@ -804,8 +804,8 @@
           "choices": [
             "A voice",
             "A fast",
-            "A temple",
-            "A miracle"
+            "Intercession only",
+            "Our praise alone"
           ],
           "answer": 0,
           "explanation": "Prayer is need finding a voice."
@@ -827,8 +827,8 @@
           "choices": [
             "Our praise",
             "Our silence",
-            "Our wealth only",
-            "Our opinions"
+            "Our carnal motives",
+            "Only absolute fasting"
           ],
           "answer": 0,
           "explanation": "God desires our praise."
@@ -851,8 +851,8 @@
           "choices": [
             "The praise of his people",
             "Empty temples only",
-            "Human wisdom",
-            "Carnal motives"
+            "Carnal motives",
+            "Unconfessed sin"
           ],
           "answer": 0,
           "explanation": "God inhabits the praise of his people."
@@ -875,8 +875,8 @@
           "choices": [
             "Talking to God for someone else’s needs",
             "Praising God only for yourself",
-            "Abstaining from food and water",
-            "Choosing which gods to serve"
+            "Recognizing God’s supreme worth",
+            "Abstaining from food and water"
           ],
           "answer": 0,
           "explanation": "Intercession is talking to God for someone else’s needs."
@@ -1121,8 +1121,8 @@
           "choices": [
             "Normal, absolute, and partial",
             "Public, private, and silent",
-            "Morning, noon, and night",
-            "Water, juice, and dry"
+            "Normal, absolute, and intercessory",
+            "Partial, perpetual, and priestly"
           ],
           "answer": 0,
           "explanation": "Normal fast, absolute fast, and partial fast."
@@ -1135,7 +1135,7 @@
             "Abstaining from both food and water",
             "Abstaining from food but not water",
             "A restriction of diet rather than complete absence of food",
-            "Fasting only from meat offered to idols"
+            "Abstaining only from meat offered to idols"
           ],
           "answer": 0,
           "explanation": "An absolute fast is abstaining from both food and water."
@@ -1167,9 +1167,9 @@
           "prompt": "What is our greatest example of purpose and meaning?",
           "choices": [
             "Jesus our Saviour",
-            "The Sanhedrin",
+            "Every soul winner",
             "Earthly success",
-            "Human philosophy"
+            "The Sanhedrin"
           ],
           "answer": 0,
           "explanation": "Jesus our Saviour."
@@ -1191,7 +1191,7 @@
           "choices": [
             "Reaching the lost",
             "Building temples",
-            "Writing the law",
+            "Teaching fasting types only",
             "Judging Rome"
           ],
           "answer": 0,
@@ -1214,9 +1214,9 @@
           "prompt": "What were the disciples waiting in Jerusalem for?",
           "choices": [
             "To be imbued with power from on high",
+            "To begin a normal fast together",
             "To choose a new high priest",
-            "To rebuild the temple walls",
-            "To begin a normal fast together"
+            "To rebuild the temple walls"
           ],
           "answer": 0,
           "explanation": "They were waiting to be imbued with power from on high."
@@ -1242,9 +1242,9 @@
           "prompt": "What is the final result of Jesus’ plan?",
           "choices": [
             "That He be made known, loved, honored and praised and made Lord of His chosen people",
-            "That every nation build a temple to Diana",
-            "That believers stop soul winning",
-            "That prayer replace all worship"
+            "That every believer stop soul winning",
+            "That prayer replace all worship",
+            "That absolute fasting alone reach the world"
           ],
           "answer": 0,
           "explanation": "He is to be made known, loved, honored, praised, and made Lord of His chosen people."
@@ -1291,9 +1291,9 @@
           "prompt": "What does worship mean?",
           "choices": [
             "Recognizing God’s supreme worth",
+            "Talking to God for someone else’s needs",
             "Only singing loudly in church",
-            "Abstaining from food",
-            "Talking to God for someone else’s needs"
+            "Abstaining from food"
           ],
           "answer": 0,
           "explanation": "Worship means recognizing God’s supreme worth."
@@ -1320,7 +1320,7 @@
           "choices": [
             "Actions and attitudes that honor and exalt God for His worthiness as Creator of all things in heaven and on earth",
             "Any public performance meant to impress others",
-            "Only fasting without prayer",
+            "Intercession for someone else’s needs only",
             "Choosing earthly success over God"
           ],
           "answer": 0,
@@ -1333,8 +1333,8 @@
           "choices": [
             "Towards others, ourselves, and our circumstances",
             "Towards money, food, and clothing",
-            "Towards Rome, Greece, and Judea",
-            "Towards fasting, maps, and letters only"
+            "Towards fasting, praise, and intercession only",
+            "Towards Rome, Greece, and Judea"
           ],
           "answer": 0,
           "explanation": "Towards others, ourselves, and our circumstances."
@@ -1370,8 +1370,8 @@
           "choices": [
             "A love for God and His Word",
             "Shared hobbies",
-            "Equal praise from others",
-            "Avoiding all conflict forever"
+            "Avoiding all conflict forever",
+            "Equal praise from others"
           ],
           "answer": 0,
           "explanation": "A love for God and His Word should come first."
@@ -1394,8 +1394,8 @@
           "choices": [
             "To tolerate, suffer or survive",
             "To quit under pressure",
-            "To praise only when convenient",
-            "To refuse forgiveness"
+            "To refuse forgiveness",
+            "To praise only when convenient"
           ],
           "answer": 0,
           "explanation": "Endure means to tolerate, suffer or survive."
@@ -1552,9 +1552,9 @@
           "prompt": "Which list correctly shows seven suggestions for finding joy and peace on earth, especially in marriage?",
           "choices": [
             "Turn to God; listen to His voice; do His will; obey His word; follow God’s pattern in choosing a mate; work together; teach children biblical principles of marriage",
-            "Avoid all conflict; never discipline; ignore scripture; quit quickly",
-            "Seek revenge; speak every thought; sleep angry; refuse forgiveness",
-            "Build walls with no doors; refuse prayer; refuse Bible reading"
+            "Turn to God; listen to His voice; avoid all discipline; never pray together; quit quickly",
+            "Obey His word; seek revenge; sleep angry; refuse forgiveness; ignore scripture",
+            "Follow God’s pattern choosing a mate; refuse Bible reading; refuse prayer; build walls with no doors"
           ],
           "answer": 0,
           "explanation": "Those seven suggestions are from the Family Life course."
@@ -1603,9 +1603,9 @@
           "prompt": "Which four responsibilities of fathers in Bible times are still responsibilities of fathers?",
           "choices": [
             "Wise and loving discipline; education in God’s law; providing for the family’s needs; spiritual head of the family",
-            "Building temples; collecting taxes; writing epistles; sailing to Rome",
-            "Absolute fasting only; avoiding prayer; refusing forgiveness; seeking revenge",
-            "Choosing idols; ignoring children; avoiding work; refusing scripture"
+            "Wise discipline; education in God’s law; providing needs; refusing forgiveness",
+            "Spiritual head; absolute fasting only; avoiding prayer; seeking revenge",
+            "Providing needs; building temples; writing epistles; sailing to Rome"
           ],
           "answer": 0,
           "explanation": "Those four responsibilities remain."
@@ -1642,7 +1642,7 @@
             "Wait patiently for God’s promise",
             "Fail to discipline our children",
             "Refuse to train the next generation",
-            "Seek revenge in conflict"
+            "Leave conflict unsettled overnight"
           ],
           "answer": 0,
           "explanation": "Abraham teaches waiting patiently for God’s promise."
@@ -1663,9 +1663,9 @@
           "prompt": "From Joshua we learn to:",
           "choices": [
             "Train the next generation to know and love God",
-            "Ignore God’s promises",
+            "Wait patiently and never act",
             "Refuse to provide for the family",
-            "Leave conflict unsettled overnight"
+            "Fail to discipline children"
           ],
           "answer": 0,
           "explanation": "Train the next generation to know and love God."
@@ -1689,7 +1689,7 @@
             "The effects of failing to discipline our children",
             "Waiting patiently for God’s promise",
             "Training the next generation to love God",
-            "Building walls with no discipline"
+            "Building walls with no scripture"
           ],
           "answer": 0,
           "explanation": "Samuel shows the effects of failing to discipline our children."
@@ -1713,7 +1713,7 @@
             "Bible reading and prayer",
             "Revenge and silence",
             "Pride and unbelief",
-            "Robbing God and refusing forgiveness"
+            "Discipline without love"
           ],
           "answer": 0,
           "explanation": "Bible reading and prayer."
@@ -1737,7 +1737,7 @@
             "To know the Lord personally",
             "To avoid all discipline",
             "To never hear scripture",
-            "To seek revenge in conflict"
+            "To have walls with no doors"
           ],
           "answer": 0,
           "explanation": "To know the Lord personally."
@@ -1834,8 +1834,8 @@
           "choices": [
             "Psalm 139:14 — I will praise thee; for I am fearfully and wonderfully made…",
             "Proverbs 15:1 — A soft answer turneth away wrath…",
-            "Lamentations 3:22-23 only",
-            "James 5:16 only"
+            "Lamentations 3:22-23 — mercies new every morning…",
+            "Joshua 24:15 — as for me and my house…"
           ],
           "answer": 0,
           "explanation": "Psalm 139:14."
@@ -1871,9 +1871,9 @@
           "prompt": "Which four materials belong in our walls of discipline?",
           "choices": [
             "Respect for elders and each other (Heb 13:17); love and obedience to God and His word (John 14:15); keeping God’s temple pure (Col 3:5-6); seeking God’s will (Romans 12:1-2)",
-            "Pride, unbelief, revenge, and silence",
-            "Only money, status, comfort, and ease",
-            "Ignoring scripture, prayer, discipline, and forgiveness"
+            "Respect for elders (Heb 13:17); revenge; pride; silence",
+            "Love and obedience (John 14:15); money; status; ease",
+            "Keeping God’s temple pure (Col 3:5-6); ignoring scripture; refusing prayer; refusing forgiveness"
           ],
           "answer": 0,
           "explanation": "Those four, with their scriptures, are the materials of discipline walls."
@@ -1949,9 +1949,9 @@
           "prompt": "Which list correctly names things that can be done to “save the marriage”?",
           "choices": [
             "Obey God’s word; understand God’s will for marriage; remember we are made in His image; keep pure in body; know duties; always talk with God; pray together; never give up",
-            "Seek revenge; speak every thought; refuse forgiveness; quit immediately",
-            "Ignore scripture; refuse prayer; avoid duties; give up early",
-            "Build no walls; refuse discipline; refuse Bible reading"
+            "Obey God’s word; seek revenge; sleep angry; refuse forgiveness; quit immediately",
+            "Pray together; ignore duties; refuse prayer; give up early",
+            "Keep pure; build no walls; refuse discipline; refuse Bible reading"
           ],
           "answer": 0,
           "explanation": "Those eight points are the course’s “save the marriage” list."
@@ -1974,7 +1974,7 @@
           "type": "multiple_choice",
           "prompt": "Which points belong to resolving conflict?",
           "choices": [
-            "Patience, calmness, listen carefully, answer slowly, speak gently, be careful when you speak, don’t worsen the problem, don’t seek revenge, don’t say everything that comes to mind, trust the Lord, settle things before sleep",
+            "Patience, calmness, listen carefully, answer slowly, speak gently, be careful when you speak, don’t worsen the problem, don’t seek revenge, don’t say everything, trust the Lord, settle before sleep",
             "Yell first, seek revenge, say everything, sleep angry",
             "Ignore the other person forever and refuse forgiveness",
             "Only absolute fasting with no conversation"
