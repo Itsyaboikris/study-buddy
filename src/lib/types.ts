@@ -31,10 +31,18 @@ export type FillBlankQuestion = BaseQuestion & {
   matchMode?: MatchMode;
 };
 
+/** Term must be linked to its meaning (not just both present anywhere). */
+export type AnswerPair = {
+  term: string;
+  meaning: string;
+};
+
 export type ShortAnswerQuestion = BaseQuestion & {
   type: "short_answer";
   modelAnswer: string;
   keywords?: string[];
+  /** When set, each term must appear near its correct meaning. */
+  pairs?: AnswerPair[];
   matchMode?: MatchMode;
 };
 

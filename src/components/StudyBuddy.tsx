@@ -5,6 +5,7 @@ import { CourseTabs } from "@/components/CourseTabs";
 import {
   answersMatch,
   keywordsMatch,
+  pairsMatch,
   shuffle,
   shuffleChoices,
   type ShuffledChoice,
@@ -170,6 +171,14 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
 
     if (question.type === "short_answer") {
       const matchMode = question.matchMode ?? "flexible";
+
+      // Definition/link questions: term must sit with the right meaning.
+      if (question.pairs && question.pairs.length > 0) {
+        const correct = pairsMatch(textAnswer, question.pairs);
+        finishAnswer(correct, shortAnswerFeedback(question, correct));
+        return;
+      }
+
       const keywordOk =
         matchMode === "ordered"
           ? false

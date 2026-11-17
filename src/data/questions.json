@@ -699,15 +699,21 @@
           "type": "short_answer",
           "prompt": "Define Epicureans, Stoics, and Areopagus.",
           "modelAnswer": "Epicureans: materialists/atheists who believed pleasure is the chief aim of existence. Stoics: believed God was everything and in everything. Areopagus: Mars Hill, where philosophers took Paul to hear him further.",
-          "keywords": [
-            "pleasure",
-            "everything",
-            "mars hill",
-            "epicurean",
-            "stoic",
-            "areopagus"
+          "pairs": [
+            {
+              "term": "epicurean|epicureans",
+              "meaning": "pleasure|materialist|materialists|atheist|atheists"
+            },
+            {
+              "term": "stoic|stoics|stoically",
+              "meaning": "everything"
+            },
+            {
+              "term": "areopagus",
+              "meaning": "mars hill|mars"
+            }
           ],
-          "explanation": "Epicureans sought pleasure; Stoics saw God in everything; Areopagus is Mars Hill."
+          "explanation": "Epicureans were materialists/atheists who sought pleasure; Stoics saw God in everything; Areopagus is Mars Hill."
         }
       ]
     },
@@ -771,7 +777,7 @@
             "and if it seem evil unto you to serve the lord, choose you this day whom ye will serve; whether the gods which your fathers served that were on the other side of the flood, or the gods of the amorites, in whose land ye dwell: but as for me and my house, we will serve the lord",
             "choose you this day whom ye will serve but as for me and my house we will serve the lord"
           ],
-          "explanation": "…but as for me and my house, we will serve the Lord.",
+          "explanation": "And if it seem evil unto you to serve the Lord, choose you this day whom ye will serve; whether the gods which your fathers served that were on the other side of the flood, or the gods of the Amorites, in whose land ye dwell: but as for me and my house, we will serve the Lord.",
           "matchMode": "ordered"
         },
         {
@@ -1450,12 +1456,19 @@
           "type": "short_answer",
           "prompt": "Name the three types of fasting and briefly define each.",
           "modelAnswer": "Normal Fast — abstain from all food but not water. Absolute Fast — abstain from food and water. Partial Fast — restrict diet rather than complete absence of food.",
-          "keywords": [
-            "normal",
-            "absolute",
-            "partial",
-            "water",
-            "food"
+          "pairs": [
+            {
+              "term": "normal",
+              "meaning": "water"
+            },
+            {
+              "term": "absolute",
+              "meaning": "food and water|both|food water"
+            },
+            {
+              "term": "partial",
+              "meaning": "restriction|diet|restrict"
+            }
           ],
           "explanation": "Normal (no food, water ok), Absolute (no food or water), Partial (diet restriction)."
         },

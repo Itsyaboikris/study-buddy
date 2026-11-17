@@ -1,6 +1,12 @@
 import * as fuzz from "fuzzball";
 import questionsData from "@/data/questions.json";
-import type { Course, MatchMode, Question, QuestionsData } from "@/lib/types";
+import type {
+  AnswerPair,
+  Course,
+  MatchMode,
+  Question,
+  QuestionsData,
+} from "@/lib/types";
 
 const data = questionsData as QuestionsData;
 
@@ -130,6 +136,21 @@ export function answersMatch(
   });
 }
 
+function alternativeHits(
+  normalized: string,
+  userTokens: string[],
+  pattern: string,
+): boolean {
+  const alternatives = pattern
+    .split("|")
+    .map((part) => normalizeAnswer(part))
+    .filter(Boolean);
+
+  return alternatives.some((alt) =>
+    keywordAlternativeMatches(normalized, userTokens, alt),
+  );
+}
+
 /** Keywords may use alternatives with | e.g. "oath|pledge|vow". */
 export function keywordsMatch(userAnswer: string, keywords: string[]): boolean {
   const normalized = normalizeAnswer(userAnswer);
@@ -137,18 +158,73 @@ export function keywordsMatch(userAnswer: string, keywords: string[]): boolean {
 
   const userTokens = normalized.split(" ").filter(Boolean);
 
-  const hits = keywords.filter((keyword) => {
-    const alternatives = keyword
-      .split("|")
-      .map((part) => normalizeAnswer(part))
-      .filter(Boolean);
-
-    return alternatives.some((alt) =>
-      keywordAlternativeMatches(normalized, userTokens, alt),
-    );
-  });
+  const hits = keywords.filter((keyword) =>
+    alternativeHits(normalized, userTokens, keyword),
+  );
 
   return hits.length >= Math.ceil(keywords.length * 0.6);
+}
+
+const PAIR_WINDOW = 70;
+
+function findPatternIndexes(normalized: string, pattern: string): number[] {
+  const alternatives = pattern
+    .split("|")
+    .map((part) => normalizeAnswer(part))
+    .filter(Boolean);
+  const indexes: number[] = [];
+
+  for (const alt of alternatives) {
+    let from = 0;
+    while (from < normalized.length) {
+      const at = normalized.indexOf(alt, from);
+      if (at === -1) break;
+      indexes.push(at);
+      from = at + Math.max(alt.length, 1);
+    }
+  }
+
+  return indexes;
+}
+
+/**
+ * Require each term to appear near its correct meaning so swapped
+ * definitions (Stoics ↔ Areopagus) do not pass.
+ */
+export function pairsMatch(userAnswer: string, pairs: AnswerPair[]): boolean {
+  const normalized = normalizeAnswer(userAnswer);
+  if (!normalized || pairs.length === 0) return false;
+
+  const clauses = normalized
+    .split(/\n|;|\.|:| - | – | — |,/g)
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  return pairs.every((pair) => {
+    // Prefer clause-level linking when the user writes labeled lines.
+    for (const clause of clauses) {
+      const tokens = clause.split(" ").filter(Boolean);
+      if (
+        alternativeHits(clause, tokens, pair.term) &&
+        alternativeHits(clause, tokens, pair.meaning)
+      ) {
+        return true;
+      }
+    }
+
+    // Fallback: term and meaning must sit in the same local window.
+    const termIndexes = findPatternIndexes(normalized, pair.term);
+    const meaningIndexes = findPatternIndexes(normalized, pair.meaning);
+    if (termIndexes.length === 0 || meaningIndexes.length === 0) {
+      return false;
+    }
+
+    return termIndexes.some((termAt) =>
+      meaningIndexes.some(
+        (meaningAt) => Math.abs(termAt - meaningAt) <= PAIR_WINDOW,
+      ),
+    );
+  });
 }
 
 export type ShuffledChoice = {
