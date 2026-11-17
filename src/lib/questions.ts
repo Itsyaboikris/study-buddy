@@ -1,15 +1,53 @@
 import * as fuzz from "fuzzball";
 import questionsData from "@/data/questions.json";
-import type { Course, MatchMode, QuestionsData } from "@/lib/types";
+import type { Course, MatchMode, Question, QuestionsData } from "@/lib/types";
 
 const data = questionsData as QuestionsData;
 
 const FLEXIBLE_THRESHOLD = 90;
+const FLEXIBLE_PARAPHRASE_THRESHOLD = 75;
 const ORDERED_THRESHOLD = 88;
-const KEYWORD_THRESHOLD = 85;
+const KEYWORD_THRESHOLD = 78;
+
+const VERSE_ID_PATTERNS = [
+  /james-516/,
+  /isaiah-586/,
+  /joshua-2415/,
+  /lam-322/,
+  /prov-151/,
+  /psalm-139/,
+  /return-scripture/,
+];
+
+function isVerseQuestion(question: Question): boolean {
+  return VERSE_ID_PATTERNS.some((pattern) => pattern.test(question.id));
+}
+
+function buildMemoryVersesCourse(courses: Course[]): Course | null {
+  const seen = new Set<string>();
+  const questions: Question[] = [];
+
+  for (const course of courses) {
+    for (const question of course.questions) {
+      if (!isVerseQuestion(question) || seen.has(question.id)) continue;
+      seen.add(question.id);
+      questions.push(question);
+    }
+  }
+
+  if (questions.length === 0) return null;
+
+  return {
+    id: "memory-verses",
+    title: "Memory Verses",
+    questions,
+  };
+}
 
 export function getCourses(): Course[] {
-  return data.courses.filter((course) => course.questions.length > 0);
+  const courses = data.courses.filter((course) => course.questions.length > 0);
+  const verses = buildMemoryVersesCourse(courses);
+  return verses ? [...courses, verses] : courses;
 }
 
 export function getCourseById(id: string): Course | undefined {
@@ -36,18 +74,48 @@ export function normalizeAnswer(value: string): string {
     .trim();
 }
 
+function tokensClose(a: string, b: string): boolean {
+  if (a === b) return true;
+  if (a.startsWith(b) || b.startsWith(a)) {
+    return Math.abs(a.length - b.length) <= 2;
+  }
+  return fuzz.ratio(a, b) >= KEYWORD_THRESHOLD;
+}
+
+function keywordAlternativeMatches(
+  normalized: string,
+  userTokens: string[],
+  target: string,
+): boolean {
+  if (!target) return false;
+  if (normalized.includes(target)) return true;
+  if (fuzz.partial_ratio(target, normalized) >= KEYWORD_THRESHOLD) return true;
+
+  // Multi-word keyword: all parts present in any order (kill paul ≈ paul was killed).
+  const parts = target.split(" ").filter(Boolean);
+  return parts.every((part) =>
+    userTokens.some((token) => tokensClose(token, part)),
+  );
+}
+
 /**
  * Grade typed answers with fuzzball.
  * - flexible (default): order-independent token_set_ratio for lists
  * - ordered: ratio scoring so verse/step sequence still matters, typos OK
+ * - paraphrase: looser flexible threshold for short-answer meaning matches
  */
 export function answersMatch(
   userAnswer: string,
   accepted: string[],
   matchMode: MatchMode = "flexible",
+  options?: { paraphrase?: boolean },
 ): boolean {
   const normalized = normalizeAnswer(userAnswer);
   if (!normalized) return false;
+
+  const flexibleThreshold = options?.paraphrase
+    ? FLEXIBLE_PARAPHRASE_THRESHOLD
+    : FLEXIBLE_THRESHOLD;
 
   return accepted.some((option) => {
     const target = normalizeAnswer(option);
@@ -58,10 +126,11 @@ export function answersMatch(
       return fuzz.ratio(normalized, target) >= ORDERED_THRESHOLD;
     }
 
-    return fuzz.token_set_ratio(normalized, target) >= FLEXIBLE_THRESHOLD;
+    return fuzz.token_set_ratio(normalized, target) >= flexibleThreshold;
   });
 }
 
+/** Keywords may use alternatives with | e.g. "oath|pledge|vow". */
 export function keywordsMatch(userAnswer: string, keywords: string[]): boolean {
   const normalized = normalizeAnswer(userAnswer);
   if (!normalized || keywords.length === 0) return false;
@@ -69,22 +138,14 @@ export function keywordsMatch(userAnswer: string, keywords: string[]): boolean {
   const userTokens = normalized.split(" ").filter(Boolean);
 
   const hits = keywords.filter((keyword) => {
-    const target = normalizeAnswer(keyword);
-    if (!target) return false;
-    if (normalized.includes(target)) return true;
+    const alternatives = keyword
+      .split("|")
+      .map((part) => normalizeAnswer(part))
+      .filter(Boolean);
 
-    // Allow small typos in multi-word or single keywords.
-    if (fuzz.partial_ratio(target, normalized) >= KEYWORD_THRESHOLD) {
-      return true;
-    }
-
-    return target.split(" ").every((part) => {
-      if (!part) return true;
-      if (userTokens.includes(part)) return true;
-      return userTokens.some(
-        (token) => fuzz.ratio(token, part) >= KEYWORD_THRESHOLD,
-      );
-    });
+    return alternatives.some((alt) =>
+      keywordAlternativeMatches(normalized, userTokens, alt),
+    );
   });
 
   return hits.length >= Math.ceil(keywords.length * 0.6);

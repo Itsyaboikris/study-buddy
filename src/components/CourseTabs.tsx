@@ -12,6 +12,7 @@ const shortLabels: Record<string, string> = {
   acts: "Acts",
   "path-to-righteousness": "Path",
   "family-life": "Family",
+  "memory-verses": "Verses",
 };
 
 export function CourseTabs({

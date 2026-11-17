@@ -148,24 +148,25 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
             : false;
       const correct =
         keywordOk ||
-        answersMatch(textAnswer, [question.modelAnswer], matchMode);
-      finishAnswer(
-        correct,
-        correct
-          ? `Nice work! ${question.explanation}`
-          : `Model answer: ${question.modelAnswer} ${question.explanation}`,
-      );
+        answersMatch(textAnswer, [question.modelAnswer], matchMode, {
+          paraphrase: matchMode === "flexible",
+        });
+      finishAnswer(correct, shortAnswerFeedback(question, correct));
     }
+  }
+
+  function shortAnswerFeedback(
+    q: Extract<Question, { type: "short_answer" }>,
+    correct: boolean,
+  ): string {
+    if (correct) return `Nice work! ${q.explanation}`;
+    // Show one model answer only — explanation often restates the same idea.
+    return `Model answer: ${q.modelAnswer}`;
   }
 
   function markSelfCheck(correct: boolean) {
     if (!question || answered || question.type !== "short_answer") return;
-    finishAnswer(
-      correct,
-      correct
-        ? `Nice work! ${question.explanation}`
-        : `Model answer: ${question.modelAnswer} ${question.explanation}`,
-    );
+    finishAnswer(correct, shortAnswerFeedback(question, correct));
   }
 
   function goNext() {

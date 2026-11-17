@@ -182,11 +182,10 @@
           "prompt": "Why was the presence of Titus at the council important?",
           "modelAnswer": "He was a Gentile believer who served as an uncircumcised test case. He was not compelled to be circumcised, confirming circumcision was not essential to salvation under grace.",
           "keywords": [
-            "gentile",
+            "gentile|believer",
             "uncircumcised",
-            "not compelled",
-            "grace",
-            "salvation"
+            "not compelled|not essential|not needed|wasnt needed|wasn't needed|unnecessary|proof|test case",
+            "grace|salvation"
           ],
           "explanation": "Titus was an uncircumcised Gentile believer used as a test case; he was not compelled to be circumcised, showing it was not essential to salvation under grace."
         },
@@ -376,9 +375,9 @@
           "modelAnswer": "Forty Jews banded together under an oath not to eat anything until they killed Paul.",
           "keywords": [
             "forty",
-            "oath",
-            "not eat",
-            "kill paul"
+            "oath|pledge|vow|sworn",
+            "not eat|eat anything",
+            "kill paul|killed paul|paul killed"
           ],
           "explanation": "Forty Jews banded together under an oath not to eat anything until they killed Paul."
         },
