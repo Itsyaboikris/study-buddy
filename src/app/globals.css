@@ -517,6 +517,47 @@ textarea {
   }
 }
 
+.pass-summary .summary-score {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  text-align: center;
+}
+
+.summary-missed h3 {
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.summary-missed ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.summary-missed li {
+  line-height: 1.35;
+}
+
+.summary-perfect {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.summary-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.summary-next {
+  min-height: 3rem;
+  width: 100%;
+}
+
 @media (min-width: 640px) {
   .study-shell {
     padding-top: 1.5rem;

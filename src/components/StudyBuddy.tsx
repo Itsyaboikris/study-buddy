@@ -124,6 +124,9 @@ function CourseSession({
   const [records, setRecords] = useState<Record<string, QuestionRecord>>(
     () => initial.records,
   );
+  const [passStats, setPassStats] = useState({ seen: 0, correct: 0 });
+  const [passMissed, setPassMissed] = useState<Question[]>([]);
+  const [showSummary, setShowSummary] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const actionRef = useRef<HTMLDivElement>(null);
   const blurTimerRef = useRef<number | null>(null);
@@ -193,8 +196,19 @@ function CourseSession({
       seen: prev.seen + 1,
       correct: prev.correct + (correct ? 1 : 0),
     }));
+    setPassStats((prev) => ({
+      seen: prev.seen + 1,
+      correct: prev.correct + (correct ? 1 : 0),
+    }));
     if (question) {
       setRecords((prev) => recordAnswer(prev, question.id, correct));
+      if (!correct) {
+        setPassMissed((prev) =>
+          prev.some((item) => item.id === question.id)
+            ? prev
+            : [...prev, question],
+        );
+      }
     }
   }
 
@@ -203,6 +217,31 @@ function CourseSession({
     setFeedback({ correct, message });
     setAnswered(true);
     recordResult(correct);
+  }
+
+  function beginPassTracking() {
+    setPassStats({ seen: 0, correct: 0 });
+    setPassMissed([]);
+    setShowSummary(false);
+  }
+
+  function startNextPass() {
+    setDeck(buildWeightedDeck(course.questions, records));
+    setIndex(0);
+    setPass((prev) => prev + 1);
+    beginPassTracking();
+    resetInputs();
+  }
+
+  function drillMissedQuestions() {
+    if (passMissed.length === 0) {
+      startNextPass();
+      return;
+    }
+    setDeck([...passMissed]);
+    setIndex(0);
+    beginPassTracking();
+    resetInputs();
   }
 
   function resetProgress() {
@@ -218,6 +257,7 @@ function CourseSession({
     setIndex(0);
     setPass(1);
     setStats({ seen: 0, correct: 0 });
+    beginPassTracking();
     resetInputs();
   }
 
@@ -313,19 +353,24 @@ function CourseSession({
     }
 
     if (nextIndex >= working.length) {
-      setDeck(buildWeightedDeck(course.questions, records));
-      setIndex(0);
-      setPass((prev) => prev + 1);
-    } else {
       setDeck(working);
-      setIndex(nextIndex);
+      setIndex(Math.max(working.length - 1, 0));
+      setShowSummary(true);
+      resetInputs();
+      return;
     }
 
+    setDeck(working);
+    setIndex(nextIndex);
     resetInputs();
   }
 
   const accuracy =
     stats.seen === 0 ? 0 : Math.round((stats.correct / stats.seen) * 100);
+  const passAccuracy =
+    passStats.seen === 0
+      ? 0
+      : Math.round((passStats.correct / passStats.seen) * 100);
   const needsTextCheck = question
     ? question.type === "fill_blank" || question.type === "short_answer"
     : false;
@@ -341,12 +386,22 @@ function CourseSession({
       onSelectCourse={onSelectCourse}
       stats={stats}
       pass={pass}
-      progress={progress}
+      progress={showSummary ? 1 : progress}
       accuracy={accuracy}
       isTyping={isTyping}
       onResetProgress={resetProgress}
     >
-      {isLoadingDeck || !question ? (
+      {showSummary ? (
+        <PassSummary
+          pass={pass}
+          seen={passStats.seen}
+          correct={passStats.correct}
+          accuracy={passAccuracy}
+          missed={passMissed}
+          onDrillMissed={drillMissedQuestions}
+          onStartNextPass={startNextPass}
+        />
+      ) : isLoadingDeck || !question ? (
         <QuestionCardSkeleton />
       ) : (
         <main className="question-panel">
@@ -635,6 +690,77 @@ function QuestionCardSkeleton() {
       <div className="skeleton-choice" />
       <div className="skeleton-choice" />
       <div className="skeleton-choice" />
+    </main>
+  );
+}
+
+type PassSummaryProps = {
+  pass: number;
+  seen: number;
+  correct: number;
+  accuracy: number;
+  missed: Question[];
+  onDrillMissed: () => void;
+  onStartNextPass: () => void;
+};
+
+function PassSummary({
+  pass,
+  seen,
+  correct,
+  accuracy,
+  missed,
+  onDrillMissed,
+  onStartNextPass,
+}: PassSummaryProps) {
+  return (
+    <main className="question-panel pass-summary">
+      <p className="question-meta">Pass {pass} complete</p>
+      <h2 className="question-prompt">Nice work — here&apos;s this pass</h2>
+      <div className="summary-score" aria-label="Pass score">
+        <div>
+          <span className="stat-value">
+            {correct}/{seen}
+          </span>
+          <span className="stat-label">score</span>
+        </div>
+        <div>
+          <span className="stat-value">{accuracy}%</span>
+          <span className="stat-label">accuracy</span>
+        </div>
+        <div>
+          <span className="stat-value">{missed.length}</span>
+          <span className="stat-label">missed</span>
+        </div>
+      </div>
+
+      {missed.length > 0 ? (
+        <div className="summary-missed">
+          <h3>Missed this pass</h3>
+          <ul>
+            {missed.map((question) => (
+              <li key={question.id}>{question.prompt}</li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p className="summary-perfect">No misses this pass.</p>
+      )}
+
+      <div className="summary-actions">
+        {missed.length > 0 ? (
+          <button type="button" className="primary-btn" onClick={onDrillMissed}>
+            Drill missed questions
+          </button>
+        ) : null}
+        <button
+          type="button"
+          className={missed.length > 0 ? "ghost-btn summary-next" : "primary-btn"}
+          onClick={onStartNextPass}
+        >
+          Start next pass
+        </button>
+      </div>
     </main>
   );
 }
