@@ -709,7 +709,8 @@
           ],
           "explanation": "Epicureans sought pleasure; Stoics saw God in everything; Areopagus is Mars Hill."
         }
-      ]
+      ],
+      "shortTitle": "Acts"
     },
     {
       "id": "path-to-righteousness",
@@ -1552,7 +1553,8 @@
             "memory-verse"
           ]
         }
-      ]
+      ],
+      "shortTitle": "Path"
     },
     {
       "id": "family-life",
@@ -2237,7 +2239,8 @@
             "memory-verse"
           ]
         }
-      ]
+      ],
+      "shortTitle": "Family"
     }
   ]
 }
