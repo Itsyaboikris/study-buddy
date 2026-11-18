@@ -439,6 +439,22 @@ function CourseSession({
                       {String.fromCharCode(65 + choiceIndex)}
                     </span>
                     <span>{choice.text}</span>
+                    {answered && isCorrectChoice ? (
+                      <span className="result-icon choice-result" aria-hidden="true">
+                        ✓
+                      </span>
+                    ) : null}
+                    {showResult && !isCorrectChoice ? (
+                      <span className="result-icon choice-result" aria-hidden="true">
+                        ✗
+                      </span>
+                    ) : null}
+                    {answered && isCorrectChoice ? (
+                      <span className="sr-only">Correct answer</span>
+                    ) : null}
+                    {showResult && !isCorrectChoice ? (
+                      <span className="sr-only">Incorrect answer</span>
+                    ) : null}
                   </button>
                 );
               })}
@@ -473,6 +489,22 @@ function CourseSession({
                     }}
                   >
                     {label}
+                    {isCorrectValue ? (
+                      <span className="result-icon choice-result" aria-hidden="true">
+                        ✓
+                      </span>
+                    ) : null}
+                    {isWrongPick ? (
+                      <span className="result-icon choice-result" aria-hidden="true">
+                        ✗
+                      </span>
+                    ) : null}
+                    {isCorrectValue ? (
+                      <span className="sr-only">Correct answer</span>
+                    ) : null}
+                    {isWrongPick ? (
+                      <span className="sr-only">Incorrect answer</span>
+                    ) : null}
                   </button>
                 );
               })}
@@ -561,7 +593,15 @@ function CourseSession({
               className={`feedback ${feedback.correct ? "is-correct" : "is-wrong"}`}
               role="status"
             >
-              <strong>{feedback.correct ? "Correct" : "Keep going"}</strong>
+              <strong>
+                <span className="result-icon" aria-hidden="true">
+                  {feedback.correct ? "✓" : "✗"}
+                </span>
+                <span className="sr-only">
+                  {feedback.correct ? "Correct:" : "Incorrect:"}
+                </span>
+                {feedback.correct ? "Correct" : "Keep going"}
+              </strong>
               <p>{feedback.message}</p>
             </div>
           )}

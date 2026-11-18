@@ -350,8 +350,20 @@ textarea {
 }
 
 .feedback strong {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   margin-bottom: 0.25rem;
+}
+
+.result-icon {
+  font-weight: 700;
+  line-height: 1;
+}
+
+.choice-result {
+  margin-left: auto;
+  flex: 0 0 auto;
 }
 
 .feedback p {
