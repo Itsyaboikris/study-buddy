@@ -36,12 +36,16 @@ type Feedback = {
   message: string;
 };
 
-function subscribeToNothing() {
-  return () => {};
-}
-
 function useIsClient() {
-  return useSyncExternalStore(subscribeToNothing, () => true, () => false);
+  return useSyncExternalStore(
+    (onStoreChange) => {
+      // Ensure a client re-render after hydration when server/client snapshots differ.
+      queueMicrotask(onStoreChange);
+      return () => {};
+    },
+    () => true,
+    () => false,
+  );
 }
 
 export function StudyBuddy({ courses }: StudyBuddyProps) {
