@@ -5,7 +5,6 @@ import {
   useMemo,
   useRef,
   useState,
-  useSyncExternalStore,
   type ReactNode,
 } from "react";
 import { CourseTabs } from "@/components/CourseTabs";
@@ -36,25 +35,19 @@ type Feedback = {
   message: string;
 };
 
-function useIsClient() {
-  return useSyncExternalStore(
-    (onStoreChange) => {
-      // Ensure a client re-render after hydration when server/client snapshots differ.
-      queueMicrotask(onStoreChange);
-      return () => {};
-    },
-    () => true,
-    () => false,
-  );
-}
-
 export function StudyBuddy({ courses }: StudyBuddyProps) {
   const [activeCourseId, setActiveCourseId] = useState(courses[0]?.id ?? "");
+  const [mounted, setMounted] = useState(false);
   const activeCourse = useMemo(
     () => courses.find((course) => course.id === activeCourseId) ?? courses[0],
     [courses, activeCourseId],
   );
-  const isClient = useIsClient();
+
+  useEffect(() => {
+    // Client-only gate so localStorage restore + shuffle never run during SSR/hydration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional mount gate
+    setMounted(true);
+  }, []);
 
   if (!activeCourse || activeCourse.questions.length === 0) {
     return (
@@ -73,7 +66,7 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     );
   }
 
-  if (!isClient) {
+  if (!mounted) {
     return (
       <CourseShell
         course={activeCourse}
