@@ -456,6 +456,51 @@ textarea {
   text-align: center;
 }
 
+.question-panel.is-skeleton {
+  animation: none;
+}
+
+.skeleton-line,
+.skeleton-choice {
+  border-radius: 0.75rem;
+  background: linear-gradient(
+    90deg,
+    rgba(21, 38, 29, 0.06) 0%,
+    rgba(21, 38, 29, 0.12) 50%,
+    rgba(21, 38, 29, 0.06) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+.skeleton-meta {
+  width: 42%;
+  height: 0.7rem;
+}
+
+.skeleton-prompt {
+  width: 92%;
+  height: 1.15rem;
+}
+
+.skeleton-prompt.short {
+  width: 68%;
+}
+
+.skeleton-choice {
+  height: 3rem;
+  width: 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
 @media (min-width: 640px) {
   .study-shell {
     padding-top: 1.5rem;

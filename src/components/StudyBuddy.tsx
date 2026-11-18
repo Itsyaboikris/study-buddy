@@ -226,20 +226,31 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     resetInputs();
   }
 
-  if (!activeCourse || !question) {
+  if (!activeCourse || activeCourse.questions.length === 0) {
     return (
-      <div className="empty-state">
-        <p>No questions available yet.</p>
+      <div className="study-shell">
+        <div className="empty-state">
+          <p>No questions available yet.</p>
+        </div>
+        {courses.length > 0 ? (
+          <CourseTabs
+            courses={courses}
+            activeCourseId={activeCourse?.id ?? activeCourseId}
+            onSelect={setActiveCourseId}
+          />
+        ) : null}
       </div>
     );
   }
 
   const accuracy =
     stats.seen === 0 ? 0 : Math.round((stats.correct / stats.seen) * 100);
-  const needsTextCheck =
-    question.type === "fill_blank" || question.type === "short_answer";
+  const needsTextCheck = question
+    ? question.type === "fill_blank" || question.type === "short_answer"
+    : false;
   const canCheck =
     !answered && needsTextCheck && textAnswer.trim().length > 0;
+  const isLoadingDeck = deck.length === 0;
 
   return (
     <div className={`study-shell ${isTyping ? "is-typing" : ""}`}>
@@ -271,6 +282,9 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
         />
       </div>
 
+      {isLoadingDeck || !question ? (
+        <QuestionCardSkeleton />
+      ) : (
       <main className="question-panel">
         <p className="question-meta">
           {question.type.replaceAll("_", " ")} · {index + 1} of {deck.length}
@@ -440,8 +454,9 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
           <p className="tap-hint">Tap an answer to check</p>
         ) : null}
       </main>
+      )}
 
-      {(!answered && needsTextCheck) || answered ? (
+      {!isLoadingDeck && ((!answered && needsTextCheck) || answered) ? (
         <div className="action-dock" ref={actionRef}>
           {!answered && needsTextCheck ? (
             <button
@@ -468,5 +483,19 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
         onSelect={setActiveCourseId}
       />
     </div>
+  );
+}
+
+function QuestionCardSkeleton() {
+  return (
+    <main className="question-panel is-skeleton" aria-busy="true" aria-live="polite">
+      <p className="sr-only">Loading questions…</p>
+      <div className="skeleton-line skeleton-meta" />
+      <div className="skeleton-line skeleton-prompt" />
+      <div className="skeleton-line skeleton-prompt short" />
+      <div className="skeleton-choice" />
+      <div className="skeleton-choice" />
+      <div className="skeleton-choice" />
+    </main>
   );
 }
