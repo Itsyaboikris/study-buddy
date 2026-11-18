@@ -18,6 +18,7 @@ import {
 import {
   buildWeightedDeck,
   clearCourseProgress,
+  emptyRecord,
   loadCourseProgress,
   recordAnswer,
   restoreDeck,
@@ -150,74 +151,6 @@ function CourseSession({
     });
   }, [course.id, deck, index, pass, stats, records]);
 
-  useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (showSummary) return;
-
-      const target = event.target as HTMLElement | null;
-      const tag = target?.tagName;
-      if (
-        tag === "INPUT" ||
-        tag === "TEXTAREA" ||
-        target?.isContentEditable
-      ) {
-        return;
-      }
-
-      if (answered && event.key === "Enter") {
-        event.preventDefault();
-        goNext();
-        return;
-      }
-
-      if (answered || !question) return;
-
-      if (question.type === "multiple_choice") {
-        const key = event.key.toLowerCase();
-        const fromDigit = Number(event.key) - 1;
-        const fromLetter = key.charCodeAt(0) - 97;
-        const choiceIndex =
-          fromDigit >= 0 && fromDigit <= 3
-            ? fromDigit
-            : fromLetter >= 0 && fromLetter <= 3
-              ? fromLetter
-              : -1;
-        if (choiceIndex < 0 || choiceIndex >= choiceOrder.length) return;
-        event.preventDefault();
-        setSelectedChoice(choiceIndex);
-        checkMultipleChoice(choiceIndex);
-        return;
-      }
-
-      if (question.type === "true_false") {
-        const key = event.key.toLowerCase();
-        if (key === "t") {
-          event.preventDefault();
-          setTrueFalseValue(true);
-          checkTrueFalse(true);
-        } else if (key === "f") {
-          event.preventDefault();
-          setTrueFalseValue(false);
-          checkTrueFalse(false);
-        }
-      }
-    }
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-    // Functions close over current question/answer state; rebind when they change.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    answered,
-    choiceOrder.length,
-    question,
-    showSummary,
-    feedback,
-    deck,
-    index,
-    records,
-  ]);
-
   function handleAnswerFocus() {
     if (blurTimerRef.current !== null) {
       window.clearTimeout(blurTimerRef.current);
@@ -315,10 +248,7 @@ function CourseSession({
   function resetProgress() {
     clearCourseProgress(course.id);
     const freshRecords = Object.fromEntries(
-      course.questions.map((question) => [
-        question.id,
-        { timesSeen: 0, timesMissed: 0, lastResult: null as const },
-      ]),
+      course.questions.map((question) => [question.id, emptyRecord()]),
     );
     setRecords(freshRecords);
     setDeck(buildWeightedDeck(course.questions, freshRecords));
@@ -431,6 +361,76 @@ function CourseSession({
     setIndex(nextIndex);
     resetInputs();
   }
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (showSummary) return;
+
+      const target = event.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (
+        tag === "INPUT" ||
+        tag === "TEXTAREA" ||
+        target?.isContentEditable
+      ) {
+        return;
+      }
+
+      if (answered && event.key === "Enter") {
+        event.preventDefault();
+        goNext();
+        return;
+      }
+
+      if (answered || !question) return;
+
+      if (question.type === "multiple_choice") {
+        const key = event.key.toLowerCase();
+        const fromDigit = Number(event.key) - 1;
+        const fromLetter = key.charCodeAt(0) - 97;
+        const choiceIndex =
+          fromDigit >= 0 && fromDigit <= 3
+            ? fromDigit
+            : fromLetter >= 0 && fromLetter <= 3
+              ? fromLetter
+              : -1;
+        if (choiceIndex < 0 || choiceIndex >= choiceOrder.length) return;
+        event.preventDefault();
+        setSelectedChoice(choiceIndex);
+        checkMultipleChoice(choiceIndex);
+        return;
+      }
+
+      if (question.type === "true_false") {
+        const key = event.key.toLowerCase();
+        if (key === "t") {
+          event.preventDefault();
+          setTrueFalseValue(true);
+          checkTrueFalse(true);
+        } else if (key === "f") {
+          event.preventDefault();
+          setTrueFalseValue(false);
+          checkTrueFalse(false);
+        }
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+    // Handlers are recreated each render; deps below capture the state they close over.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    answered,
+    choiceOrder,
+    feedback,
+    question,
+    showSummary,
+    deck,
+    index,
+    passMissed,
+    records,
+    passStats,
+  ]);
 
   const accuracy =
     stats.seen === 0 ? 0 : Math.round((stats.correct / stats.seen) * 100);
