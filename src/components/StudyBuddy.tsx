@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 import { CourseTabs } from "@/components/CourseTabs";
 import {
   answersMatch,
@@ -24,14 +31,77 @@ function buildDeck(questions: Question[]): Question[] {
   return shuffle(questions);
 }
 
+function subscribeToNothing() {
+  return () => {};
+}
+
+function useIsClient() {
+  return useSyncExternalStore(subscribeToNothing, () => true, () => false);
+}
+
 export function StudyBuddy({ courses }: StudyBuddyProps) {
   const [activeCourseId, setActiveCourseId] = useState(courses[0]?.id ?? "");
   const activeCourse = useMemo(
     () => courses.find((course) => course.id === activeCourseId) ?? courses[0],
     [courses, activeCourseId],
   );
+  const isClient = useIsClient();
 
-  const [deck, setDeck] = useState<Question[]>([]);
+  if (!activeCourse || activeCourse.questions.length === 0) {
+    return (
+      <div className="study-shell">
+        <div className="empty-state">
+          <p>No questions available yet.</p>
+        </div>
+        {courses.length > 0 ? (
+          <CourseTabs
+            courses={courses}
+            activeCourseId={activeCourse?.id ?? activeCourseId}
+            onSelect={setActiveCourseId}
+          />
+        ) : null}
+      </div>
+    );
+  }
+
+  if (!isClient) {
+    return (
+      <CourseShell
+        course={activeCourse}
+        courses={courses}
+        activeCourseId={activeCourse.id}
+        onSelectCourse={setActiveCourseId}
+        stats={{ seen: 0, correct: 0 }}
+        pass={1}
+        progress={0}
+      >
+        <QuestionCardSkeleton />
+      </CourseShell>
+    );
+  }
+
+  return (
+    <CourseSession
+      key={activeCourse.id}
+      course={activeCourse}
+      courses={courses}
+      onSelectCourse={setActiveCourseId}
+    />
+  );
+}
+
+type CourseSessionProps = {
+  course: Course;
+  courses: Course[];
+  onSelectCourse: (courseId: string) => void;
+};
+
+function CourseSession({
+  course,
+  courses,
+  onSelectCourse,
+}: CourseSessionProps) {
+  const [deck, setDeck] = useState(() => buildDeck(course.questions));
   const [index, setIndex] = useState(0);
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
   const [trueFalseValue, setTrueFalseValue] = useState<boolean | null>(null);
@@ -44,21 +114,6 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
   const [isTyping, setIsTyping] = useState(false);
   const actionRef = useRef<HTMLDivElement>(null);
   const blurTimerRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (!activeCourse) return;
-    setDeck(buildDeck(activeCourse.questions));
-    setIndex(0);
-    setSelectedChoice(null);
-    setTrueFalseValue(null);
-    setTextAnswer("");
-    setFeedback(null);
-    setPeek(null);
-    setAnswered(false);
-    setStats({ seen: 0, correct: 0 });
-    setPass(1);
-    setIsTyping(false);
-  }, [activeCourse]);
 
   useEffect(() => {
     return () => {
@@ -96,8 +151,8 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
   }, [question?.id]);
 
   const progress =
-    activeCourse && activeCourse.questions.length > 0
-      ? Math.min((index + 1) / activeCourse.questions.length, 1)
+    course.questions.length > 0
+      ? Math.min((index + 1) / course.questions.length, 1)
       : 0;
 
   function resetInputs() {
@@ -200,9 +255,9 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
   }
 
   function goNext() {
-    if (!activeCourse || deck.length === 0 || !question) return;
+    if (deck.length === 0 || !question) return;
 
-    let working = [...deck];
+    const working = [...deck];
     let nextIndex = index + 1;
 
     if (feedback && !feedback.correct) {
@@ -215,7 +270,7 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     }
 
     if (nextIndex >= working.length) {
-      setDeck(buildDeck(activeCourse.questions));
+      setDeck(buildDeck(course.questions));
       setIndex(0);
       setPass((prev) => prev + 1);
     } else {
@@ -224,23 +279,6 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     }
 
     resetInputs();
-  }
-
-  if (!activeCourse || activeCourse.questions.length === 0) {
-    return (
-      <div className="study-shell">
-        <div className="empty-state">
-          <p>No questions available yet.</p>
-        </div>
-        {courses.length > 0 ? (
-          <CourseTabs
-            courses={courses}
-            activeCourseId={activeCourse?.id ?? activeCourseId}
-            onSelect={setActiveCourseId}
-          />
-        ) : null}
-      </div>
-    );
   }
 
   const accuracy =
@@ -253,207 +291,189 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
   const isLoadingDeck = deck.length === 0;
 
   return (
-    <div className={`study-shell ${isTyping ? "is-typing" : ""}`}>
-      <header className="study-header">
-        <div>
-          <p className="brand">Study Buddy</p>
-          <h1 className="course-title">{activeCourse.title}</h1>
-        </div>
-        <div className="stats" aria-live="polite">
-          <div>
-            <span className="stat-value">{stats.correct}</span>
-            <span className="stat-label">right</span>
-          </div>
-          <div>
-            <span className="stat-value">{accuracy}%</span>
-            <span className="stat-label">accuracy</span>
-          </div>
-          <div>
-            <span className="stat-value">{pass}</span>
-            <span className="stat-label">pass</span>
-          </div>
-        </div>
-      </header>
-
-      <div className="progress-track" aria-hidden="true">
-        <div
-          className="progress-fill"
-          style={{ width: `${Math.max(progress * 100, 6)}%` }}
-        />
-      </div>
-
+    <CourseShell
+      course={course}
+      courses={courses}
+      activeCourseId={course.id}
+      onSelectCourse={onSelectCourse}
+      stats={stats}
+      pass={pass}
+      progress={progress}
+      accuracy={accuracy}
+      isTyping={isTyping}
+    >
       {isLoadingDeck || !question ? (
         <QuestionCardSkeleton />
       ) : (
-      <main className="question-panel">
-        <p className="question-meta">
-          {question.type.replaceAll("_", " ")} · {index + 1} of {deck.length}
-        </p>
-        <h2 className="question-prompt">{question.prompt}</h2>
+        <main className="question-panel">
+          <p className="question-meta">
+            {question.type.replaceAll("_", " ")} · {index + 1} of {deck.length}
+          </p>
+          <h2 className="question-prompt">{question.prompt}</h2>
 
-        {question.type === "multiple_choice" && (
-          <div className="choice-list" role="group" aria-label="Choices">
-            {choiceOrder.map((choice, choiceIndex) => {
-              const isSelected = selectedChoice === choiceIndex;
-              const showResult = answered && isSelected;
-              const isCorrectChoice =
-                choice.originalIndex === question.answer;
+          {question.type === "multiple_choice" && (
+            <div className="choice-list" role="group" aria-label="Choices">
+              {choiceOrder.map((choice, choiceIndex) => {
+                const isSelected = selectedChoice === choiceIndex;
+                const showResult = answered && isSelected;
+                const isCorrectChoice =
+                  choice.originalIndex === question.answer;
 
-              return (
-                <button
-                  key={`${question.id}-${choice.originalIndex}-${choiceIndex}`}
-                  type="button"
-                  className={[
-                    "choice-btn",
-                    isSelected ? "is-selected" : "",
-                    answered && isCorrectChoice ? "is-correct" : "",
-                    showResult && !isCorrectChoice ? "is-wrong" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                  disabled={answered}
-                  onClick={() => {
-                    setSelectedChoice(choiceIndex);
-                    checkMultipleChoice(choiceIndex);
+                return (
+                  <button
+                    key={`${question.id}-${choice.originalIndex}-${choiceIndex}`}
+                    type="button"
+                    className={[
+                      "choice-btn",
+                      isSelected ? "is-selected" : "",
+                      answered && isCorrectChoice ? "is-correct" : "",
+                      showResult && !isCorrectChoice ? "is-wrong" : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    disabled={answered}
+                    onClick={() => {
+                      setSelectedChoice(choiceIndex);
+                      checkMultipleChoice(choiceIndex);
+                    }}
+                  >
+                    <span className="choice-letter">
+                      {String.fromCharCode(65 + choiceIndex)}
+                    </span>
+                    <span>{choice.text}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {question.type === "true_false" && (
+            <div className="tf-row" role="group" aria-label="True or false">
+              {[true, false].map((value) => {
+                const label = value ? "True" : "False";
+                const isSelected = trueFalseValue === value;
+                const isCorrectValue = answered && value === question.answer;
+                const isWrongPick =
+                  answered && isSelected && value !== question.answer;
+
+                return (
+                  <button
+                    key={label}
+                    type="button"
+                    className={[
+                      "tf-btn",
+                      isSelected ? "is-selected" : "",
+                      isCorrectValue ? "is-correct" : "",
+                      isWrongPick ? "is-wrong" : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    disabled={answered}
+                    onClick={() => {
+                      setTrueFalseValue(value);
+                      checkTrueFalse(value);
+                    }}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {needsTextCheck && (
+            <div className="text-answer">
+              <label className="sr-only" htmlFor="answer-input">
+                Your answer
+              </label>
+              {question.type === "fill_blank" ? (
+                <input
+                  id="answer-input"
+                  className="answer-input"
+                  type="text"
+                  enterKeyHint="done"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  value={textAnswer}
+                  onChange={(event) => setTextAnswer(event.target.value)}
+                  onFocus={handleAnswerFocus}
+                  onBlur={handleAnswerBlur}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
+                      checkTextAnswer();
+                    }
                   }}
-                >
-                  <span className="choice-letter">
-                    {String.fromCharCode(65 + choiceIndex)}
-                  </span>
-                  <span>{choice.text}</span>
-                </button>
-              );
-            })}
-          </div>
-        )}
-
-        {question.type === "true_false" && (
-          <div className="tf-row" role="group" aria-label="True or false">
-            {[true, false].map((value) => {
-              const label = value ? "True" : "False";
-              const isSelected = trueFalseValue === value;
-              const isCorrectValue = answered && value === question.answer;
-              const isWrongPick =
-                answered && isSelected && value !== question.answer;
-
-              return (
-                <button
-                  key={label}
-                  type="button"
-                  className={[
-                    "tf-btn",
-                    isSelected ? "is-selected" : "",
-                    isCorrectValue ? "is-correct" : "",
-                    isWrongPick ? "is-wrong" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
+                  placeholder="Type your answer…"
                   disabled={answered}
-                  onClick={() => {
-                    setTrueFalseValue(value);
-                    checkTrueFalse(value);
-                  }}
-                >
-                  {label}
-                </button>
-              );
-            })}
-          </div>
-        )}
-
-        {needsTextCheck && (
-          <div className="text-answer">
-            <label className="sr-only" htmlFor="answer-input">
-              Your answer
-            </label>
-            {question.type === "fill_blank" ? (
-              <input
-                id="answer-input"
-                className="answer-input"
-                type="text"
-                enterKeyHint="done"
-                autoComplete="off"
-                autoCorrect="off"
-                value={textAnswer}
-                onChange={(event) => setTextAnswer(event.target.value)}
-                onFocus={handleAnswerFocus}
-                onBlur={handleAnswerBlur}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    event.preventDefault();
-                    checkTextAnswer();
-                  }
-                }}
-                placeholder="Type your answer…"
-                disabled={answered}
-              />
-            ) : (
-              <textarea
-                id="answer-input"
-                className="answer-textarea"
-                value={textAnswer}
-                onChange={(event) => setTextAnswer(event.target.value)}
-                onFocus={handleAnswerFocus}
-                onBlur={handleAnswerBlur}
-                placeholder="Type what you remember…"
-                rows={3}
-                disabled={answered}
-              />
-            )}
-            {question.type === "short_answer" && !answered && (
-              <div className="self-check">
-                <p>Prefer a self-check?</p>
-                <div className="self-check-actions">
-                  <button
-                    type="button"
-                    className="ghost-btn"
-                    onClick={() => setPeek(question.modelAnswer)}
-                  >
-                    Peek answer
-                  </button>
-                  <button
-                    type="button"
-                    className="ghost-btn"
-                    onClick={() => markSelfCheck(true)}
-                  >
-                    I got it
-                  </button>
-                  <button
-                    type="button"
-                    className="ghost-btn"
-                    onClick={() => markSelfCheck(false)}
-                  >
-                    Missed it
-                  </button>
+                />
+              ) : (
+                <textarea
+                  id="answer-input"
+                  className="answer-textarea"
+                  value={textAnswer}
+                  onChange={(event) => setTextAnswer(event.target.value)}
+                  onFocus={handleAnswerFocus}
+                  onBlur={handleAnswerBlur}
+                  placeholder="Type what you remember…"
+                  rows={3}
+                  disabled={answered}
+                />
+              )}
+              {question.type === "short_answer" && !answered && (
+                <div className="self-check">
+                  <p>Prefer a self-check?</p>
+                  <div className="self-check-actions">
+                    <button
+                      type="button"
+                      className="ghost-btn"
+                      onClick={() => setPeek(question.modelAnswer)}
+                    >
+                      Peek answer
+                    </button>
+                    <button
+                      type="button"
+                      className="ghost-btn"
+                      onClick={() => markSelfCheck(true)}
+                    >
+                      I got it
+                    </button>
+                    <button
+                      type="button"
+                      className="ghost-btn"
+                      onClick={() => markSelfCheck(false)}
+                    >
+                      Missed it
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        )}
+              )}
+            </div>
+          )}
 
-        {peek && !answered && (
-          <div className="feedback is-peek" role="status">
-            <strong>Model answer</strong>
-            <p>{peek}</p>
-          </div>
-        )}
+          {peek && !answered && (
+            <div className="feedback is-peek" role="status">
+              <strong>Model answer</strong>
+              <p>{peek}</p>
+            </div>
+          )}
 
-        {feedback && (
-          <div
-            className={`feedback ${feedback.correct ? "is-correct" : "is-wrong"}`}
-            role="status"
-          >
-            <strong>{feedback.correct ? "Correct" : "Keep going"}</strong>
-            <p>{feedback.message}</p>
-          </div>
-        )}
+          {feedback && (
+            <div
+              className={`feedback ${feedback.correct ? "is-correct" : "is-wrong"}`}
+              role="status"
+            >
+              <strong>{feedback.correct ? "Correct" : "Keep going"}</strong>
+              <p>{feedback.message}</p>
+            </div>
+          )}
 
-        {!answered &&
-        (question.type === "multiple_choice" ||
-          question.type === "true_false") ? (
-          <p className="tap-hint">Tap an answer to check</p>
-        ) : null}
-      </main>
+          {!answered &&
+          (question.type === "multiple_choice" ||
+            question.type === "true_false") ? (
+            <p className="tap-hint">Tap an answer to check</p>
+          ) : null}
+        </main>
       )}
 
       {!isLoadingDeck && ((!answered && needsTextCheck) || answered) ? (
@@ -476,11 +496,75 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
           ) : null}
         </div>
       ) : null}
+    </CourseShell>
+  );
+}
+
+type CourseShellProps = {
+  course: Course;
+  courses: Course[];
+  activeCourseId: string;
+  onSelectCourse: (courseId: string) => void;
+  stats: { seen: number; correct: number };
+  pass: number;
+  progress: number;
+  accuracy?: number;
+  isTyping?: boolean;
+  children: ReactNode;
+};
+
+function CourseShell({
+  course,
+  courses,
+  activeCourseId,
+  onSelectCourse,
+  stats,
+  pass,
+  progress,
+  accuracy,
+  isTyping = false,
+  children,
+}: CourseShellProps) {
+  const shownAccuracy =
+    accuracy ??
+    (stats.seen === 0 ? 0 : Math.round((stats.correct / stats.seen) * 100));
+
+  return (
+    <div className={`study-shell ${isTyping ? "is-typing" : ""}`}>
+      <header className="study-header">
+        <div>
+          <p className="brand">Study Buddy</p>
+          <h1 className="course-title">{course.title}</h1>
+        </div>
+        <div className="stats" aria-live="polite">
+          <div>
+            <span className="stat-value">{stats.correct}</span>
+            <span className="stat-label">right</span>
+          </div>
+          <div>
+            <span className="stat-value">{shownAccuracy}%</span>
+            <span className="stat-label">accuracy</span>
+          </div>
+          <div>
+            <span className="stat-value">{pass}</span>
+            <span className="stat-label">pass</span>
+          </div>
+        </div>
+      </header>
+
+      <div className="progress-track" aria-hidden="true">
+        <div
+          className="progress-fill"
+          style={{ width: `${Math.max(progress * 100, 6)}%` }}
+        />
+      </div>
+
+      {children}
 
       <CourseTabs
         courses={courses}
-        activeCourseId={activeCourse.id}
-        onSelect={setActiveCourseId}
+        activeCourseId={activeCourseId}
+        onSelect={onSelectCourse}
       />
     </div>
   );
