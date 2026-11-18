@@ -8,6 +8,24 @@ const FLEXIBLE_THRESHOLD = 90;
 const FLEXIBLE_PARAPHRASE_THRESHOLD = 75;
 const ORDERED_THRESHOLD = 88;
 const KEYWORD_THRESHOLD = 78;
+/** Flexible answers must cover at least this share of the target's content words. */
+const FLEXIBLE_COVERAGE = 0.75;
+
+const STOPWORDS = new Set([
+  "a",
+  "an",
+  "and",
+  "at",
+  "by",
+  "for",
+  "in",
+  "of",
+  "on",
+  "or",
+  "the",
+  "to",
+  "with",
+]);
 
 const VERSE_ID_PATTERNS = [
   /james-516/,
@@ -82,6 +100,36 @@ function tokensClose(a: string, b: string): boolean {
   return fuzz.ratio(a, b) >= KEYWORD_THRESHOLD;
 }
 
+function significantTokens(normalized: string): string[] {
+  return normalized.split(" ").filter((token) => token && !STOPWORDS.has(token));
+}
+
+/**
+ * Flexible match: user must cover most of the target's content words (any order),
+ * with per-token typo tolerance. Avoids token_set_ratio false positives when the
+ * user answer is only a subset of the target (e.g. "praying" ⊂ full phrase).
+ */
+function flexibleCoversTarget(
+  normalizedUser: string,
+  target: string,
+  fuzzyFloor: number,
+): boolean {
+  const userTokens = significantTokens(normalizedUser);
+  const targetTokens = significantTokens(target);
+
+  if (targetTokens.length === 0) {
+    return fuzz.ratio(normalizedUser, target) >= fuzzyFloor;
+  }
+
+  if (userTokens.length === 0) return false;
+
+  const covered = targetTokens.filter((targetToken) =>
+    userTokens.some((userToken) => tokensClose(userToken, targetToken)),
+  ).length;
+
+  return covered / targetTokens.length >= FLEXIBLE_COVERAGE;
+}
+
 function keywordAlternativeMatches(
   normalized: string,
   userTokens: string[],
@@ -126,7 +174,7 @@ export function answersMatch(
       return fuzz.ratio(normalized, target) >= ORDERED_THRESHOLD;
     }
 
-    return fuzz.token_set_ratio(normalized, target) >= flexibleThreshold;
+    return flexibleCoversTarget(normalized, target, flexibleThreshold);
   });
 }
 
