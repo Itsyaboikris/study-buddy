@@ -380,7 +380,7 @@ textarea {
 .answer-textarea:focus {
   outline: none;
   border-color: var(--leaf);
-  box-shadow: 0 0 0 3px rgba(31, 107, 74, 0.14);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--leaf) 25%, transparent);
 }
 
 .answer-input:disabled,

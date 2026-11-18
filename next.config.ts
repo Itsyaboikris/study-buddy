@@ -1,8 +1,12 @@
 import type { NextConfig } from "next";
 
+const allowedDevOrigins = (process.env.DEV_ORIGINS ?? "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 const nextConfig: NextConfig = {
-  /* config options here */
-  allowedDevOrigins: ["192.168.100.248"],
+  ...(allowedDevOrigins.length > 0 ? { allowedDevOrigins } : {}),
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
