@@ -12,10 +12,18 @@ import { CourseTabs } from "@/components/CourseTabs";
 import {
   answersMatch,
   keywordsMatch,
-  shuffle,
   shuffleChoices,
   type ShuffledChoice,
 } from "@/lib/questions";
+import {
+  buildWeightedDeck,
+  clearCourseProgress,
+  loadCourseProgress,
+  recordAnswer,
+  restoreDeck,
+  saveCourseProgress,
+  type QuestionRecord,
+} from "@/lib/progress";
 import type { Course, Question } from "@/lib/types";
 
 type StudyBuddyProps = {
@@ -26,10 +34,6 @@ type Feedback = {
   correct: boolean;
   message: string;
 };
-
-function buildDeck(questions: Question[]): Question[] {
-  return shuffle(questions);
-}
 
 function subscribeToNothing() {
   return () => {};
@@ -101,16 +105,25 @@ function CourseSession({
   courses,
   onSelectCourse,
 }: CourseSessionProps) {
-  const [deck, setDeck] = useState(() => buildDeck(course.questions));
-  const [index, setIndex] = useState(0);
+  const initial = useMemo(
+    () => restoreDeck(course.questions, loadCourseProgress(course.id)),
+    // Mount-only: course identity is fixed via key={course.id} on the parent.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+  const [deck, setDeck] = useState(() => initial.deck);
+  const [index, setIndex] = useState(() => initial.index);
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
   const [trueFalseValue, setTrueFalseValue] = useState<boolean | null>(null);
   const [textAnswer, setTextAnswer] = useState("");
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [peek, setPeek] = useState<string | null>(null);
   const [answered, setAnswered] = useState(false);
-  const [stats, setStats] = useState({ seen: 0, correct: 0 });
-  const [pass, setPass] = useState(1);
+  const [stats, setStats] = useState(() => initial.stats);
+  const [pass, setPass] = useState(() => initial.pass);
+  const [records, setRecords] = useState<Record<string, QuestionRecord>>(
+    () => initial.records,
+  );
   const [isTyping, setIsTyping] = useState(false);
   const actionRef = useRef<HTMLDivElement>(null);
   const blurTimerRef = useRef<number | null>(null);
@@ -122,6 +135,17 @@ function CourseSession({
       }
     };
   }, []);
+
+  useEffect(() => {
+    saveCourseProgress(course.id, {
+      version: 1,
+      deckIds: deck.map((question) => question.id),
+      index,
+      pass,
+      stats,
+      records,
+    });
+  }, [course.id, deck, index, pass, stats, records]);
 
   function handleAnswerFocus() {
     if (blurTimerRef.current !== null) {
@@ -169,6 +193,9 @@ function CourseSession({
       seen: prev.seen + 1,
       correct: prev.correct + (correct ? 1 : 0),
     }));
+    if (question) {
+      setRecords((prev) => recordAnswer(prev, question.id, correct));
+    }
   }
 
   function finishAnswer(correct: boolean, message: string) {
@@ -176,6 +203,22 @@ function CourseSession({
     setFeedback({ correct, message });
     setAnswered(true);
     recordResult(correct);
+  }
+
+  function resetProgress() {
+    clearCourseProgress(course.id);
+    const freshRecords = Object.fromEntries(
+      course.questions.map((question) => [
+        question.id,
+        { timesSeen: 0, timesMissed: 0, lastResult: null as const },
+      ]),
+    );
+    setRecords(freshRecords);
+    setDeck(buildWeightedDeck(course.questions, freshRecords));
+    setIndex(0);
+    setPass(1);
+    setStats({ seen: 0, correct: 0 });
+    resetInputs();
   }
 
   function checkMultipleChoice(choiceIndex: number) {
@@ -270,7 +313,7 @@ function CourseSession({
     }
 
     if (nextIndex >= working.length) {
-      setDeck(buildDeck(course.questions));
+      setDeck(buildWeightedDeck(course.questions, records));
       setIndex(0);
       setPass((prev) => prev + 1);
     } else {
@@ -301,6 +344,7 @@ function CourseSession({
       progress={progress}
       accuracy={accuracy}
       isTyping={isTyping}
+      onResetProgress={resetProgress}
     >
       {isLoadingDeck || !question ? (
         <QuestionCardSkeleton />
@@ -510,6 +554,7 @@ type CourseShellProps = {
   progress: number;
   accuracy?: number;
   isTyping?: boolean;
+  onResetProgress?: () => void;
   children: ReactNode;
 };
 
@@ -523,6 +568,7 @@ function CourseShell({
   progress,
   accuracy,
   isTyping = false,
+  onResetProgress,
   children,
 }: CourseShellProps) {
   const shownAccuracy =
@@ -535,6 +581,15 @@ function CourseShell({
         <div>
           <p className="brand">Study Buddy</p>
           <h1 className="course-title">{course.title}</h1>
+          {onResetProgress ? (
+            <button
+              type="button"
+              className="reset-progress"
+              onClick={onResetProgress}
+            >
+              Reset progress
+            </button>
+          ) : null}
         </div>
         <div className="stats" aria-live="polite">
           <div>
