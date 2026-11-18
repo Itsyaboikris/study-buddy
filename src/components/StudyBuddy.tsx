@@ -9,6 +9,8 @@ import {
 } from "react";
 import { CourseTabs } from "@/components/CourseTabs";
 import {
+  MEMORY_VERSES_COURSE_ID,
+  VERSE_WRITE_TAG,
   answersMatch,
   keywordsMatch,
   pairsMatch,
@@ -23,6 +25,7 @@ import {
   recordAnswer,
   restoreDeck,
   saveCourseProgress,
+  type DeckWeightOptions,
   type QuestionRecord,
 } from "@/lib/progress";
 import type { Course, Question } from "@/lib/types";
@@ -104,8 +107,18 @@ function CourseSession({
   courses,
   onSelectCourse,
 }: CourseSessionProps) {
+  const deckWeightOptions = useMemo((): DeckWeightOptions | undefined => {
+    if (course.id !== MEMORY_VERSES_COURSE_ID) return undefined;
+    return { tagWeightMultipliers: { [VERSE_WRITE_TAG]: 2.5 } };
+  }, [course.id]);
+
   const initial = useMemo(
-    () => restoreDeck(course.questions, loadCourseProgress(course.id)),
+    () =>
+      restoreDeck(
+        course.questions,
+        loadCourseProgress(course.id),
+        deckWeightOptions,
+      ),
     // Mount-only: course identity is fixed via key={course.id} on the parent.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -225,7 +238,7 @@ function CourseSession({
   }
 
   function startNextPass() {
-    setDeck(buildWeightedDeck(course.questions, records));
+    setDeck(buildWeightedDeck(course.questions, records, deckWeightOptions));
     setIndex(0);
     setPass((prev) => prev + 1);
     beginPassTracking();
@@ -249,7 +262,7 @@ function CourseSession({
       course.questions.map((question) => [question.id, emptyRecord()]),
     );
     setRecords(freshRecords);
-    setDeck(buildWeightedDeck(course.questions, freshRecords));
+    setDeck(buildWeightedDeck(course.questions, freshRecords, deckWeightOptions));
     setIndex(0);
     setPass(1);
     setStats({ seen: 0, correct: 0 });

@@ -747,10 +747,7 @@
             "Ends all unbelief forever"
           ],
           "answer": 0,
-          "explanation": "James 5:16 says the effectual fervent prayer of a righteous man availeth much.",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "James 5:16 says the effectual fervent prayer of a righteous man availeth much."
         },
         {
           "id": "ptr-isaiah-586-01",
@@ -777,10 +774,7 @@
             "Choosing which gods your house will serve"
           ],
           "answer": 0,
-          "explanation": "God’s chosen fast includes loosing wickedness, undoing burdens, freeing the oppressed, and breaking every yoke.",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "God’s chosen fast includes loosing wickedness, undoing burdens, freeing the oppressed, and breaking every yoke."
         },
         {
           "id": "ptr-joshua-2415-01",
@@ -807,10 +801,7 @@
             "But as for me and my house, we will fast absolutely"
           ],
           "answer": 0,
-          "explanation": "Joshua declares: but as for me and my house, we will serve the Lord.",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "Joshua declares: but as for me and my house, we will serve the Lord."
         },
         {
           "id": "ptr-prayer-voice-01",
@@ -1435,10 +1426,7 @@
             "i cor 15:51-55",
             "1cor 15:51-55"
           ],
-          "explanation": "1 Cor 15:51-55.",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "1 Cor 15:51-55."
         },
         {
           "id": "ptr-return-scripture-02",
@@ -1451,10 +1439,7 @@
             "Joshua 24:15"
           ],
           "answer": 0,
-          "explanation": "1 Cor 15:51-55.",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "1 Cor 15:51-55."
         },
         {
           "id": "ptr-prayer-blocks-recall-01",
@@ -1520,7 +1505,8 @@
           "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much.",
           "matchMode": "ordered",
           "tags": [
-            "memory-verse"
+            "memory-verse",
+            "verse-write"
           ]
         },
         {
@@ -1534,7 +1520,8 @@
           "explanation": "Is not this the fast that I have chosen? to loose the bands of wickedness, to undo the heavy burdens, and to let the oppressed go free, and that ye break every yoke?",
           "matchMode": "ordered",
           "tags": [
-            "memory-verse"
+            "memory-verse",
+            "verse-write"
           ]
         },
         {
@@ -1550,6 +1537,21 @@
           "matchMode": "ordered",
           "tags": [
             "memory-verse"
+          ]
+        },
+        {
+          "id": "ptr-joshua-2415-full-01",
+          "type": "fill_blank",
+          "prompt": "Write Joshua 24:15 from memory (reference only).",
+          "answers": [
+            "and if it seem evil unto you to serve the lord, choose you this day whom ye will serve; whether the gods which your fathers served that were on the other side of the flood, or the gods of the amorites, in whose land ye dwell: but as for me and my house, we will serve the lord",
+            "choose you this day whom ye will serve but as for me and my house we will serve the lord"
+          ],
+          "explanation": "And if it seem evil unto you to serve the Lord, choose you this day whom ye will serve; whether the gods which your fathers served that were on the other side of the flood, or the gods of the Amorites, in whose land ye dwell: but as for me and my house, we will serve the Lord.",
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse",
+            "verse-write"
           ]
         },
         {
@@ -1577,7 +1579,8 @@
           "explanation": "Behold, I shew you a mystery; We shall not all sleep, but we shall all be changed, (1 Cor 15:51)",
           "matchMode": "ordered",
           "tags": [
-            "memory-verse"
+            "memory-verse",
+            "verse-write"
           ]
         },
         {
@@ -1605,7 +1608,8 @@
           "explanation": "In a moment, in the twinkling of an eye, at the last trump: for the trumpet shall sound, and the dead shall be raised incorruptible, and we shall be changed. (1 Cor 15:52)",
           "matchMode": "ordered",
           "tags": [
-            "memory-verse"
+            "memory-verse",
+            "verse-write"
           ]
         },
         {
@@ -1633,7 +1637,8 @@
           "explanation": "For this corruptible must put on incorruption, and this mortal must put on immortality. (1 Cor 15:53)",
           "matchMode": "ordered",
           "tags": [
-            "memory-verse"
+            "memory-verse",
+            "verse-write"
           ]
         },
         {
@@ -1661,7 +1666,8 @@
           "explanation": "So when this corruptible shall have put on incorruption, and this mortal shall have put on immortality, then shall be brought to pass the saying that is written, Death is swallowed up in victory. (1 Cor 15:54)",
           "matchMode": "ordered",
           "tags": [
-            "memory-verse"
+            "memory-verse",
+            "verse-write"
           ]
         },
         {
@@ -1689,7 +1695,8 @@
           "explanation": "O death, where is thy sting? O grave, where is thy victory? (1 Cor 15:55)",
           "matchMode": "ordered",
           "tags": [
-            "memory-verse"
+            "memory-verse",
+            "verse-write"
           ]
         },
         {
@@ -1719,7 +1726,8 @@
           "explanation": "1 Cor 15:51-55: Behold, I shew you a mystery; We shall not all sleep, but we shall all be changed, In a moment, in the twinkling of an eye, at the last trump: for the trumpet shall sound, and the dead shall be raised incorruptible, and we shall be changed. For this corruptible must put on incorruption, and this mortal must put on immortality. So when this corruptible shall have put on incorruption, and this mortal shall have put on immortality, then shall be brought to pass the saying that is written, Death is swallowed up in victory. O death, where is thy sting? O grave, where is thy victory?",
           "matchMode": "ordered",
           "tags": [
-            "memory-verse"
+            "memory-verse",
+            "verse-write"
           ]
         },
         {
@@ -1730,10 +1738,7 @@
             "changed"
           ],
           "explanation": "“…but we shall all be changed” (1 Cor 15:51).",
-          "matchMode": "flexible",
-          "tags": [
-            "memory-verse"
-          ]
+          "matchMode": "flexible"
         },
         {
           "id": "ptr-return-scripture-blank-twinkling-01",
@@ -1743,10 +1748,7 @@
             "twinkling"
           ],
           "explanation": "“…in the twinkling of an eye…” (1 Cor 15:52).",
-          "matchMode": "flexible",
-          "tags": [
-            "memory-verse"
-          ]
+          "matchMode": "flexible"
         },
         {
           "id": "ptr-return-scripture-blank-trump-01",
@@ -1756,10 +1758,7 @@
             "trump"
           ],
           "explanation": "“…at the last trump…” (1 Cor 15:52).",
-          "matchMode": "flexible",
-          "tags": [
-            "memory-verse"
-          ]
+          "matchMode": "flexible"
         },
         {
           "id": "ptr-return-scripture-blank-incorruptible-01",
@@ -1769,10 +1768,7 @@
             "incorruptible"
           ],
           "explanation": "“…and the dead shall be raised incorruptible…” (1 Cor 15:52).",
-          "matchMode": "flexible",
-          "tags": [
-            "memory-verse"
-          ]
+          "matchMode": "flexible"
         },
         {
           "id": "ptr-return-scripture-blank-immortality-01",
@@ -1782,10 +1778,7 @@
             "immortality"
           ],
           "explanation": "“…and this mortal must put on immortality.” (1 Cor 15:53).",
-          "matchMode": "flexible",
-          "tags": [
-            "memory-verse"
-          ]
+          "matchMode": "flexible"
         },
         {
           "id": "ptr-return-scripture-blank-victory-01",
@@ -1795,10 +1788,7 @@
             "victory"
           ],
           "explanation": "“…Death is swallowed up in victory.” (1 Cor 15:54).",
-          "matchMode": "flexible",
-          "tags": [
-            "memory-verse"
-          ]
+          "matchMode": "flexible"
         },
         {
           "id": "ptr-return-scripture-blank-sting-01",
@@ -1808,10 +1798,7 @@
             "sting"
           ],
           "explanation": "“O death, where is thy sting?” (1 Cor 15:55).",
-          "matchMode": "flexible",
-          "tags": [
-            "memory-verse"
-          ]
+          "matchMode": "flexible"
         },
         {
           "id": "ptr-return-scripture-next-01",
@@ -1824,10 +1811,7 @@
             "and death is swallowed up in victory then!"
           ],
           "answer": 0,
-          "explanation": "“…for the trumpet shall sound, and the dead shall be raised incorruptible…” (1 Cor 15:52).",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "“…for the trumpet shall sound, and the dead shall be raised incorruptible…” (1 Cor 15:52)."
         },
         {
           "id": "ptr-return-scripture-next-02",
@@ -1840,10 +1824,7 @@
             "but death loses every sting"
           ],
           "answer": 0,
-          "explanation": "“…We shall not all sleep, but we shall all be changed” (1 Cor 15:51).",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "“…We shall not all sleep, but we shall all be changed” (1 Cor 15:51)."
         },
         {
           "id": "ptr-return-scripture-next-03",
@@ -1856,10 +1837,7 @@
             "O death, where is thy terror?"
           ],
           "answer": 0,
-          "explanation": "“O death, where is thy sting? O grave, where is thy victory?” (1 Cor 15:55).",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "“O death, where is thy sting? O grave, where is thy victory?” (1 Cor 15:55)."
         },
         {
           "id": "ptr-return-scripture-next-04",
@@ -1872,10 +1850,7 @@
             "and death is swallowed up in victory"
           ],
           "answer": 0,
-          "explanation": "“…this corruptible must put on incorruption, and this mortal must put on immortality.” (1 Cor 15:53).",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "“…this corruptible must put on incorruption, and this mortal must put on immortality.” (1 Cor 15:53)."
         },
         {
           "id": "ptr-return-scripture-meaning-01",
@@ -1888,10 +1863,7 @@
             "Only after every grave has already been emptied"
           ],
           "answer": 0,
-          "explanation": "“…In a moment, in the twinkling of an eye…” (1 Cor 15:52).",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "“…In a moment, in the twinkling of an eye…” (1 Cor 15:52)."
         },
         {
           "id": "ptr-return-scripture-meaning-02",
@@ -1904,10 +1876,7 @@
             "They shall rise already fully mortal"
           ],
           "answer": 0,
-          "explanation": "“…and the dead shall be raised incorruptible…” (1 Cor 15:52).",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "“…and the dead shall be raised incorruptible…” (1 Cor 15:52)."
         },
         {
           "id": "ptr-return-scripture-meaning-03",
@@ -1920,10 +1889,7 @@
             "A temporary mortal form"
           ],
           "answer": 0,
-          "explanation": "“For this corruptible must put on incorruption…” (1 Cor 15:53).",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "“For this corruptible must put on incorruption…” (1 Cor 15:53)."
         },
         {
           "id": "ptr-return-scripture-meaning-04",
@@ -1936,40 +1902,28 @@
             "Earthly weakness"
           ],
           "answer": 0,
-          "explanation": "“…and this mortal must put on immortality.” (1 Cor 15:53).",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "“…and this mortal must put on immortality.” (1 Cor 15:53)."
         },
         {
           "id": "ptr-return-scripture-tf-01",
           "type": "true_false",
           "prompt": "1 Cor 15:52 says the dead shall be raised incorruptible.",
           "answer": true,
-          "explanation": "True — “…and the dead shall be raised incorruptible…” (1 Cor 15:52).",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "True — “…and the dead shall be raised incorruptible…” (1 Cor 15:52)."
         },
         {
           "id": "ptr-return-scripture-tf-02",
           "type": "true_false",
           "prompt": "1 Cor 15:51 says we shall all sleep.",
           "answer": false,
-          "explanation": "False — it says “We shall not all sleep, but we shall all be changed” (1 Cor 15:51).",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "False — it says “We shall not all sleep, but we shall all be changed” (1 Cor 15:51)."
         },
         {
           "id": "ptr-return-scripture-tf-03",
           "type": "true_false",
           "prompt": "1 Cor 15:54 says Death is swallowed up in victory.",
           "answer": true,
-          "explanation": "True — “…Death is swallowed up in victory.” (1 Cor 15:54).",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "True — “…Death is swallowed up in victory.” (1 Cor 15:54)."
         }
       ],
       "shortTitle": "Path"
@@ -2003,10 +1957,7 @@
             "Limited to fathers only"
           ],
           "answer": 0,
-          "explanation": "They are new every morning: great is thy faithfulness.",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "They are new every morning: great is thy faithfulness."
         },
         {
           "id": "fl-joy-peace-01",
@@ -2303,10 +2254,7 @@
             "Joshua 24:15 — as for me and my house…"
           ],
           "answer": 0,
-          "explanation": "Psalm 139:14.",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "Psalm 139:14."
         },
         {
           "id": "fl-walls-01",
@@ -2488,10 +2436,7 @@
             "Silence forever"
           ],
           "answer": 0,
-          "explanation": "A soft answer turneth away wrath.",
-          "tags": [
-            "memory-verse"
-          ]
+          "explanation": "A soft answer turneth away wrath."
         },
         {
           "id": "fl-forgiveness-01",
@@ -2612,7 +2557,8 @@
           "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.",
           "matchMode": "ordered",
           "tags": [
-            "memory-verse"
+            "memory-verse",
+            "verse-write"
           ]
         },
         {
@@ -2626,7 +2572,8 @@
           "explanation": "A soft answer turneth away wrath: but grievous words stir up anger.",
           "matchMode": "ordered",
           "tags": [
-            "memory-verse"
+            "memory-verse",
+            "verse-write"
           ]
         },
         {
@@ -2640,7 +2587,8 @@
           "explanation": "I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well.",
           "matchMode": "ordered",
           "tags": [
-            "memory-verse"
+            "memory-verse",
+            "verse-write"
           ]
         },
         {

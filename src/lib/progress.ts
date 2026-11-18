@@ -72,16 +72,30 @@ export function clearCourseProgress(courseId: string): void {
   }
 }
 
+export type DeckWeightOptions = {
+  /** Multiply base weight when a question has this tag (highest multiplier wins). */
+  tagWeightMultipliers?: Record<string, number>;
+};
+
 /** Prefer questions missed more often when starting a new pass. */
 export function buildWeightedDeck(
   questions: Question[],
   records: Record<string, QuestionRecord>,
+  options?: DeckWeightOptions,
 ): Question[] {
   if (questions.length <= 1) return [...questions];
 
   const scored = questions.map((question) => {
     const missed = records[question.id]?.timesMissed ?? 0;
-    const weight = 1 + missed;
+    let tagBoost = 1;
+    const multipliers = options?.tagWeightMultipliers;
+    if (multipliers && question.tags) {
+      for (const tag of question.tags) {
+        const mult = multipliers[tag];
+        if (mult && mult > tagBoost) tagBoost = mult;
+      }
+    }
+    const weight = (1 + missed) * tagBoost;
     return { question, sortKey: Math.random() * weight };
   });
 
@@ -92,6 +106,7 @@ export function buildWeightedDeck(
 export function restoreDeck(
   questions: Question[],
   saved: CourseProgress | null,
+  deckOptions?: DeckWeightOptions,
 ): { deck: Question[]; index: number; pass: number; stats: CourseProgress["stats"]; records: Record<string, QuestionRecord> } {
   const byId = new Map(questions.map((question) => [question.id, question]));
   const records: Record<string, QuestionRecord> = {};
@@ -109,7 +124,7 @@ export function restoreDeck(
 
   if (!saved) {
     return {
-      deck: buildWeightedDeck(questions, records),
+      deck: buildWeightedDeck(questions, records, deckOptions),
       index: 0,
       pass: 1,
       stats: { seen: 0, correct: 0 },
@@ -124,7 +139,7 @@ export function restoreDeck(
   // Dropped/renamed IDs — rebuild rather than resume a broken deck.
   if (deck.length === 0) {
     return {
-      deck: buildWeightedDeck(questions, records),
+      deck: buildWeightedDeck(questions, records, deckOptions),
       index: 0,
       pass: Math.max(1, saved.pass || 1),
       stats: {

@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { answersMatch, keywordsMatch } from "@/lib/questions";
+import {
+  MEMORY_VERSES_COURSE_ID,
+  PRIMARY_VERSE_WRITE_IDS,
+  VERSE_WRITE_TAG,
+  answersMatch,
+  getCourses,
+  isVerseWriteQuestion,
+  keywordsMatch,
+} from "@/lib/questions";
 
 const ANTIOCH_CALL = [
   "ministering to the lord, fasting, and praying",
@@ -36,6 +44,30 @@ describe("answersMatch flexible mode", () => {
 
   it("rejects near-miss place names that only share a prefix", () => {
     expect(answersMatch("pergamum", ["perga"])).toBe(false);
+  });
+});
+
+describe("memory verses course", () => {
+  it("includes a primary write-the-verse question for each scripture", () => {
+    const versesCourse = getCourses().find(
+      (course) => course.id === MEMORY_VERSES_COURSE_ID,
+    );
+    expect(versesCourse).toBeDefined();
+
+    const byId = new Map(
+      versesCourse!.questions.map((question) => [question.id, question]),
+    );
+
+    for (const id of PRIMARY_VERSE_WRITE_IDS) {
+      const question = byId.get(id);
+      expect(question, `missing primary verse write: ${id}`).toBeDefined();
+      expect(isVerseWriteQuestion(question!)).toBe(true);
+      expect(question!.tags).toContain(VERSE_WRITE_TAG);
+    }
+
+    const primaryCount = versesCourse!.questions.filter(isVerseWriteQuestion)
+      .length;
+    expect(primaryCount).toBeGreaterThanOrEqual(PRIMARY_VERSE_WRITE_IDS.length);
   });
 });
 

@@ -34,9 +34,31 @@ const STOPWORDS = new Set([
 ]);
 
 const MEMORY_VERSE_TAG = "memory-verse";
+export const VERSE_WRITE_TAG = "verse-write";
+export const MEMORY_VERSES_COURSE_ID = "memory-verses";
+
+/** Primary “write the whole verse” prompts — one per scripture in the Verses tab. */
+export const PRIMARY_VERSE_WRITE_IDS = [
+  "ptr-james-516-recall-01",
+  "ptr-isaiah-586-recall-01",
+  "ptr-joshua-2415-full-01",
+  "ptr-return-scripture-v51-01",
+  "ptr-return-scripture-v52-01",
+  "ptr-return-scripture-v53-01",
+  "ptr-return-scripture-v54-01",
+  "ptr-return-scripture-v55-01",
+  "ptr-return-scripture-passage-01",
+  "fl-lam-322-recall-01",
+  "fl-prov-151-recall-01",
+  "fl-psalm-139-recall-01",
+] as const;
 
 function isVerseQuestion(question: Question): boolean {
   return question.tags?.includes(MEMORY_VERSE_TAG) ?? false;
+}
+
+export function isVerseWriteQuestion(question: Question): boolean {
+  return question.tags?.includes(VERSE_WRITE_TAG) ?? false;
 }
 
 function buildMemoryVersesCourse(courses: Course[]): Course | null {
