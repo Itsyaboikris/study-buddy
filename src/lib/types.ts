@@ -12,6 +12,7 @@ export type BaseQuestion = {
   type: QuestionType;
   prompt: string;
   explanation: string;
+  tags?: string[];
 };
 
 export type MultipleChoiceQuestion = BaseQuestion & {
@@ -55,6 +56,7 @@ export type Question =
 export type Course = {
   id: string;
   title: string;
+  shortTitle?: string;
   questions: Question[];
 };
 

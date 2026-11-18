@@ -1,15 +1,30 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { CourseTabs } from "@/components/CourseTabs";
 import {
   answersMatch,
   keywordsMatch,
   pairsMatch,
-  shuffle,
   shuffleChoices,
   type ShuffledChoice,
 } from "@/lib/questions";
+import {
+  buildWeightedDeck,
+  clearCourseProgress,
+  emptyRecord,
+  loadCourseProgress,
+  recordAnswer,
+  restoreDeck,
+  saveCourseProgress,
+  type QuestionRecord,
+} from "@/lib/progress";
 import type { Course, Question } from "@/lib/types";
 
 type StudyBuddyProps = {
@@ -21,45 +36,99 @@ type Feedback = {
   message: string;
 };
 
-function buildDeck(questions: Question[]): Question[] {
-  return shuffle(questions);
-}
-
 export function StudyBuddy({ courses }: StudyBuddyProps) {
   const [activeCourseId, setActiveCourseId] = useState(courses[0]?.id ?? "");
+  const [mounted, setMounted] = useState(false);
   const activeCourse = useMemo(
     () => courses.find((course) => course.id === activeCourseId) ?? courses[0],
     [courses, activeCourseId],
   );
 
-  const [deck, setDeck] = useState<Question[]>([]);
-  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    // Client-only gate so localStorage restore + shuffle never run during SSR/hydration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional mount gate
+    setMounted(true);
+  }, []);
+
+  if (!activeCourse || activeCourse.questions.length === 0) {
+    return (
+      <div className="study-shell">
+        <div className="empty-state">
+          <p>No questions available yet.</p>
+        </div>
+        {courses.length > 0 ? (
+          <CourseTabs
+            courses={courses}
+            activeCourseId={activeCourse?.id ?? activeCourseId}
+            onSelect={setActiveCourseId}
+          />
+        ) : null}
+      </div>
+    );
+  }
+
+  if (!mounted) {
+    return (
+      <CourseShell
+        course={activeCourse}
+        courses={courses}
+        activeCourseId={activeCourse.id}
+        onSelectCourse={setActiveCourseId}
+        stats={{ seen: 0, correct: 0 }}
+        pass={1}
+        progress={0}
+      >
+        <QuestionCardSkeleton />
+      </CourseShell>
+    );
+  }
+
+  return (
+    <CourseSession
+      key={activeCourse.id}
+      course={activeCourse}
+      courses={courses}
+      onSelectCourse={setActiveCourseId}
+    />
+  );
+}
+
+type CourseSessionProps = {
+  course: Course;
+  courses: Course[];
+  onSelectCourse: (courseId: string) => void;
+};
+
+function CourseSession({
+  course,
+  courses,
+  onSelectCourse,
+}: CourseSessionProps) {
+  const initial = useMemo(
+    () => restoreDeck(course.questions, loadCourseProgress(course.id)),
+    // Mount-only: course identity is fixed via key={course.id} on the parent.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+  const [deck, setDeck] = useState(() => initial.deck);
+  const [index, setIndex] = useState(() => initial.index);
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
   const [trueFalseValue, setTrueFalseValue] = useState<boolean | null>(null);
   const [textAnswer, setTextAnswer] = useState("");
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [peek, setPeek] = useState<string | null>(null);
   const [answered, setAnswered] = useState(false);
-  const [stats, setStats] = useState({ seen: 0, correct: 0 });
-  const [pass, setPass] = useState(1);
+  const [stats, setStats] = useState(() => initial.stats);
+  const [pass, setPass] = useState(() => initial.pass);
+  const [records, setRecords] = useState<Record<string, QuestionRecord>>(
+    () => initial.records,
+  );
+  const [passStats, setPassStats] = useState({ seen: 0, correct: 0 });
+  const [passMissed, setPassMissed] = useState<Question[]>([]);
+  const [showSummary, setShowSummary] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const actionRef = useRef<HTMLDivElement>(null);
   const blurTimerRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (!activeCourse) return;
-    setDeck(buildDeck(activeCourse.questions));
-    setIndex(0);
-    setSelectedChoice(null);
-    setTrueFalseValue(null);
-    setTextAnswer("");
-    setFeedback(null);
-    setPeek(null);
-    setAnswered(false);
-    setStats({ seen: 0, correct: 0 });
-    setPass(1);
-    setIsTyping(false);
-  }, [activeCourse]);
 
   useEffect(() => {
     return () => {
@@ -68,6 +137,17 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
       }
     };
   }, []);
+
+  useEffect(() => {
+    saveCourseProgress(course.id, {
+      version: 1,
+      deckIds: deck.map((question) => question.id),
+      index,
+      pass,
+      stats,
+      records,
+    });
+  }, [course.id, deck, index, pass, stats, records]);
 
   function handleAnswerFocus() {
     if (blurTimerRef.current !== null) {
@@ -97,8 +177,8 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
   }, [question?.id]);
 
   const progress =
-    activeCourse && activeCourse.questions.length > 0
-      ? Math.min((index + 1) / activeCourse.questions.length, 1)
+    course.questions.length > 0
+      ? Math.min((index + 1) / course.questions.length, 1)
       : 0;
 
   function resetInputs() {
@@ -115,6 +195,20 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
       seen: prev.seen + 1,
       correct: prev.correct + (correct ? 1 : 0),
     }));
+    setPassStats((prev) => ({
+      seen: prev.seen + 1,
+      correct: prev.correct + (correct ? 1 : 0),
+    }));
+    if (question) {
+      setRecords((prev) => recordAnswer(prev, question.id, correct));
+      if (!correct) {
+        setPassMissed((prev) =>
+          prev.some((item) => item.id === question.id)
+            ? prev
+            : [...prev, question],
+        );
+      }
+    }
   }
 
   function finishAnswer(correct: boolean, message: string) {
@@ -122,6 +216,45 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     setFeedback({ correct, message });
     setAnswered(true);
     recordResult(correct);
+  }
+
+  function beginPassTracking() {
+    setPassStats({ seen: 0, correct: 0 });
+    setPassMissed([]);
+    setShowSummary(false);
+  }
+
+  function startNextPass() {
+    setDeck(buildWeightedDeck(course.questions, records));
+    setIndex(0);
+    setPass((prev) => prev + 1);
+    beginPassTracking();
+    resetInputs();
+  }
+
+  function drillMissedQuestions() {
+    if (passMissed.length === 0) {
+      startNextPass();
+      return;
+    }
+    setDeck([...passMissed]);
+    setIndex(0);
+    beginPassTracking();
+    resetInputs();
+  }
+
+  function resetProgress() {
+    clearCourseProgress(course.id);
+    const freshRecords = Object.fromEntries(
+      course.questions.map((question) => [question.id, emptyRecord()]),
+    );
+    setRecords(freshRecords);
+    setDeck(buildWeightedDeck(course.questions, freshRecords));
+    setIndex(0);
+    setPass(1);
+    setStats({ seen: 0, correct: 0 });
+    beginPassTracking();
+    resetInputs();
   }
 
   function checkMultipleChoice(choiceIndex: number) {
@@ -199,8 +332,7 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     correct: boolean,
   ): string {
     if (correct) return `Nice work! ${q.explanation}`;
-    // Show one model answer only — explanation often restates the same idea.
-    return `Model answer: ${q.modelAnswer}`;
+    return `Model answer: ${q.modelAnswer}. ${q.explanation}`;
   }
 
   function markSelfCheck(correct: boolean) {
@@ -208,10 +340,54 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     finishAnswer(correct, shortAnswerFeedback(question, correct));
   }
 
-  function goNext() {
-    if (!activeCourse || deck.length === 0 || !question) return;
+  function revealAnswerMessage(q: Question): string {
+    if (q.type === "multiple_choice") {
+      return `Answer: ${q.choices[q.answer]}. ${q.explanation}`;
+    }
+    if (q.type === "true_false") {
+      return `Answer: ${q.answer ? "True" : "False"}. ${q.explanation}`;
+    }
+    if (q.type === "fill_blank") {
+      return `Answer: ${q.answers[0]}. ${q.explanation}`;
+    }
+    return `Model answer: ${q.modelAnswer}. ${q.explanation}`;
+  }
 
-    let working = [...deck];
+  function dontKnow() {
+    if (!question || answered) return;
+    finishAnswer(false, revealAnswerMessage(question));
+  }
+
+  function skipQuestion() {
+    if (!question || answered || deck.length === 0) return;
+
+    if (deck.length <= 1) {
+      startNextPass();
+      return;
+    }
+
+    const working = [...deck];
+    const [skipped] = working.splice(index, 1);
+    const insertAt = Math.min(index + 8, working.length);
+    working.splice(insertAt, 0, skipped);
+
+    if (index >= working.length) {
+      setDeck(working);
+      setIndex(Math.max(working.length - 1, 0));
+      setShowSummary(true);
+      resetInputs();
+      return;
+    }
+
+    setDeck(working);
+    setIndex(index);
+    resetInputs();
+  }
+
+  function goNext() {
+    if (deck.length === 0 || !question) return;
+
+    const working = [...deck];
     let nextIndex = index + 1;
 
     if (feedback && !feedback.correct) {
@@ -224,233 +400,358 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
     }
 
     if (nextIndex >= working.length) {
-      setDeck(buildDeck(activeCourse.questions));
-      setIndex(0);
-      setPass((prev) => prev + 1);
-    } else {
       setDeck(working);
-      setIndex(nextIndex);
+      setIndex(Math.max(working.length - 1, 0));
+      setShowSummary(true);
+      resetInputs();
+      return;
     }
 
+    setDeck(working);
+    setIndex(nextIndex);
     resetInputs();
   }
 
-  if (!activeCourse || !question) {
-    return (
-      <div className="empty-state">
-        <p>No questions available yet.</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (showSummary) return;
+
+      const target = event.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (
+        tag === "INPUT" ||
+        tag === "TEXTAREA" ||
+        target?.isContentEditable
+      ) {
+        return;
+      }
+
+      if (answered && event.key === "Enter") {
+        event.preventDefault();
+        goNext();
+        return;
+      }
+
+      if (answered || !question) return;
+
+      if (question.type === "multiple_choice") {
+        const key = event.key.toLowerCase();
+        const fromDigit = Number(event.key) - 1;
+        const fromLetter = key.charCodeAt(0) - 97;
+        const choiceIndex =
+          fromDigit >= 0 && fromDigit <= 3
+            ? fromDigit
+            : fromLetter >= 0 && fromLetter <= 3
+              ? fromLetter
+              : -1;
+        if (choiceIndex < 0 || choiceIndex >= choiceOrder.length) return;
+        event.preventDefault();
+        setSelectedChoice(choiceIndex);
+        checkMultipleChoice(choiceIndex);
+        return;
+      }
+
+      if (question.type === "true_false") {
+        const key = event.key.toLowerCase();
+        if (key === "t") {
+          event.preventDefault();
+          setTrueFalseValue(true);
+          checkTrueFalse(true);
+        } else if (key === "f") {
+          event.preventDefault();
+          setTrueFalseValue(false);
+          checkTrueFalse(false);
+        }
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+    // Handlers are recreated each render; deps below capture the state they close over.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    answered,
+    choiceOrder,
+    feedback,
+    question,
+    showSummary,
+    deck,
+    index,
+    passMissed,
+    records,
+    passStats,
+  ]);
 
   const accuracy =
     stats.seen === 0 ? 0 : Math.round((stats.correct / stats.seen) * 100);
-  const needsTextCheck =
-    question.type === "fill_blank" || question.type === "short_answer";
+  const passAccuracy =
+    passStats.seen === 0
+      ? 0
+      : Math.round((passStats.correct / passStats.seen) * 100);
+  const needsTextCheck = question
+    ? question.type === "fill_blank" || question.type === "short_answer"
+    : false;
   const canCheck =
     !answered && needsTextCheck && textAnswer.trim().length > 0;
+  const isLoadingDeck = deck.length === 0;
 
   return (
-    <div className={`study-shell ${isTyping ? "is-typing" : ""}`}>
-      <header className="study-header">
-        <div>
-          <p className="brand">Study Buddy</p>
-          <h1 className="course-title">{activeCourse.title}</h1>
-        </div>
-        <div className="stats" aria-live="polite">
-          <div>
-            <span className="stat-value">{stats.correct}</span>
-            <span className="stat-label">right</span>
-          </div>
-          <div>
-            <span className="stat-value">{accuracy}%</span>
-            <span className="stat-label">accuracy</span>
-          </div>
-          <div>
-            <span className="stat-value">{pass}</span>
-            <span className="stat-label">pass</span>
-          </div>
-        </div>
-      </header>
-
-      <div className="progress-track" aria-hidden="true">
-        <div
-          className="progress-fill"
-          style={{ width: `${Math.max(progress * 100, 6)}%` }}
+    <CourseShell
+      course={course}
+      courses={courses}
+      activeCourseId={course.id}
+      onSelectCourse={onSelectCourse}
+      stats={stats}
+      pass={pass}
+      progress={showSummary ? 1 : progress}
+      accuracy={accuracy}
+      isTyping={isTyping}
+      onResetProgress={resetProgress}
+    >
+      {showSummary ? (
+        <PassSummary
+          pass={pass}
+          seen={passStats.seen}
+          correct={passStats.correct}
+          accuracy={passAccuracy}
+          missed={passMissed}
+          onDrillMissed={drillMissedQuestions}
+          onStartNextPass={startNextPass}
         />
-      </div>
+      ) : isLoadingDeck || !question ? (
+        <QuestionCardSkeleton />
+      ) : (
+        <main className="question-panel">
+          <p className="question-meta">
+            {question.type.replaceAll("_", " ")} · {index + 1} of {deck.length}
+          </p>
+          <h2 className="question-prompt">{question.prompt}</h2>
 
-      <main className="question-panel">
-        <p className="question-meta">
-          {question.type.replaceAll("_", " ")} · {index + 1} of {deck.length}
-        </p>
-        <h2 className="question-prompt">{question.prompt}</h2>
+          {question.type === "multiple_choice" && (
+            <div className="choice-list" role="group" aria-label="Choices">
+              {choiceOrder.map((choice, choiceIndex) => {
+                const isSelected = selectedChoice === choiceIndex;
+                const showResult = answered && isSelected;
+                const isCorrectChoice =
+                  choice.originalIndex === question.answer;
 
-        {question.type === "multiple_choice" && (
-          <div className="choice-list" role="group" aria-label="Choices">
-            {choiceOrder.map((choice, choiceIndex) => {
-              const isSelected = selectedChoice === choiceIndex;
-              const showResult = answered && isSelected;
-              const isCorrectChoice =
-                choice.originalIndex === question.answer;
+                return (
+                  <button
+                    key={`${question.id}-${choice.originalIndex}-${choiceIndex}`}
+                    type="button"
+                    className={[
+                      "choice-btn",
+                      isSelected ? "is-selected" : "",
+                      answered && isCorrectChoice ? "is-correct" : "",
+                      showResult && !isCorrectChoice ? "is-wrong" : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    disabled={answered}
+                    onClick={() => {
+                      setSelectedChoice(choiceIndex);
+                      checkMultipleChoice(choiceIndex);
+                    }}
+                  >
+                    <span className="choice-letter">
+                      {String.fromCharCode(65 + choiceIndex)}
+                    </span>
+                    <span>{choice.text}</span>
+                    {answered && isCorrectChoice ? (
+                      <span className="result-icon choice-result" aria-hidden="true">
+                        ✓
+                      </span>
+                    ) : null}
+                    {showResult && !isCorrectChoice ? (
+                      <span className="result-icon choice-result" aria-hidden="true">
+                        ✗
+                      </span>
+                    ) : null}
+                    {answered && isCorrectChoice ? (
+                      <span className="sr-only">Correct answer</span>
+                    ) : null}
+                    {showResult && !isCorrectChoice ? (
+                      <span className="sr-only">Incorrect answer</span>
+                    ) : null}
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
-              return (
-                <button
-                  key={`${question.id}-${choice.originalIndex}-${choiceIndex}`}
-                  type="button"
-                  className={[
-                    "choice-btn",
-                    isSelected ? "is-selected" : "",
-                    answered && isCorrectChoice ? "is-correct" : "",
-                    showResult && !isCorrectChoice ? "is-wrong" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                  disabled={answered}
-                  onClick={() => {
-                    setSelectedChoice(choiceIndex);
-                    checkMultipleChoice(choiceIndex);
+          {question.type === "true_false" && (
+            <div className="tf-row" role="group" aria-label="True or false">
+              {[true, false].map((value) => {
+                const label = value ? "True" : "False";
+                const isSelected = trueFalseValue === value;
+                const isCorrectValue = answered && value === question.answer;
+                const isWrongPick =
+                  answered && isSelected && value !== question.answer;
+
+                return (
+                  <button
+                    key={label}
+                    type="button"
+                    className={[
+                      "tf-btn",
+                      isSelected ? "is-selected" : "",
+                      isCorrectValue ? "is-correct" : "",
+                      isWrongPick ? "is-wrong" : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    disabled={answered}
+                    onClick={() => {
+                      setTrueFalseValue(value);
+                      checkTrueFalse(value);
+                    }}
+                  >
+                    {label}
+                    {isCorrectValue ? (
+                      <span className="result-icon choice-result" aria-hidden="true">
+                        ✓
+                      </span>
+                    ) : null}
+                    {isWrongPick ? (
+                      <span className="result-icon choice-result" aria-hidden="true">
+                        ✗
+                      </span>
+                    ) : null}
+                    {isCorrectValue ? (
+                      <span className="sr-only">Correct answer</span>
+                    ) : null}
+                    {isWrongPick ? (
+                      <span className="sr-only">Incorrect answer</span>
+                    ) : null}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {needsTextCheck && (
+            <div className="text-answer">
+              <label className="sr-only" htmlFor="answer-input">
+                Your answer
+              </label>
+              {question.type === "fill_blank" ? (
+                <input
+                  id="answer-input"
+                  className="answer-input"
+                  type="text"
+                  enterKeyHint="done"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  value={textAnswer}
+                  onChange={(event) => setTextAnswer(event.target.value)}
+                  onFocus={handleAnswerFocus}
+                  onBlur={handleAnswerBlur}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
+                      checkTextAnswer();
+                    }
                   }}
-                >
-                  <span className="choice-letter">
-                    {String.fromCharCode(65 + choiceIndex)}
-                  </span>
-                  <span>{choice.text}</span>
-                </button>
-              );
-            })}
-          </div>
-        )}
-
-        {question.type === "true_false" && (
-          <div className="tf-row" role="group" aria-label="True or false">
-            {[true, false].map((value) => {
-              const label = value ? "True" : "False";
-              const isSelected = trueFalseValue === value;
-              const isCorrectValue = answered && value === question.answer;
-              const isWrongPick =
-                answered && isSelected && value !== question.answer;
-
-              return (
-                <button
-                  key={label}
-                  type="button"
-                  className={[
-                    "tf-btn",
-                    isSelected ? "is-selected" : "",
-                    isCorrectValue ? "is-correct" : "",
-                    isWrongPick ? "is-wrong" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
+                  placeholder="Type your answer…"
                   disabled={answered}
-                  onClick={() => {
-                    setTrueFalseValue(value);
-                    checkTrueFalse(value);
-                  }}
-                >
-                  {label}
-                </button>
-              );
-            })}
-          </div>
-        )}
-
-        {needsTextCheck && (
-          <div className="text-answer">
-            <label className="sr-only" htmlFor="answer-input">
-              Your answer
-            </label>
-            {question.type === "fill_blank" ? (
-              <input
-                id="answer-input"
-                className="answer-input"
-                type="text"
-                enterKeyHint="done"
-                autoComplete="off"
-                autoCorrect="off"
-                value={textAnswer}
-                onChange={(event) => setTextAnswer(event.target.value)}
-                onFocus={handleAnswerFocus}
-                onBlur={handleAnswerBlur}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    event.preventDefault();
-                    checkTextAnswer();
-                  }
-                }}
-                placeholder="Type your answer…"
-                disabled={answered}
-              />
-            ) : (
-              <textarea
-                id="answer-input"
-                className="answer-textarea"
-                value={textAnswer}
-                onChange={(event) => setTextAnswer(event.target.value)}
-                onFocus={handleAnswerFocus}
-                onBlur={handleAnswerBlur}
-                placeholder="Type what you remember…"
-                rows={3}
-                disabled={answered}
-              />
-            )}
-            {question.type === "short_answer" && !answered && (
-              <div className="self-check">
-                <p>Prefer a self-check?</p>
-                <div className="self-check-actions">
-                  <button
-                    type="button"
-                    className="ghost-btn"
-                    onClick={() => setPeek(question.modelAnswer)}
-                  >
-                    Peek answer
-                  </button>
-                  <button
-                    type="button"
-                    className="ghost-btn"
-                    onClick={() => markSelfCheck(true)}
-                  >
-                    I got it
-                  </button>
-                  <button
-                    type="button"
-                    className="ghost-btn"
-                    onClick={() => markSelfCheck(false)}
-                  >
-                    Missed it
-                  </button>
+                />
+              ) : (
+                <textarea
+                  id="answer-input"
+                  className="answer-textarea"
+                  value={textAnswer}
+                  onChange={(event) => setTextAnswer(event.target.value)}
+                  onFocus={handleAnswerFocus}
+                  onBlur={handleAnswerBlur}
+                  placeholder="Type what you remember…"
+                  rows={3}
+                  disabled={answered}
+                />
+              )}
+              {question.type === "short_answer" && !answered && (
+                <div className="self-check">
+                  <p>Prefer a self-check?</p>
+                  <div className="self-check-actions">
+                    <button
+                      type="button"
+                      className="ghost-btn"
+                      onClick={() => setPeek(question.modelAnswer)}
+                    >
+                      Peek answer
+                    </button>
+                    <button
+                      type="button"
+                      className="ghost-btn"
+                      onClick={() => markSelfCheck(true)}
+                    >
+                      I got it
+                    </button>
+                    <button
+                      type="button"
+                      className="ghost-btn"
+                      onClick={() => markSelfCheck(false)}
+                    >
+                      Missed it
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        )}
+              )}
+            </div>
+          )}
 
-        {peek && !answered && (
-          <div className="feedback is-peek" role="status">
-            <strong>Model answer</strong>
-            <p>{peek}</p>
-          </div>
-        )}
+          {peek && !answered && (
+            <div className="feedback is-peek" role="status">
+              <strong>Model answer</strong>
+              <p>{peek}</p>
+            </div>
+          )}
 
-        {feedback && (
-          <div
-            className={`feedback ${feedback.correct ? "is-correct" : "is-wrong"}`}
-            role="status"
-          >
-            <strong>{feedback.correct ? "Correct" : "Keep going"}</strong>
-            <p>{feedback.message}</p>
-          </div>
-        )}
+          {feedback && (
+            <div
+              className={`feedback ${feedback.correct ? "is-correct" : "is-wrong"}`}
+              role="status"
+            >
+              <strong>
+                <span className="result-icon" aria-hidden="true">
+                  {feedback.correct ? "✓" : "✗"}
+                </span>
+                <span className="sr-only">
+                  {feedback.correct ? "Correct:" : "Incorrect:"}
+                </span>
+                {feedback.correct ? "Correct" : "Keep going"}
+              </strong>
+              <p>{feedback.message}</p>
+            </div>
+          )}
 
-        {!answered &&
-        (question.type === "multiple_choice" ||
-          question.type === "true_false") ? (
-          <p className="tap-hint">Tap an answer to check</p>
-        ) : null}
-      </main>
+          {!answered &&
+          (question.type === "multiple_choice" ||
+            question.type === "true_false") ? (
+            <p className="tap-hint">Tap an answer to check</p>
+          ) : null}
 
-      {(!answered && needsTextCheck) || answered ? (
+          {!answered ? (
+            <div className="defer-actions">
+              <button
+                type="button"
+                className="defer-btn"
+                onClick={dontKnow}
+              >
+                I don&apos;t know
+              </button>
+              <button
+                type="button"
+                className="defer-btn"
+                onClick={skipQuestion}
+              >
+                Skip
+              </button>
+            </div>
+          ) : null}
+        </main>
+      )}
+
+      {!isLoadingDeck && ((!answered && needsTextCheck) || answered) ? (
         <div className="action-dock" ref={actionRef}>
           {!answered && needsTextCheck ? (
             <button
@@ -470,12 +771,172 @@ export function StudyBuddy({ courses }: StudyBuddyProps) {
           ) : null}
         </div>
       ) : null}
+    </CourseShell>
+  );
+}
+
+type CourseShellProps = {
+  course: Course;
+  courses: Course[];
+  activeCourseId: string;
+  onSelectCourse: (courseId: string) => void;
+  stats: { seen: number; correct: number };
+  pass: number;
+  progress: number;
+  accuracy?: number;
+  isTyping?: boolean;
+  onResetProgress?: () => void;
+  children: ReactNode;
+};
+
+function CourseShell({
+  course,
+  courses,
+  activeCourseId,
+  onSelectCourse,
+  stats,
+  pass,
+  progress,
+  accuracy,
+  isTyping = false,
+  onResetProgress,
+  children,
+}: CourseShellProps) {
+  const shownAccuracy =
+    accuracy ??
+    (stats.seen === 0 ? 0 : Math.round((stats.correct / stats.seen) * 100));
+
+  return (
+    <div className={`study-shell ${isTyping ? "is-typing" : ""}`}>
+      <header className="study-header">
+        <div>
+          <p className="brand">Study Buddy</p>
+          <h1 className="course-title">{course.title}</h1>
+          {onResetProgress ? (
+            <button
+              type="button"
+              className="reset-progress"
+              onClick={onResetProgress}
+            >
+              Reset progress
+            </button>
+          ) : null}
+        </div>
+        <div className="stats" aria-live="polite">
+          <div>
+            <span className="stat-value">{stats.correct}</span>
+            <span className="stat-label">right</span>
+          </div>
+          <div>
+            <span className="stat-value">{shownAccuracy}%</span>
+            <span className="stat-label">accuracy</span>
+          </div>
+          <div>
+            <span className="stat-value">{pass}</span>
+            <span className="stat-label">pass</span>
+          </div>
+        </div>
+      </header>
+
+      <div className="progress-track" aria-hidden="true">
+        <div
+          className="progress-fill"
+          style={{ width: `${Math.max(progress * 100, 6)}%` }}
+        />
+      </div>
+
+      {children}
 
       <CourseTabs
         courses={courses}
-        activeCourseId={activeCourse.id}
-        onSelect={setActiveCourseId}
+        activeCourseId={activeCourseId}
+        onSelect={onSelectCourse}
       />
     </div>
+  );
+}
+
+function QuestionCardSkeleton() {
+  return (
+    <main className="question-panel is-skeleton" aria-busy="true" aria-live="polite">
+      <p className="sr-only">Loading questions…</p>
+      <div className="skeleton-line skeleton-meta" />
+      <div className="skeleton-line skeleton-prompt" />
+      <div className="skeleton-line skeleton-prompt short" />
+      <div className="skeleton-choice" />
+      <div className="skeleton-choice" />
+      <div className="skeleton-choice" />
+    </main>
+  );
+}
+
+type PassSummaryProps = {
+  pass: number;
+  seen: number;
+  correct: number;
+  accuracy: number;
+  missed: Question[];
+  onDrillMissed: () => void;
+  onStartNextPass: () => void;
+};
+
+function PassSummary({
+  pass,
+  seen,
+  correct,
+  accuracy,
+  missed,
+  onDrillMissed,
+  onStartNextPass,
+}: PassSummaryProps) {
+  return (
+    <main className="question-panel pass-summary">
+      <p className="question-meta">Pass {pass} complete</p>
+      <h2 className="question-prompt">Nice work — here&apos;s this pass</h2>
+      <div className="summary-score" aria-label="Pass score">
+        <div>
+          <span className="stat-value">
+            {correct}/{seen}
+          </span>
+          <span className="stat-label">score</span>
+        </div>
+        <div>
+          <span className="stat-value">{accuracy}%</span>
+          <span className="stat-label">accuracy</span>
+        </div>
+        <div>
+          <span className="stat-value">{missed.length}</span>
+          <span className="stat-label">missed</span>
+        </div>
+      </div>
+
+      {missed.length > 0 ? (
+        <div className="summary-missed">
+          <h3>Missed this pass</h3>
+          <ul>
+            {missed.map((question) => (
+              <li key={question.id}>{question.prompt}</li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p className="summary-perfect">No misses this pass.</p>
+      )}
+
+      <div className="summary-actions">
+        {missed.length > 0 ? (
+          <button type="button" className="primary-btn" onClick={onDrillMissed}>
+            Drill missed questions
+          </button>
+        ) : null}
+        <button
+          type="button"
+          className={missed.length > 0 ? "ghost-btn summary-next" : "primary-btn"}
+          onClick={onStartNextPass}
+        >
+          Start next pass
+        </button>
+      </div>
+    </main>
   );
 }

@@ -24,7 +24,10 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#e7f0e8",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#e7f0e8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1612" },
+  ],
   // Keep layout above the mobile keyboard so actions stay reachable.
   interactiveWidget: "resizes-content",
 };
