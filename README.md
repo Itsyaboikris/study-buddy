@@ -44,7 +44,7 @@ Then restart `npm run dev`.
 - **Memory Verses** — built from questions tagged `"memory-verse"` in `questions.json`
 - **Keyboard** — on desktop, `1–4` / `A–D` pick choices, `T`/`F` for true/false, `Enter` advances after answering (ignored while typing)
 - **Dark mode** — follows `prefers-color-scheme` with the same green/paper palette
-- **Install / offline** — use your browser’s “Add to Home Screen” / install prompt for a standalone feel; the app is client-side after load and keeps working with cached assets when available
+- **Install** — on a phone, use the browser “Add to Home Screen” option for a standalone icon; progress still lives in that browser’s `localStorage`
 
 ## Content notes
 
