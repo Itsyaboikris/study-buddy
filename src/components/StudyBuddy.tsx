@@ -328,8 +328,7 @@ function CourseSession({
     correct: boolean,
   ): string {
     if (correct) return `Nice work! ${q.explanation}`;
-    // Show one model answer only — explanation often restates the same idea.
-    return `Model answer: ${q.modelAnswer}`;
+    return `Model answer: ${q.modelAnswer}. ${q.explanation}`;
   }
 
   function markSelfCheck(correct: boolean) {
