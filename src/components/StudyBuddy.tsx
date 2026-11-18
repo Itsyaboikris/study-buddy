@@ -331,6 +331,50 @@ function CourseSession({
     finishAnswer(correct, shortAnswerFeedback(question, correct));
   }
 
+  function revealAnswerMessage(q: Question): string {
+    if (q.type === "multiple_choice") {
+      return `Answer: ${q.choices[q.answer]}. ${q.explanation}`;
+    }
+    if (q.type === "true_false") {
+      return `Answer: ${q.answer ? "True" : "False"}. ${q.explanation}`;
+    }
+    if (q.type === "fill_blank") {
+      return `Answer: ${q.answers[0]}. ${q.explanation}`;
+    }
+    return `Model answer: ${q.modelAnswer}. ${q.explanation}`;
+  }
+
+  function dontKnow() {
+    if (!question || answered) return;
+    finishAnswer(false, revealAnswerMessage(question));
+  }
+
+  function skipQuestion() {
+    if (!question || answered || deck.length === 0) return;
+
+    if (deck.length <= 1) {
+      startNextPass();
+      return;
+    }
+
+    const working = [...deck];
+    const [skipped] = working.splice(index, 1);
+    const insertAt = Math.min(index + 8, working.length);
+    working.splice(insertAt, 0, skipped);
+
+    if (index >= working.length) {
+      setDeck(working);
+      setIndex(Math.max(working.length - 1, 0));
+      setShowSummary(true);
+      resetInputs();
+      return;
+    }
+
+    setDeck(working);
+    setIndex(index);
+    resetInputs();
+  }
+
   function goNext() {
     if (deck.length === 0 || !question) return;
 
@@ -675,6 +719,25 @@ function CourseSession({
           (question.type === "multiple_choice" ||
             question.type === "true_false") ? (
             <p className="tap-hint">Tap an answer to check</p>
+          ) : null}
+
+          {!answered ? (
+            <div className="defer-actions">
+              <button
+                type="button"
+                className="defer-btn"
+                onClick={dontKnow}
+              >
+                I don&apos;t know
+              </button>
+              <button
+                type="button"
+                className="defer-btn"
+                onClick={skipQuestion}
+              >
+                Skip
+              </button>
+            </div>
           ) : null}
         </main>
       )}
