@@ -724,7 +724,10 @@
             "confess your faults one to another and pray one for another that ye may be healed the effectual fervent prayer of a righteous man availeth much"
           ],
           "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "ptr-james-516-02",
@@ -737,7 +740,10 @@
             "Ends all unbelief forever"
           ],
           "answer": 0,
-          "explanation": "James 5:16 says the effectual fervent prayer of a righteous man availeth much."
+          "explanation": "James 5:16 says the effectual fervent prayer of a righteous man availeth much.",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "ptr-isaiah-586-01",
@@ -748,7 +754,10 @@
             "is not this the fast that i have chosen to loose the bands of wickedness to undo the heavy burdens and to let the oppressed go free and that ye break every yoke"
           ],
           "explanation": "Is not this the fast that I have chosen? to loose the bands of wickedness, to undo the heavy burdens, and to let the oppressed go free, and that ye break every yoke?",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "ptr-isaiah-586-02",
@@ -761,7 +770,10 @@
             "Choosing which gods your house will serve"
           ],
           "answer": 0,
-          "explanation": "God’s chosen fast includes loosing wickedness, undoing burdens, freeing the oppressed, and breaking every yoke."
+          "explanation": "God’s chosen fast includes loosing wickedness, undoing burdens, freeing the oppressed, and breaking every yoke.",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "ptr-joshua-2415-01",
@@ -772,7 +784,10 @@
             "choose you this day whom ye will serve but as for me and my house we will serve the lord"
           ],
           "explanation": "…but as for me and my house, we will serve the Lord.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "ptr-joshua-2415-02",
@@ -785,7 +800,10 @@
             "But as for me and my house, we will fast absolutely"
           ],
           "answer": 0,
-          "explanation": "Joshua declares: but as for me and my house, we will serve the Lord."
+          "explanation": "Joshua declares: but as for me and my house, we will serve the Lord.",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "ptr-prayer-voice-01",
@@ -1410,7 +1428,10 @@
             "i cor 15:51-55",
             "1cor 15:51-55"
           ],
-          "explanation": "1 Cor 15:51-55."
+          "explanation": "1 Cor 15:51-55.",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "ptr-return-scripture-02",
@@ -1423,7 +1444,10 @@
             "Joshua 24:15"
           ],
           "answer": 0,
-          "explanation": "1 Cor 15:51-55."
+          "explanation": "1 Cor 15:51-55.",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "ptr-prayer-blocks-recall-01",
@@ -1480,7 +1504,10 @@
             "confess your faults one to another and pray one for another that ye may be healed the effectual fervent prayer of a righteous man availeth much"
           ],
           "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "ptr-isaiah-586-recall-01",
@@ -1491,7 +1518,10 @@
             "is not this the fast that i have chosen to loose the bands of wickedness to undo the heavy burdens and to let the oppressed go free and that ye break every yoke"
           ],
           "explanation": "Is not this the fast that I have chosen? to loose the bands of wickedness, to undo the heavy burdens, and to let the oppressed go free, and that ye break every yoke?",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "ptr-joshua-2415-recall-01",
@@ -1503,7 +1533,10 @@
             "but as for me and my house we will serve the lord"
           ],
           "explanation": "…but as for me and my house, we will serve the Lord.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "ptr-james-516-letters-01",
@@ -1514,7 +1547,10 @@
             "confess your faults one to another and pray one for another that ye may be healed the effectual fervent prayer of a righteous man availeth much"
           ],
           "explanation": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         }
       ]
     },
@@ -1531,7 +1567,10 @@
             "it is of the lords mercies that we are not consumed because his compassions fail not they are new every morning great is thy faithfulness"
           ],
           "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "fl-lam-322-02",
@@ -1544,7 +1583,10 @@
             "Limited to fathers only"
           ],
           "answer": 0,
-          "explanation": "They are new every morning: great is thy faithfulness."
+          "explanation": "They are new every morning: great is thy faithfulness.",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "fl-joy-peace-01",
@@ -1825,7 +1867,10 @@
             "i will praise thee for i am fearfully and wonderfully made marvellous are thy works and that my soul knoweth right well"
           ],
           "explanation": "Psalm 139:14 — I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "fl-psalm-139-02",
@@ -1838,7 +1883,10 @@
             "Joshua 24:15 — as for me and my house…"
           ],
           "answer": 0,
-          "explanation": "Psalm 139:14."
+          "explanation": "Psalm 139:14.",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "fl-walls-01",
@@ -2004,7 +2052,10 @@
             "a soft answer turneth away wrath but grievous words stir up anger"
           ],
           "explanation": "A soft answer turneth away wrath: but grievous words stir up anger.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "fl-prov-151-02",
@@ -2017,7 +2068,10 @@
             "Silence forever"
           ],
           "answer": 0,
-          "explanation": "A soft answer turneth away wrath."
+          "explanation": "A soft answer turneth away wrath.",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "fl-forgiveness-01",
@@ -2136,7 +2190,10 @@
             "it is of the lords mercies that we are not consumed because his compassions fail not they are new every morning great is thy faithfulness"
           ],
           "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "fl-prov-151-recall-01",
@@ -2147,7 +2204,10 @@
             "a soft answer turneth away wrath but grievous words stir up anger"
           ],
           "explanation": "A soft answer turneth away wrath: but grievous words stir up anger.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "fl-psalm-139-recall-01",
@@ -2158,7 +2218,10 @@
             "i will praise thee for i am fearfully and wonderfully made marvellous are thy works and that my soul knoweth right well"
           ],
           "explanation": "I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         },
         {
           "id": "fl-lam-322-letters-01",
@@ -2169,7 +2232,10 @@
             "it is of the lords mercies that we are not consumed because his compassions fail not they are new every morning great is thy faithfulness"
           ],
           "explanation": "It is of the Lord's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "tags": [
+            "memory-verse"
+          ]
         }
       ]
     }

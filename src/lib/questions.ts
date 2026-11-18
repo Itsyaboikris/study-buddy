@@ -27,18 +27,10 @@ const STOPWORDS = new Set([
   "with",
 ]);
 
-const VERSE_ID_PATTERNS = [
-  /james-516/,
-  /isaiah-586/,
-  /joshua-2415/,
-  /lam-322/,
-  /prov-151/,
-  /psalm-139/,
-  /return-scripture/,
-];
+const MEMORY_VERSE_TAG = "memory-verse";
 
 function isVerseQuestion(question: Question): boolean {
-  return VERSE_ID_PATTERNS.some((pattern) => pattern.test(question.id));
+  return question.tags?.includes(MEMORY_VERSE_TAG) ?? false;
 }
 
 function buildMemoryVersesCourse(courses: Course[]): Course | null {
@@ -58,6 +50,7 @@ function buildMemoryVersesCourse(courses: Course[]): Course | null {
   return {
     id: "memory-verses",
     title: "Memory Verses",
+    shortTitle: "Verses",
     questions,
   };
 }
