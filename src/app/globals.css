@@ -430,9 +430,51 @@ textarea {
   flex: 0 0 auto;
 }
 
-.feedback p {
+.feedback p,
+.feedback-body {
   margin: 0;
   line-height: 1.45;
+}
+
+.verse-diff {
+  display: inline;
+}
+
+.verse-diff-miss {
+  background: color-mix(in srgb, var(--feedback-wrong-ink) 18%, transparent);
+  border-radius: 0.2em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  font-weight: 650;
+  padding: 0.05em 0.12em;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.12em;
+}
+
+.verse-diff-extra {
+  opacity: 0.85;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.verse-diff-sub,
+.verse-diff-slip {
+  white-space: nowrap;
+}
+
+.verse-diff-from {
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+}
+
+.verse-diff-arrow {
+  margin: 0 0.15em;
+  opacity: 0.75;
+}
+
+.verse-diff-to {
+  font-weight: 650;
 }
 
 .feedback.is-correct {

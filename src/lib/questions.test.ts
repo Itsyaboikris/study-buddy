@@ -8,6 +8,7 @@ import {
   getCourses,
   isVerseWriteQuestion,
   keywordsMatch,
+  matchOrderedAnswer,
   missedKeywordLabels,
 } from "@/lib/questions";
 import { spacePairedQuestions } from "@/lib/progress";
@@ -51,6 +52,130 @@ describe("answersMatch flexible mode", () => {
 
   it("rejects near-miss place names that only share a prefix", () => {
     expect(answersMatch("pergamum", ["perga"])).toBe(false);
+  });
+});
+
+describe("ordered verse matching", () => {
+  const james516 = questionsData.courses
+    .flatMap((course) => course.questions)
+    .find((question) => question.id === "ptr-james-516-01");
+  const joshuaFull = questionsData.courses
+    .flatMap((course) => course.questions)
+    .find((question) => question.id === "ptr-joshua-2415-full-01");
+  const cor51 = questionsData.courses
+    .flatMap((course) => course.questions)
+    .find((question) => question.id === "ptr-return-scripture-v51-01");
+  const corPassage = questionsData.courses
+    .flatMap((course) => course.questions)
+    .find((question) => question.id === "ptr-return-scripture-passage-01");
+
+  const jamesAnswers =
+    james516 && james516.type === "fill_blank" ? james516.answers : [];
+  const joshuaAnswers =
+    joshuaFull && joshuaFull.type === "fill_blank" ? joshuaFull.answers : [];
+  const cor51Answers =
+    cor51 && cor51.type === "fill_blank" ? cor51.answers : [];
+  const passageAnswers =
+    corPassage && corPassage.type === "fill_blank" ? corPassage.answers : [];
+
+  it("accepts an exact verse", () => {
+    expect(answersMatch(jamesAnswers[0]!, jamesAnswers, "ordered")).toBe(true);
+  });
+
+  it("ignores verse numbers and punctuation", () => {
+    expect(
+      answersMatch(
+        "51 Behold, I shew you a mystery; We shall not all sleep, but we shall all be changed,",
+        cor51Answers,
+        "ordered",
+      ),
+    ).toBe(true);
+    expect(
+      answersMatch(
+        "Psalm 139:14 I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well",
+        [
+          "i will praise thee; for i am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well",
+        ],
+        "ordered",
+      ),
+    ).toBe(true);
+  });
+
+  it("allows a one-letter slip on a long word (availith → availeth)", () => {
+    const withSlip = jamesAnswers[0]!.replace("availeth", "availith");
+    const result = matchOrderedAnswer(withSlip, jamesAnswers);
+    expect(result.correct).toBe(true);
+    expect(result.hadSlips).toBe(true);
+    expect(
+      result.ops.some(
+        (op) =>
+          op.kind === "match" &&
+          op.slip &&
+          op.actual === "availith" &&
+          op.expected === "availeth",
+      ),
+    ).toBe(true);
+  });
+
+  it("rejects short-word spelling changes (show ≠ shew, you ≠ ye, the ≠ thy)", () => {
+    expect(
+      answersMatch(
+        cor51Answers[0]!.replace("shew", "show"),
+        cor51Answers,
+        "ordered",
+      ),
+    ).toBe(false);
+    expect(
+      answersMatch(
+        "choose you this day whom you will serve",
+        ["choose you this day whom ye will serve"],
+        "ordered",
+      ),
+    ).toBe(false);
+    expect(
+      answersMatch(
+        "o death, where is the sting? o grave, where is thy victory?",
+        [
+          "o death, where is thy sting? o grave, where is thy victory?",
+        ],
+        "ordered",
+      ),
+    ).toBe(false);
+  });
+
+  it("fails when one word is missing", () => {
+    const words = jamesAnswers[0]!.split(/\s+/);
+    words.splice(3, 1);
+    expect(answersMatch(words.join(" "), jamesAnswers, "ordered")).toBe(false);
+  });
+
+  it("fails when one word is added", () => {
+    const withExtra = jamesAnswers[0]!.replace(
+      "confess your faults",
+      "confess your many faults",
+    );
+    expect(answersMatch(withExtra, jamesAnswers, "ordered")).toBe(false);
+  });
+
+  it("fails the 1 Cor 15:51-55 passage when any one verse is missing", () => {
+    const full = passageAnswers[0]!;
+    const without52 = full.replace(
+      /in a moment, in the twinkling of an eye, at the last trump: for the trumpet shall sound, and the dead shall be raised incorruptible, and we shall be changed\.\s*/i,
+      "",
+    );
+    expect(without52).not.toBe(full);
+    expect(answersMatch(without52, passageAnswers, "ordered")).toBe(false);
+  });
+
+  it("rejects the shortened Joshua 24:15 form", () => {
+    expect(
+      answersMatch(
+        "choose you this day whom ye will serve but as for me and my house we will serve the lord",
+        joshuaAnswers,
+        "ordered",
+      ),
+    ).toBe(false);
+    expect(joshuaAnswers).toHaveLength(1);
   });
 });
 

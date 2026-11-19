@@ -12,10 +12,11 @@ const data = questionsData as QuestionsData;
 
 const FLEXIBLE_THRESHOLD = 90;
 const FLEXIBLE_PARAPHRASE_THRESHOLD = 75;
-const ORDERED_THRESHOLD = 88;
 const KEYWORD_THRESHOLD = 78;
 /** Flexible answers must cover at least this share of the target's content words. */
 const FLEXIBLE_COVERAGE = 0.75;
+/** Typing-slip tolerance applies only to words at least this long. */
+const ORDERED_SLIP_MIN_LEN = 5;
 
 const STOPWORDS = new Set([
   "a",
@@ -179,10 +180,206 @@ function keywordAlternativeMatches(
   );
 }
 
+/** Word-level diff ops for ordered (verse) grading feedback. */
+export type VerseDiffOp =
+  | { kind: "match"; expected: string; actual: string; slip: boolean }
+  | { kind: "missing"; expected: string }
+  | { kind: "extra"; actual: string }
+  | { kind: "substitute"; expected: string; actual: string };
+
+export type OrderedMatchResult = {
+  correct: boolean;
+  /** True when the answer passed only with 1-letter slips on long words. */
+  hadSlips: boolean;
+  /** Alignment against the best-matching accepted answer. */
+  ops: VerseDiffOp[];
+  /** Accepted answer text used for the alignment (display form). */
+  acceptedAnswer: string;
+};
+
+const LEADING_VERSE_REF =
+  /^(?:(?:[123]|i{1,3})\s+)?(?:psalms?|proverbs?|james|isaiah|joshua|lamentations?|corinthians?|cor)\s+\d+\s*:\s*\d+(?:\s*-\s*\d+)?\s+/i;
+
+/** Lowercase, strip punctuation/refs/verse numbers, return ordered words. */
+export function tokenizeVerse(text: string): string[] {
+  let value = text
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+
+  value = value.replace(LEADING_VERSE_REF, "");
+  value = value.replace(/[^a-z0-9\s]+/g, " ").replace(/\s+/g, " ").trim();
+
+  return value.split(" ").filter((word) => word.length > 0 && !/^\d+$/.test(word));
+}
+
+function letterEditDistance(a: string, b: string): number {
+  if (a === b) return 0;
+  if (Math.abs(a.length - b.length) > 1) return 2;
+
+  const rows = a.length + 1;
+  const cols = b.length + 1;
+  const prev = new Array<number>(cols);
+  const curr = new Array<number>(cols);
+  for (let j = 0; j < cols; j += 1) prev[j] = j;
+
+  for (let i = 1; i < rows; i += 1) {
+    curr[0] = i;
+    for (let j = 1; j < cols; j += 1) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      curr[j] = Math.min(prev[j]! + 1, curr[j - 1]! + 1, prev[j - 1]! + cost);
+    }
+    for (let j = 0; j < cols; j += 1) prev[j] = curr[j]!;
+  }
+
+  return prev[b.length]!;
+}
+
+function orderedWordsEqual(
+  expected: string,
+  actual: string,
+): "exact" | "slip" | false {
+  if (expected === actual) return "exact";
+  if (
+    expected.length >= ORDERED_SLIP_MIN_LEN &&
+    actual.length >= ORDERED_SLIP_MIN_LEN &&
+    letterEditDistance(expected, actual) <= 1
+  ) {
+    return "slip";
+  }
+  return false;
+}
+
+/** Align user words to expected words (word-level edit script). */
+export function alignVerseWords(
+  expected: string[],
+  actual: string[],
+): VerseDiffOp[] {
+  const m = expected.length;
+  const n = actual.length;
+  const dist: number[][] = Array.from({ length: m + 1 }, () =>
+    Array.from({ length: n + 1 }, () => 0),
+  );
+
+  for (let i = 0; i <= m; i += 1) dist[i]![0] = i;
+  for (let j = 0; j <= n; j += 1) dist[0]![j] = j;
+
+  for (let i = 1; i <= m; i += 1) {
+    for (let j = 1; j <= n; j += 1) {
+      const match = orderedWordsEqual(expected[i - 1]!, actual[j - 1]!);
+      const subCost = match ? 0 : 1;
+      dist[i]![j] = Math.min(
+        dist[i - 1]![j]! + 1,
+        dist[i]![j - 1]! + 1,
+        dist[i - 1]![j - 1]! + subCost,
+      );
+    }
+  }
+
+  const ops: VerseDiffOp[] = [];
+  let i = m;
+  let j = n;
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0) {
+      const match = orderedWordsEqual(expected[i - 1]!, actual[j - 1]!);
+      const subCost = match ? 0 : 1;
+      if (dist[i]![j] === dist[i - 1]![j - 1]! + subCost) {
+        if (match) {
+          ops.push({
+            kind: "match",
+            expected: expected[i - 1]!,
+            actual: actual[j - 1]!,
+            slip: match === "slip",
+          });
+        } else {
+          ops.push({
+            kind: "substitute",
+            expected: expected[i - 1]!,
+            actual: actual[j - 1]!,
+          });
+        }
+        i -= 1;
+        j -= 1;
+        continue;
+      }
+    }
+    if (i > 0 && dist[i]![j] === dist[i - 1]![j]! + 1) {
+      ops.push({ kind: "missing", expected: expected[i - 1]! });
+      i -= 1;
+      continue;
+    }
+    ops.push({ kind: "extra", actual: actual[j - 1]! });
+    j -= 1;
+  }
+
+  ops.reverse();
+  return ops;
+}
+
+function orderedCost(ops: VerseDiffOp[]): number {
+  return ops.reduce((sum, op) => {
+    if (op.kind === "match") return sum;
+    return sum + 1;
+  }, 0);
+}
+
+function orderedHadSlips(ops: VerseDiffOp[]): boolean {
+  return ops.some((op) => op.kind === "match" && op.slip);
+}
+
 /**
- * Grade typed answers with fuzzball.
- * - flexible (default): order-independent token_set_ratio for lists
- * - ordered: ratio scoring so verse/step sequence still matters, typos OK
+ * Strict ordered (verse) match: every word must align with zero missing,
+ * extra, or substituted words. Long words may differ by one letter (slip).
+ */
+export function matchOrderedAnswer(
+  userAnswer: string,
+  accepted: string[],
+): OrderedMatchResult {
+  const actual = tokenizeVerse(userAnswer);
+  const options = accepted.filter((option) => tokenizeVerse(option).length > 0);
+
+  if (actual.length === 0 || options.length === 0) {
+    const fallback = accepted[0] ?? "";
+    return {
+      correct: false,
+      hadSlips: false,
+      ops: actual.map((word) => ({ kind: "extra" as const, actual: word })),
+      acceptedAnswer: fallback,
+    };
+  }
+
+  let best: OrderedMatchResult | null = null;
+
+  for (const option of options) {
+    const expected = tokenizeVerse(option);
+    const ops = alignVerseWords(expected, actual);
+    const cost = orderedCost(ops);
+    const candidate: OrderedMatchResult = {
+      correct: cost === 0,
+      hadSlips: cost === 0 && orderedHadSlips(ops),
+      ops,
+      acceptedAnswer: option,
+    };
+
+    if (
+      !best ||
+      cost < orderedCost(best.ops) ||
+      (cost === orderedCost(best.ops) && candidate.correct && !best.correct)
+    ) {
+      best = candidate;
+    }
+
+    if (candidate.correct) return candidate;
+  }
+
+  return best!;
+}
+
+/**
+ * Grade typed answers with fuzzball (flexible) or strict word alignment (ordered).
+ * - flexible (default): order-independent coverage for lists
+ * - ordered: word-level verse/sequence match; no missing/extra/substituted words
  * - paraphrase: looser flexible threshold for short-answer meaning matches
  */
 export function answersMatch(
@@ -191,6 +388,10 @@ export function answersMatch(
   matchMode: MatchMode = "flexible",
   options?: { paraphrase?: boolean },
 ): boolean {
+  if (matchMode === "ordered") {
+    return matchOrderedAnswer(userAnswer, accepted).correct;
+  }
+
   const normalized = normalizeAnswer(userAnswer);
   if (!normalized) return false;
 
@@ -202,11 +403,6 @@ export function answersMatch(
     const target = normalizeAnswer(option);
     if (!target) return false;
     if (normalized === target) return true;
-
-    if (matchMode === "ordered") {
-      return fuzz.ratio(normalized, target) >= ORDERED_THRESHOLD;
-    }
-
     return flexibleCoversTarget(normalized, target, flexibleThreshold);
   });
 }

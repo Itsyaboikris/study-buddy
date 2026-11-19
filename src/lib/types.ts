@@ -4,7 +4,7 @@ export type QuestionType =
   | "fill_blank"
   | "short_answer";
 
-/** flexible = any order (lists); ordered = sequence/verse wording matters */
+/** flexible = any order (lists); ordered = strict word-by-word verse/sequence */
 export type MatchMode = "flexible" | "ordered";
 
 export type BaseQuestion = {

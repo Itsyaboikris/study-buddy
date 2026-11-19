@@ -13,10 +13,12 @@ import {
   VERSE_WRITE_TAG,
   answersMatch,
   keywordsMatch,
+  matchOrderedAnswer,
   missedKeywordLabels,
   pairsMatch,
   shuffleChoices,
   type ShuffledChoice,
+  type VerseDiffOp,
 } from "@/lib/questions";
 import {
   buildWeightedDeck,
@@ -37,8 +39,89 @@ type StudyBuddyProps = {
 
 type Feedback = {
   correct: boolean;
-  message: string;
+  message: ReactNode;
 };
+
+function VerseDiffView({ ops }: { ops: VerseDiffOp[] }) {
+  return (
+    <span className="verse-diff">
+      {ops.map((op, index) => {
+        const gap = index > 0 ? " " : "";
+        if (op.kind === "match" && !op.slip) {
+          return (
+            <span key={index}>
+              {gap}
+              {op.expected}
+            </span>
+          );
+        }
+        if (op.kind === "match" && op.slip) {
+          return (
+            <span key={index} className="verse-diff-slip">
+              {gap}
+              <span className="verse-diff-from">{op.actual}</span>
+              <span className="verse-diff-arrow" aria-hidden="true">
+                →
+              </span>
+              <span className="verse-diff-to">{op.expected}</span>
+            </span>
+          );
+        }
+        if (op.kind === "missing") {
+          return (
+            <span key={index} className="verse-diff-miss">
+              {gap}
+              {op.expected}
+            </span>
+          );
+        }
+        if (op.kind === "extra") {
+          return (
+            <span key={index} className="verse-diff-extra">
+              {gap}
+              {op.actual}
+            </span>
+          );
+        }
+        return (
+          <span key={index} className="verse-diff-sub">
+            {gap}
+            <span className="verse-diff-from">{op.actual}</span>
+            <span className="verse-diff-arrow" aria-hidden="true">
+              →
+            </span>
+            <span className="verse-diff-to">{op.expected}</span>
+          </span>
+        );
+      })}
+    </span>
+  );
+}
+
+function orderedVerseFeedback(
+  correct: boolean,
+  hadSlips: boolean,
+  ops: VerseDiffOp[],
+  explanation: string,
+): ReactNode {
+  if (correct && !hadSlips) {
+    return `Correct! ${explanation}`;
+  }
+
+  if (correct && hadSlips) {
+    return (
+      <>
+        Correct — check spellings: <VerseDiffView ops={ops} /> {explanation}
+      </>
+    );
+  }
+
+  return (
+    <>
+      Not quite — compare: <VerseDiffView ops={ops} /> {explanation}
+    </>
+  );
+}
 
 export function StudyBuddy({ courses }: StudyBuddyProps) {
   const [activeCourseId, setActiveCourseId] = useState(courses[0]?.id ?? "");
@@ -225,7 +308,7 @@ function CourseSession({
     }
   }
 
-  function finishAnswer(correct: boolean, message: string) {
+  function finishAnswer(correct: boolean, message: ReactNode) {
     setPeek(null);
     setFeedback({ correct, message });
     setAnswered(true);
@@ -302,11 +385,22 @@ function CourseSession({
     if (!question || answered) return;
 
     if (question.type === "fill_blank") {
-      const correct = answersMatch(
-        textAnswer,
-        question.answers,
-        question.matchMode ?? "flexible",
-      );
+      const matchMode = question.matchMode ?? "flexible";
+      if (matchMode === "ordered") {
+        const result = matchOrderedAnswer(textAnswer, question.answers);
+        finishAnswer(
+          result.correct,
+          orderedVerseFeedback(
+            result.correct,
+            result.hadSlips,
+            result.ops,
+            question.explanation,
+          ),
+        );
+        return;
+      }
+
+      const correct = answersMatch(textAnswer, question.answers, matchMode);
       finishAnswer(
         correct,
         correct
@@ -338,16 +432,27 @@ function CourseSession({
         return;
       }
 
-      const keywordOk =
-        matchMode === "ordered"
-          ? false
-          : question.keywords
-            ? keywordsMatch(textAnswer, question.keywords)
-            : false;
+      if (matchMode === "ordered") {
+        const result = matchOrderedAnswer(textAnswer, [question.modelAnswer]);
+        finishAnswer(
+          result.correct,
+          orderedVerseFeedback(
+            result.correct,
+            result.hadSlips,
+            result.ops,
+            question.explanation,
+          ),
+        );
+        return;
+      }
+
+      const keywordOk = question.keywords
+        ? keywordsMatch(textAnswer, question.keywords)
+        : false;
       const correct =
         keywordOk ||
         answersMatch(textAnswer, [question.modelAnswer], matchMode, {
-          paraphrase: matchMode === "flexible",
+          paraphrase: true,
         });
       finishAnswer(correct, shortAnswerFeedback(question, correct));
     }
@@ -762,7 +867,7 @@ function CourseSession({
                 </span>
                 {feedback.correct ? "Correct" : "Keep going"}
               </strong>
-              <p>{feedback.message}</p>
+              <div className="feedback-body">{feedback.message}</div>
             </div>
           )}
 
