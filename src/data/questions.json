@@ -1961,6 +1961,30 @@
           "explanation": "Abraham teaches waiting patiently for God’s promise."
         },
         {
+          "id": "fl-jacob-01",
+          "type": "fill_blank",
+          "prompt": "What can we learn from Jacob as a father?",
+          "answers": [
+            "portrays the bitter harvest of deceit and favoritism that lost him many years with his beloved son joseph",
+            "the bitter harvest of deceit and favoritism that lost him many years with his beloved son joseph",
+            "bitter harvest of deceit and favoritism lost him many years with joseph"
+          ],
+          "explanation": "Portrays the bitter harvest of deceit and favoritism that lost him many years with his beloved son Joseph."
+        },
+        {
+          "id": "fl-jacob-02",
+          "type": "multiple_choice",
+          "prompt": "Jacob’s story as a father portrays:",
+          "choices": [
+            "The bitter harvest of deceit and favoritism that cost him many years with Joseph",
+            "Waiting patiently for God’s promise without acting",
+            "Training the next generation to know and love God",
+            "The effects of failing to discipline our children"
+          ],
+          "answer": 0,
+          "explanation": "Deceit and favoritism cost Jacob many years with his beloved son Joseph."
+        },
+        {
           "id": "fl-joshua-01",
           "type": "fill_blank",
           "prompt": "What can we learn from Joshua as a father figure / leader?",
@@ -1982,6 +2006,30 @@
           ],
           "answer": 0,
           "explanation": "Train the next generation to know and love God."
+        },
+        {
+          "id": "fl-gideon-01",
+          "type": "fill_blank",
+          "prompt": "What can we learn from Gideon regarding fatherhood and the family?",
+          "answers": [
+            "the brutal murder of gideon's sons by their half brother shows the terrible effects of polygamy and lack of right leadership in the family",
+            "the brutal murder of gideon sons by their half brother shows the terrible effects of polygamy and lack of right leadership in the family",
+            "gideon's sons murdered by their half brother shows terrible effects of polygamy and lack of right leadership in the family"
+          ],
+          "explanation": "The brutal murder of Gideon’s sons by their half brother shows the terrible effects of polygamy and lack of right leadership in the family."
+        },
+        {
+          "id": "fl-gideon-02",
+          "type": "multiple_choice",
+          "prompt": "Gideon’s family tragedy warns us about:",
+          "choices": [
+            "Polygamy and lack of right leadership in the family",
+            "Waiting patiently for God’s promise",
+            "The bitter harvest of deceit and favoritism with Joseph",
+            "Training only the oldest son in Scripture"
+          ],
+          "answer": 0,
+          "explanation": "The murder of Gideon’s sons by their half brother illustrates polygamy and failed family leadership."
         },
         {
           "id": "fl-samuel-01",
@@ -2006,6 +2054,35 @@
           ],
           "answer": 0,
           "explanation": "Samuel shows the effects of failing to discipline our children."
+        },
+        {
+          "id": "fl-fathers-lessons-recall-01",
+          "type": "short_answer",
+          "prompt": "What can we learn from each of these fathers? (Abraham, Jacob, Joshua, Gideon, Samuel)",
+          "modelAnswer": "Abraham: We should wait patiently for God’s promise. Jacob: Portrays the bitter harvest of deceit and favoritism that lost him many years with his beloved son Joseph. Joshua: Train the next generation to know and love God. Gideon: The brutal murder of Gideon’s sons by their half brother shows the terrible effects of polygamy and lack of right leadership in the family. Samuel: The effects of failing to discipline our children.",
+          "pairs": [
+            {
+              "term": "abraham",
+              "meaning": "patient|promise|wait"
+            },
+            {
+              "term": "jacob",
+              "meaning": "deceit|favoritism|joseph|bitter"
+            },
+            {
+              "term": "joshua",
+              "meaning": "train|next generation|know and love"
+            },
+            {
+              "term": "gideon",
+              "meaning": "polygamy|leadership|half brother|murder"
+            },
+            {
+              "term": "samuel",
+              "meaning": "discipline|failing to discipline"
+            }
+          ],
+          "explanation": "Abraham — wait patiently for God’s promise; Jacob — deceit and favoritism cost him years with Joseph; Joshua — train the next generation to know and love God; Gideon — polygamy and poor leadership; Samuel — failing to discipline our children."
         },
         {
           "id": "fl-habits-01",
