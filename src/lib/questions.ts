@@ -76,16 +76,28 @@ function buildMemoryVersesCourse(courses: Course[]): Course | null {
   if (questions.length === 0) return null;
 
   return {
-    id: "memory-verses",
+    id: MEMORY_VERSES_COURSE_ID,
     title: "Memory Verses",
     shortTitle: "Verses",
     questions,
   };
 }
 
+function withoutVerseOnly(course: Course): Course {
+  return {
+    ...course,
+    questions: course.questions.filter((question) => !question.verseOnly),
+  };
+}
+
 export function getCourses(): Course[] {
-  const courses = data.courses.filter((course) => course.questions.length > 0);
-  const verses = buildMemoryVersesCourse(courses);
+  const source = data.courses.filter((course) => course.questions.length > 0);
+  // Build Verses from the full source (including verseOnly), then strip those
+  // from home courses so writing drills don't also appear in Path/Family/etc.
+  const verses = buildMemoryVersesCourse(source);
+  const courses = source
+    .map(withoutVerseOnly)
+    .filter((course) => course.questions.length > 0);
   return verses ? [...courses, verses] : courses;
 }
 

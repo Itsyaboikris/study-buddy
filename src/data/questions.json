@@ -734,7 +734,8 @@
           "matchMode": "ordered",
           "tags": [
             "memory-verse"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-james-516-02",
@@ -761,7 +762,8 @@
           "matchMode": "ordered",
           "tags": [
             "memory-verse"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-isaiah-586-02",
@@ -788,7 +790,8 @@
           "matchMode": "ordered",
           "tags": [
             "memory-verse"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-joshua-2415-02",
@@ -834,7 +837,8 @@
             "our praise",
             "praise"
           ],
-          "explanation": "Our praise."
+          "explanation": "Our praise.",
+          "pairId": "ptr-god-desire"
         },
         {
           "id": "ptr-god-desire-02",
@@ -847,7 +851,8 @@
             "Only absolute fasting"
           ],
           "answer": 0,
-          "explanation": "God desires our praise."
+          "explanation": "God desires our praise.",
+          "pairId": "ptr-god-desire"
         },
         {
           "id": "ptr-god-inhabit-01",
@@ -858,7 +863,8 @@
             "praise of his people",
             "the praises of his people"
           ],
-          "explanation": "The praise of his people."
+          "explanation": "The praise of his people.",
+          "pairId": "ptr-god-inhabit"
         },
         {
           "id": "ptr-god-inhabit-02",
@@ -871,7 +877,8 @@
             "Unconfessed sin"
           ],
           "answer": 0,
-          "explanation": "God inhabits the praise of his people."
+          "explanation": "God inhabits the praise of his people.",
+          "pairId": "ptr-god-inhabit"
         },
         {
           "id": "ptr-intercession-01",
@@ -882,7 +889,8 @@
             "talking to god for someone elses needs",
             "talking to god for someone else’s needs"
           ],
-          "explanation": "Talking to God for someone else’s needs."
+          "explanation": "Talking to God for someone else’s needs.",
+          "pairId": "ptr-intercession"
         },
         {
           "id": "ptr-intercession-02",
@@ -895,7 +903,8 @@
             "Abstaining from food and water"
           ],
           "answer": 0,
-          "explanation": "Intercession is talking to God for someone else’s needs."
+          "explanation": "Intercession is talking to God for someone else’s needs.",
+          "pairId": "ptr-intercession"
         },
         {
           "id": "ptr-prayer-blocks-01",
@@ -947,32 +956,6 @@
           "explanation": "Fasting is not listed among the eleven prayer blockers."
         },
         {
-          "id": "ptr-prayer-blocks-not-02",
-          "type": "multiple_choice",
-          "prompt": "Which item is a prayer blocker, not a spiritual discipline?",
-          "choices": [
-            "Carnal motives",
-            "Intercession",
-            "Worship",
-            "Soul winning"
-          ],
-          "answer": 0,
-          "explanation": "Carnal motives are one of the eleven things that block prayers."
-        },
-        {
-          "id": "ptr-prayer-blocks-pair-01",
-          "type": "multiple_choice",
-          "prompt": "Which pair are both prayer blockers?",
-          "choices": [
-            "Insincerity and unbelief",
-            "Praise and fasting",
-            "Soul winning and worship",
-            "Baptism and communion"
-          ],
-          "answer": 0,
-          "explanation": "Insincerity and unbelief are both on the list of prayer blockers."
-        },
-        {
           "id": "ptr-prayer-blocks-near-01",
           "type": "multiple_choice",
           "prompt": "A home filled with ongoing conflict may relate to which prayer blocker?",
@@ -1010,22 +993,6 @@
           ],
           "answer": 0,
           "explanation": "Refusing to forgive or be forgiven blocks prayer."
-        },
-        {
-          "id": "ptr-prayer-blocks-fill-01",
-          "type": "fill_blank",
-          "prompt": "Name three things that block prayers.",
-          "answers": [
-            "unconfessed sin, insincerity, unbelief",
-            "pride, unbelief, unconfessed sin",
-            "robbing god, pride, unbelief",
-            "insincerity, carnal motives, pride",
-            "domestic problems, pride, unconfessed sin",
-            "satanic activity, unbelief, pride",
-            "refusing to forgive, pride, unbelief",
-            "refusing to help the needy, pride, unconfessed sin"
-          ],
-          "explanation": "Any three from the eleven: unconfessed sin, insincerity, carnal motives, unbelief, satanic activity, domestic problems, pride, robbing God, refusing biblical teaching, refusing to forgive or be forgiven, refusing to help the needy."
         },
         {
           "id": "ptr-prayer-blocks-fill-02",
@@ -1091,46 +1058,6 @@
           "explanation": "True. Pride is on the list."
         },
         {
-          "id": "ptr-prayer-blocks-tf-02",
-          "type": "true_false",
-          "prompt": "Public worship is one of the eleven things that block prayers.",
-          "answer": false,
-          "explanation": "False. Public worship is not a prayer blocker."
-        },
-        {
-          "id": "ptr-prayer-blocks-odd-01",
-          "type": "multiple_choice",
-          "prompt": "Which list includes a fake prayer blocker mixed with real ones?",
-          "choices": [
-            "Unbelief, pride, speaking in tongues, robbing God",
-            "Unconfessed sin, insincerity, carnal motives, unbelief",
-            "Pride, domestic problems, satanic activity, robbing God",
-            "Refusing to forgive, refusing to help the needy, pride, unbelief"
-          ],
-          "answer": 0,
-          "explanation": "Speaking in tongues is not one of the eleven prayer blockers."
-        },
-        {
-          "id": "ptr-prayer-blocks-recall-02",
-          "type": "short_answer",
-          "prompt": "Without looking, write the 11 things that block prayers.",
-          "modelAnswer": "Unconfessed sin; Insincerity; Carnal motives; Unbelief; Satanic Activity; Domestic Problems; Pride; Robbing God; Refusing to submit to biblical teaching; Refusing to forgive or be forgiven; Refusing to help the needy",
-          "keywords": [
-            "unconfessed sin",
-            "insincerity",
-            "carnal motives",
-            "unbelief",
-            "satanic",
-            "domestic",
-            "pride",
-            "robbing god",
-            "biblical teaching",
-            "forgive",
-            "needy"
-          ],
-          "explanation": "Aim to recall all eleven prayer blockers from the course."
-        },
-        {
           "id": "ptr-fasting-types-01",
           "type": "multiple_choice",
           "prompt": "What are the three types of fasting?",
@@ -1175,7 +1102,8 @@
             "jesus",
             "jesus our saviour"
           ],
-          "explanation": "Jesus our Saviour."
+          "explanation": "Jesus our Saviour.",
+          "pairId": "ptr-purpose"
         },
         {
           "id": "ptr-purpose-02",
@@ -1188,7 +1116,8 @@
             "The Sanhedrin"
           ],
           "answer": 0,
-          "explanation": "Jesus our Saviour."
+          "explanation": "Jesus our Saviour.",
+          "pairId": "ptr-purpose"
         },
         {
           "id": "ptr-ministry-01",
@@ -1198,7 +1127,8 @@
             "reaching the lost",
             "the lost"
           ],
-          "explanation": "Reaching the lost."
+          "explanation": "Reaching the lost.",
+          "pairId": "ptr-ministry"
         },
         {
           "id": "ptr-ministry-02",
@@ -1211,7 +1141,8 @@
             "Judging Rome"
           ],
           "answer": 0,
-          "explanation": "Reaching the lost."
+          "explanation": "Reaching the lost.",
+          "pairId": "ptr-ministry"
         },
         {
           "id": "ptr-disciples-wait-01",
@@ -1222,7 +1153,8 @@
             "imbued with power from on high",
             "power from on high"
           ],
-          "explanation": "To be imbued with power from on high."
+          "explanation": "To be imbued with power from on high.",
+          "pairId": "ptr-disciples-wait"
         },
         {
           "id": "ptr-disciples-wait-02",
@@ -1235,7 +1167,8 @@
             "To rebuild the temple walls"
           ],
           "answer": 0,
-          "explanation": "They were waiting to be imbued with power from on high."
+          "explanation": "They were waiting to be imbued with power from on high.",
+          "pairId": "ptr-disciples-wait"
         },
         {
           "id": "ptr-jesus-plan-01",
@@ -1299,7 +1232,8 @@
             "recognizing gods supreme worth",
             "recognizing god’s supreme worth"
           ],
-          "explanation": "Recognizing God’s supreme worth."
+          "explanation": "Recognizing God’s supreme worth.",
+          "pairId": "ptr-worship-mean"
         },
         {
           "id": "ptr-worship-mean-02",
@@ -1312,7 +1246,8 @@
             "Abstaining from food"
           ],
           "answer": 0,
-          "explanation": "Worship means recognizing God’s supreme worth."
+          "explanation": "Worship means recognizing God’s supreme worth.",
+          "pairId": "ptr-worship-mean"
         },
         {
           "id": "ptr-worship-foremost-01",
@@ -1353,7 +1288,8 @@
             "Towards Rome, Greece, and Judea"
           ],
           "answer": 0,
-          "explanation": "Towards others, ourselves, and our circumstances."
+          "explanation": "Towards others, ourselves, and our circumstances.",
+          "pairId": "ptr-attitude-areas"
         },
         {
           "id": "ptr-attitude-areas-02",
@@ -1377,7 +1313,8 @@
             "love for god and his word",
             "a love for god and his word"
           ],
-          "explanation": "A love for God and His Word."
+          "explanation": "A love for God and His Word.",
+          "pairId": "ptr-marriage-first"
         },
         {
           "id": "ptr-marriage-first-02",
@@ -1390,7 +1327,8 @@
             "Equal praise from others"
           ],
           "answer": 0,
-          "explanation": "A love for God and His Word should come first."
+          "explanation": "A love for God and His Word should come first.",
+          "pairId": "ptr-marriage-first"
         },
         {
           "id": "ptr-endure-01",
@@ -1442,26 +1380,6 @@
           "explanation": "1 Cor 15:51-55."
         },
         {
-          "id": "ptr-prayer-blocks-recall-01",
-          "type": "short_answer",
-          "prompt": "List as many of the 11 things that block prayers as you can remember.",
-          "modelAnswer": "Unconfessed sin; Insincerity; Carnal motives; Unbelief; Satanic Activity; Domestic Problems; Pride; Robbing God; Refusing to submit to biblical teaching; Refusing to forgive or be forgiven; Refusing to help the needy",
-          "keywords": [
-            "unconfessed sin",
-            "insincerity",
-            "carnal motives",
-            "unbelief",
-            "satanic",
-            "domestic",
-            "pride",
-            "robbing god",
-            "biblical teaching",
-            "forgive",
-            "needy"
-          ],
-          "explanation": "The eleven prayer blockers are unconfessed sin, insincerity, carnal motives, unbelief, satanic activity, domestic problems, pride, robbing God, refusing biblical teaching, refusing to forgive or be forgiven, and refusing to help the needy."
-        },
-        {
           "id": "ptr-fasting-types-recall-01",
           "type": "short_answer",
           "prompt": "Name the three types of fasting and briefly define each.",
@@ -1492,7 +1410,8 @@
             "towards others ourselves and our circumstances",
             "others ourselves circumstances"
           ],
-          "explanation": "Towards others, ourselves, and our circumstances."
+          "explanation": "Towards others, ourselves, and our circumstances.",
+          "pairId": "ptr-attitude-areas"
         },
         {
           "id": "ptr-james-516-recall-01",
@@ -1537,7 +1456,8 @@
           "matchMode": "ordered",
           "tags": [
             "memory-verse"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-joshua-2415-full-01",
@@ -1566,7 +1486,8 @@
           "matchMode": "ordered",
           "tags": [
             "memory-verse"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-return-scripture-v51-01",
@@ -1581,7 +1502,8 @@
           "tags": [
             "memory-verse",
             "verse-write"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-return-scripture-v51-letters-01",
@@ -1595,7 +1517,8 @@
           "matchMode": "ordered",
           "tags": [
             "memory-verse"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-return-scripture-v52-01",
@@ -1610,7 +1533,8 @@
           "tags": [
             "memory-verse",
             "verse-write"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-return-scripture-v52-letters-01",
@@ -1624,7 +1548,8 @@
           "matchMode": "ordered",
           "tags": [
             "memory-verse"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-return-scripture-v53-01",
@@ -1639,7 +1564,8 @@
           "tags": [
             "memory-verse",
             "verse-write"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-return-scripture-v53-letters-01",
@@ -1653,7 +1579,8 @@
           "matchMode": "ordered",
           "tags": [
             "memory-verse"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-return-scripture-v54-01",
@@ -1668,7 +1595,8 @@
           "tags": [
             "memory-verse",
             "verse-write"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-return-scripture-v54-letters-01",
@@ -1682,7 +1610,8 @@
           "matchMode": "ordered",
           "tags": [
             "memory-verse"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-return-scripture-v55-01",
@@ -1697,7 +1626,8 @@
           "tags": [
             "memory-verse",
             "verse-write"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-return-scripture-v55-letters-01",
@@ -1711,7 +1641,8 @@
           "matchMode": "ordered",
           "tags": [
             "memory-verse"
-          ]
+          ],
+          "verseOnly": true
         },
         {
           "id": "ptr-return-scripture-passage-01",
@@ -1751,46 +1682,6 @@
           "matchMode": "flexible"
         },
         {
-          "id": "ptr-return-scripture-blank-trump-01",
-          "type": "fill_blank",
-          "prompt": "at the last ____",
-          "answers": [
-            "trump"
-          ],
-          "explanation": "“…at the last trump…” (1 Cor 15:52).",
-          "matchMode": "flexible"
-        },
-        {
-          "id": "ptr-return-scripture-blank-incorruptible-01",
-          "type": "fill_blank",
-          "prompt": "the dead shall be raised ____",
-          "answers": [
-            "incorruptible"
-          ],
-          "explanation": "“…and the dead shall be raised incorruptible…” (1 Cor 15:52).",
-          "matchMode": "flexible"
-        },
-        {
-          "id": "ptr-return-scripture-blank-immortality-01",
-          "type": "fill_blank",
-          "prompt": "this mortal must put on ____",
-          "answers": [
-            "immortality"
-          ],
-          "explanation": "“…and this mortal must put on immortality.” (1 Cor 15:53).",
-          "matchMode": "flexible"
-        },
-        {
-          "id": "ptr-return-scripture-blank-victory-01",
-          "type": "fill_blank",
-          "prompt": "Death is swallowed up in ____.",
-          "answers": [
-            "victory"
-          ],
-          "explanation": "“…Death is swallowed up in victory.” (1 Cor 15:54).",
-          "matchMode": "flexible"
-        },
-        {
           "id": "ptr-return-scripture-blank-sting-01",
           "type": "fill_blank",
           "prompt": "O death, where is thy ____?",
@@ -1814,19 +1705,6 @@
           "explanation": "“…for the trumpet shall sound, and the dead shall be raised incorruptible…” (1 Cor 15:52)."
         },
         {
-          "id": "ptr-return-scripture-next-02",
-          "type": "multiple_choice",
-          "prompt": "After “We shall not all sleep,” what comes next in 1 Cor 15:51?",
-          "choices": [
-            "but we shall all be changed",
-            "but the dead shall be raised",
-            "but this mortal puts on life",
-            "but death loses every sting"
-          ],
-          "answer": 0,
-          "explanation": "“…We shall not all sleep, but we shall all be changed” (1 Cor 15:51)."
-        },
-        {
           "id": "ptr-return-scripture-next-03",
           "type": "multiple_choice",
           "prompt": "After “O death, where is thy sting?” what comes next in 1 Cor 15:55?",
@@ -1838,19 +1716,6 @@
           ],
           "answer": 0,
           "explanation": "“O death, where is thy sting? O grave, where is thy victory?” (1 Cor 15:55)."
-        },
-        {
-          "id": "ptr-return-scripture-next-04",
-          "type": "multiple_choice",
-          "prompt": "After “For this corruptible must put on incorruption,” what follows in 1 Cor 15:53?",
-          "choices": [
-            "and this mortal must put on immortality",
-            "and the dead shall be raised incorruptible",
-            "and we shall all be changed at once",
-            "and death is swallowed up in victory"
-          ],
-          "answer": 0,
-          "explanation": "“…this corruptible must put on incorruption, and this mortal must put on immortality.” (1 Cor 15:53)."
         },
         {
           "id": "ptr-return-scripture-meaning-01",
@@ -1866,19 +1731,6 @@
           "explanation": "“…In a moment, in the twinkling of an eye…” (1 Cor 15:52)."
         },
         {
-          "id": "ptr-return-scripture-meaning-02",
-          "type": "multiple_choice",
-          "prompt": "What happens to the dead at the last trump in 1 Cor 15:52?",
-          "choices": [
-            "They shall be raised incorruptible",
-            "They shall sleep until judgment day",
-            "They shall remain in the grave forever",
-            "They shall rise already fully mortal"
-          ],
-          "answer": 0,
-          "explanation": "“…and the dead shall be raised incorruptible…” (1 Cor 15:52)."
-        },
-        {
           "id": "ptr-return-scripture-meaning-03",
           "type": "multiple_choice",
           "prompt": "What must this corruptible put on, according to 1 Cor 15:53?",
@@ -1892,38 +1744,11 @@
           "explanation": "“For this corruptible must put on incorruption…” (1 Cor 15:53)."
         },
         {
-          "id": "ptr-return-scripture-meaning-04",
-          "type": "multiple_choice",
-          "prompt": "What must this mortal put on in 1 Cor 15:53?",
-          "choices": [
-            "Immortality",
-            "Corruption again",
-            "A second death",
-            "Earthly weakness"
-          ],
-          "answer": 0,
-          "explanation": "“…and this mortal must put on immortality.” (1 Cor 15:53)."
-        },
-        {
-          "id": "ptr-return-scripture-tf-01",
-          "type": "true_false",
-          "prompt": "1 Cor 15:52 says the dead shall be raised incorruptible.",
-          "answer": true,
-          "explanation": "True — “…and the dead shall be raised incorruptible…” (1 Cor 15:52)."
-        },
-        {
           "id": "ptr-return-scripture-tf-02",
           "type": "true_false",
           "prompt": "1 Cor 15:51 says we shall all sleep.",
           "answer": false,
           "explanation": "False — it says “We shall not all sleep, but we shall all be changed” (1 Cor 15:51)."
-        },
-        {
-          "id": "ptr-return-scripture-tf-03",
-          "type": "true_false",
-          "prompt": "1 Cor 15:54 says Death is swallowed up in victory.",
-          "answer": true,
-          "explanation": "True — “…Death is swallowed up in victory.” (1 Cor 15:54)."
         }
       ],
       "shortTitle": "Path"

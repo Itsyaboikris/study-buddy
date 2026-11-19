@@ -1,6 +1,8 @@
 import { shuffle } from "@/lib/questions";
 import type { Question } from "@/lib/types";
 
+const PAIR_MIN_GAP = 10;
+
 export type QuestionRecord = {
   timesSeen: number;
   timesMissed: number;
@@ -77,6 +79,57 @@ export type DeckWeightOptions = {
   tagWeightMultipliers?: Record<string, number>;
 };
 
+/**
+ * Keep questions that share a pairId at least `minGap` apart (or as far as the
+ * deck allows when it is shorter than minGap + 1).
+ */
+export function spacePairedQuestions(
+  questions: Question[],
+  minGap: number = PAIR_MIN_GAP,
+): Question[] {
+  if (questions.length < 2) return [...questions];
+
+  const deck = [...questions];
+  const effectiveGap = Math.min(minGap, Math.max(1, deck.length - 1));
+  let changed = true;
+  let guard = 0;
+
+  while (changed && guard < 100) {
+    guard += 1;
+    changed = false;
+
+    const positions = new Map<string, number[]>();
+    for (let i = 0; i < deck.length; i += 1) {
+      const pairId = deck[i]?.pairId;
+      if (!pairId) continue;
+      const list = positions.get(pairId) ?? [];
+      list.push(i);
+      positions.set(pairId, list);
+    }
+
+    for (const indexes of positions.values()) {
+      if (indexes.length < 2) continue;
+      indexes.sort((a, b) => a - b);
+
+      for (let k = 1; k < indexes.length; k += 1) {
+        const prev = indexes[k - 1]!;
+        const curr = indexes[k]!;
+        if (curr - prev >= effectiveGap) continue;
+
+        const [item] = deck.splice(curr, 1);
+        if (!item) continue;
+        const target = Math.min(prev + effectiveGap, deck.length);
+        deck.splice(target, 0, item);
+        changed = true;
+        break;
+      }
+      if (changed) break;
+    }
+  }
+
+  return deck;
+}
+
 /** Prefer questions missed more often when starting a new pass. */
 export function buildWeightedDeck(
   questions: Question[],
@@ -100,7 +153,7 @@ export function buildWeightedDeck(
   });
 
   scored.sort((a, b) => b.sortKey - a.sortKey);
-  return scored.map((entry) => entry.question);
+  return spacePairedQuestions(scored.map((entry) => entry.question));
 }
 
 export function restoreDeck(

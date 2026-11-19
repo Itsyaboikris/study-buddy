@@ -13,6 +13,13 @@ export type BaseQuestion = {
   prompt: string;
   explanation: string;
   tags?: string[];
+  /**
+   * When true, the question appears in the Memory Verses course but is
+   * excluded from its home course deck.
+   */
+  verseOnly?: boolean;
+  /** Shared id for fill/MC twins that should stay spaced apart in a deck. */
+  pairId?: string;
 };
 
 export type MultipleChoiceQuestion = BaseQuestion & {

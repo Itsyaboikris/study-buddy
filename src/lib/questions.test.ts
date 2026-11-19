@@ -4,10 +4,16 @@ import {
   PRIMARY_VERSE_WRITE_IDS,
   VERSE_WRITE_TAG,
   answersMatch,
+  getCourseById,
   getCourses,
   isVerseWriteQuestion,
   keywordsMatch,
 } from "@/lib/questions";
+import { spacePairedQuestions } from "@/lib/progress";
+import type { Question, QuestionsData } from "@/lib/types";
+import questionsJson from "@/data/questions.json";
+
+const questionsData = questionsJson as QuestionsData;
 
 const ANTIOCH_CALL = [
   "ministering to the lord, fasting, and praying",
@@ -68,6 +74,102 @@ describe("memory verses course", () => {
     const primaryCount = versesCourse!.questions.filter(isVerseWriteQuestion)
       .length;
     expect(primaryCount).toBeGreaterThanOrEqual(PRIMARY_VERSE_WRITE_IDS.length);
+  });
+
+  it("contains only fill_blank verse-writing questions", () => {
+    const verses = getCourseById(MEMORY_VERSES_COURSE_ID);
+    expect(verses).toBeDefined();
+    expect(verses!.questions.length).toBeGreaterThan(0);
+    for (const question of verses!.questions) {
+      expect(question.type).toBe("fill_blank");
+      expect(question.tags).toContain("memory-verse");
+    }
+  });
+});
+
+describe("verseOnly questions", () => {
+  it("are excluded from their home course and included in Memory Verses", () => {
+    const rawPath = questionsData.courses.find(
+      (course) => course.id === "path-to-righteousness",
+    );
+    expect(rawPath).toBeDefined();
+
+    const verseOnlyIds = rawPath!.questions
+      .filter((question) => question.verseOnly)
+      .map((question) => question.id);
+    expect(verseOnlyIds.length).toBeGreaterThan(0);
+
+    const path = getCourseById("path-to-righteousness");
+    const verses = getCourseById(MEMORY_VERSES_COURSE_ID);
+    expect(path).toBeDefined();
+    expect(verses).toBeDefined();
+
+    const pathIds = new Set(path!.questions.map((question) => question.id));
+    const verseIds = new Set(verses!.questions.map((question) => question.id));
+
+    for (const id of verseOnlyIds) {
+      expect(pathIds.has(id), `${id} should leave Path`).toBe(false);
+      expect(verseIds.has(id), `${id} should stay in Verses`).toBe(true);
+    }
+  });
+});
+
+describe("spacePairedQuestions", () => {
+  it("keeps paired questions at least 10 apart when the deck allows", () => {
+    const deck: Question[] = Array.from({ length: 20 }, (_, index) => ({
+      id: `q-${index}`,
+      type: "true_false",
+      prompt: `Q${index}`,
+      explanation: "x",
+      answer: true,
+    }));
+    deck[0] = { ...deck[0]!, id: "a", pairId: "twin" };
+    deck[1] = {
+      id: "b",
+      type: "true_false",
+      prompt: "Qb",
+      explanation: "x",
+      answer: false,
+      pairId: "twin",
+    };
+
+    const spaced = spacePairedQuestions(deck, 10);
+    const indexA = spaced.findIndex((question) => question.id === "a");
+    const indexB = spaced.findIndex((question) => question.id === "b");
+    expect(Math.abs(indexA - indexB)).toBeGreaterThanOrEqual(10);
+  });
+
+  it("spaces pairs as far as the deck allows when shorter than the gap", () => {
+    const deck: Question[] = [
+      {
+        id: "a",
+        type: "true_false",
+        prompt: "A",
+        explanation: "x",
+        answer: true,
+        pairId: "twin",
+      },
+      {
+        id: "b",
+        type: "true_false",
+        prompt: "B",
+        explanation: "x",
+        answer: false,
+        pairId: "twin",
+      },
+      {
+        id: "c",
+        type: "true_false",
+        prompt: "C",
+        explanation: "x",
+        answer: true,
+      },
+    ];
+
+    const spaced = spacePairedQuestions(deck, 10);
+    const indexA = spaced.findIndex((question) => question.id === "a");
+    const indexB = spaced.findIndex((question) => question.id === "b");
+    expect(Math.abs(indexA - indexB)).toBe(2);
   });
 });
 
