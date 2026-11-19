@@ -214,12 +214,12 @@
           "type": "multiple_choice",
           "prompt": "Which list correctly shows the steps in the Philippian jailer’s conversion?",
           "choices": [
-            "Gentile converts should not be troubled about circumcision; they should maintain purity by abstaining from blood, fornication, meat offered to idols, and meat that was strangled",
             "Recognized his need; cried out for instruction; was told to believe; washed the apostles’ stripes (repentance); was baptized straightway; rejoiced, believing in God",
-            "By stating he was being called into question concerning the hope and resurrection of the dead",
-            "He was a Gentile believer who served as an uncircumcised test case. He was not compelled to be circumcised, confirming circumcision was not essential to salvation under grace"
+            "Recognized his need; cried out for instruction; was baptized straightway; was told to believe; washed the apostles’ stripes (repentance); rejoiced, believing in God",
+            "Recognized his need; cried out for instruction; was told to believe; washed the apostles’ feet (humility); was baptized straightway; rejoiced, believing in God",
+            "Recognized his need; cried out for mercy; was told to repent; washed the apostles’ stripes (repentance); was baptized the next day; rejoiced, believing in God"
           ],
-          "answer": 1,
+          "answer": 0,
           "explanation": "Those six steps describe the Philippian jailer’s conversion."
         },
         {
@@ -535,9 +535,9 @@
           "prompt": "What did Paul say during the storm?",
           "choices": [
             "I believe God",
-            "Hope and resurrection of the dead",
-            "Temple of Diana",
-            "Claudius Lysias"
+            "I trust God",
+            "I praise God",
+            "I obey God"
           ],
           "answer": 0,
           "explanation": "Paul said, “I believe God.”"
@@ -760,9 +760,9 @@
           "prompt": "According to James 5:16, what does the effectual fervent prayer of a righteous man do?",
           "choices": [
             "Availeth much",
-            "Our praise",
-            "Reaching the lost",
-            "Jesus our Saviour"
+            "Prevaileth much",
+            "Healeth much",
+            "Availeth all things"
           ],
           "answer": 0,
           "explanation": "James 5:16 says the effectual fervent prayer of a righteous man availeth much."
@@ -788,9 +788,9 @@
           "prompt": "Isaiah 58:6 describes the fast God has chosen as doing what?",
           "choices": [
             "Loosing bands of wickedness, undoing heavy burdens, freeing the oppressed, and breaking every yoke",
-            "Actions and attitudes that honor and exalt God for His worthiness as Creator of all things in heaven and on earth",
-            "That He be made known, loved, honored and praised and made Lord of His chosen people",
-            "When every believer takes responsibility as a soul winner, one soul at a time"
+            "Loosing bands of sickness, lifting heavy burdens, healing the sick, and breaking every chain",
+            "Humbling the soul, undoing heavy burdens, freeing the captives, and mending every yoke",
+            "Loosing bands of wickedness, bearing heavy burdens, freeing the prisoners, and lifting every yoke"
           ],
           "answer": 0,
           "explanation": "God’s chosen fast includes loosing wickedness, undoing burdens, freeing the oppressed, and breaking every yoke."
@@ -816,9 +816,9 @@
           "prompt": "How does Joshua 24:15 end?",
           "choices": [
             "But as for me and my house, we will serve the Lord",
-            "Towards others, ourselves, and our circumstances",
-            "When every believer takes responsibility as a soul winner, one soul at a time",
-            "To be imbued with power from on high"
+            "But as for me and my house, we will fear the Lord",
+            "But as for me and my family, we will follow the Lord",
+            "But as for me and my children, we will serve the Lord"
           ],
           "answer": 0,
           "explanation": "Joshua declares: but as for me and my house, we will serve the Lord."
@@ -839,9 +839,9 @@
           "prompt": "Prayer is need finding what?",
           "choices": [
             "A voice",
-            "Our praise",
-            "Jesus our Saviour",
-            "Recognizing God’s supreme worth"
+            "A purpose",
+            "An answer",
+            "A way"
           ],
           "answer": 0,
           "explanation": "Prayer is need finding a voice."
@@ -863,9 +863,9 @@
           "prompt": "What does God desire?",
           "choices": [
             "Our praise",
-            "A voice",
-            "Reaching the lost",
-            "Recognizing God’s supreme worth"
+            "Our offerings",
+            "Our sacrifices",
+            "Our fasting"
           ],
           "answer": 0,
           "explanation": "God desires our praise.",
@@ -889,9 +889,9 @@
           "prompt": "What does God inhabit?",
           "choices": [
             "The praise of his people",
-            "Talking to God for someone else’s needs",
-            "Recognizing God’s supreme worth",
-            "To tolerate, suffer or survive"
+            "The prayers of his people",
+            "The temples of his people",
+            "The songs of his angels"
           ],
           "answer": 0,
           "explanation": "God inhabits the praise of his people.",
@@ -1115,9 +1115,9 @@
           "prompt": "What is our greatest example of purpose and meaning?",
           "choices": [
             "Jesus our Saviour",
-            "Reaching the lost",
-            "Recognizing God’s supreme worth",
-            "Talking to God for someone else’s needs"
+            "The apostle Paul",
+            "Abraham our father",
+            "Moses the lawgiver"
           ],
           "answer": 0,
           "explanation": "Jesus our Saviour.",
@@ -1140,9 +1140,9 @@
           "prompt": "What was Jesus’ entire ministry devoted to?",
           "choices": [
             "Reaching the lost",
-            "Jesus our Saviour",
-            "Recognizing God’s supreme worth",
-            "Talking to God for someone else’s needs"
+            "Teaching the disciples",
+            "Healing the sick",
+            "Fulfilling the law"
           ],
           "answer": 0,
           "explanation": "Reaching the lost.",
@@ -1166,9 +1166,9 @@
           "prompt": "What were the disciples waiting in Jerusalem for?",
           "choices": [
             "To be imbued with power from on high",
-            "Talking to God for someone else’s needs",
-            "A restriction of diet rather than a complete absence of food",
-            "Towards others, ourselves, and our circumstances"
+            "To be sent out to all the nations",
+            "To see Jesus return in His glory",
+            "To be given the keys of the kingdom"
           ],
           "answer": 0,
           "explanation": "They were waiting to be imbued with power from on high.",
@@ -1195,9 +1195,9 @@
           "prompt": "What is the final result of Jesus’ plan?",
           "choices": [
             "That He be made known, loved, honored and praised and made Lord of His chosen people",
-            "When every believer takes responsibility as a soul winner, one soul at a time",
-            "Actions and attitudes that honor and exalt God for His worthiness as Creator of all things in heaven and on earth",
-            "Loosing bands of wickedness, undoing heavy burdens, freeing the oppressed, and breaking every yoke"
+            "That He be made known, feared, obeyed and served and made King of all the earth",
+            "That every nation hear the gospel and every believer be made a faithful soul winner",
+            "That His church be built, His enemies defeated, and His kingdom established on earth"
           ],
           "answer": 0,
           "explanation": "He is to be made known, loved, honored, praised, and made Lord of His chosen people."
@@ -1220,9 +1220,9 @@
           "prompt": "How will the world be reached?",
           "choices": [
             "When every believer takes responsibility as a soul winner, one soul at a time",
-            "That He be made known, loved, honored and praised and made Lord of His chosen people",
-            "Actions and attitudes that honor and exalt God for His worthiness as Creator of all things in heaven and on earth",
-            "To be imbued with power from on high"
+            "When every church sends out missionaries, one nation at a time",
+            "When every pastor takes responsibility as a preacher, one city at a time",
+            "When every believer gives faithfully to missions, one gift at a time"
           ],
           "answer": 0,
           "explanation": "Every believer must take responsibility as a soul winner, one soul at a time."
@@ -1245,9 +1245,9 @@
           "prompt": "What does worship mean?",
           "choices": [
             "Recognizing God’s supreme worth",
-            "Talking to God for someone else’s needs",
-            "Only singing loudly in church",
-            "Abstaining from food"
+            "Recognizing God’s supreme power",
+            "Declaring God’s supreme glory",
+            "Serving God with all our strength"
           ],
           "answer": 0,
           "explanation": "Worship means recognizing God’s supreme worth.",
@@ -1274,9 +1274,9 @@
           "prompt": "Worship is first and foremost:",
           "choices": [
             "Actions and attitudes that honor and exalt God for His worthiness as Creator of all things in heaven and on earth",
-            "Unconfessed sin; Insincerity; Carnal motives; Unbelief; Satanic Activity; Domestic Problems; Pride; Robbing God; Refusing to submit to biblical teaching; Refusing to forgive or be forgiven; Refusing to help the needy",
-            "That He be made known, loved, honored and praised and made Lord of His chosen people",
-            "Loosing bands of wickedness, undoing heavy burdens, freeing the oppressed, and breaking every yoke"
+            "Songs and prayers that thank and praise God for His goodness as Saviour of all people in every nation",
+            "Actions and attitudes that serve and obey God for His holiness as Judge of all things in heaven and on earth",
+            "Words and deeds that honor and exalt God for His mercy as Father of all believers in heaven and on earth"
           ],
           "answer": 0,
           "explanation": "Worship first honors and exalts God for His worthiness as Creator."
@@ -1287,9 +1287,9 @@
           "prompt": "It is important that we have a correct attitude in what three areas?",
           "choices": [
             "Towards others, ourselves, and our circumstances",
-            "Talking to God for someone else’s needs",
-            "To be imbued with power from on high",
-            "Recognizing God’s supreme worth"
+            "Towards God, our family, and our church",
+            "Towards others, our leaders, and our possessions",
+            "Towards ourselves, our spouse, and our children"
           ],
           "answer": 0,
           "explanation": "Towards others, ourselves, and our circumstances.",
@@ -1326,9 +1326,9 @@
           "prompt": "What should come first in every marriage?",
           "choices": [
             "A love for God and His Word",
-            "Talking to God for someone else’s needs",
-            "Recognizing God’s supreme worth",
-            "To be imbued with power from on high"
+            "A love for each other and the family",
+            "Faithfulness to each other and to God",
+            "Prayer together every day"
           ],
           "answer": 0,
           "explanation": "A love for God and His Word should come first.",
@@ -1351,9 +1351,9 @@
           "prompt": "What does endure mean?",
           "choices": [
             "To tolerate, suffer or survive",
-            "Talking to God for someone else’s needs",
-            "Recognizing God’s supreme worth",
-            "To be imbued with power from on high"
+            "To trust, wait or rest",
+            "To resist, fight or overcome",
+            "To tolerate, forgive or forget"
           ],
           "answer": 0,
           "explanation": "Endure means to tolerate, suffer or survive."
@@ -1839,9 +1839,9 @@
           "prompt": "According to Lamentations 3:22-23, God’s mercies and compassions are:",
           "choices": [
             "New every morning; great is His faithfulness",
-            "Wait patiently for God’s promise",
-            "Train the next generation to know and love God",
-            "A soft answer turneth away wrath"
+            "New every evening; great is His goodness",
+            "Sure every day; great is His mercy",
+            "New every season; great is His patience"
           ],
           "answer": 0,
           "explanation": "They are new every morning: great is thy faithfulness."
@@ -1862,15 +1862,15 @@
         {
           "id": "fl-joy-peace-02",
           "type": "multiple_choice",
-          "prompt": "One suggestion for joy and peace in marriage is to:",
+          "prompt": "Which of these is one of the suggestions for joy and peace, especially in marriage?",
           "choices": [
             "Follow God’s pattern in the choice of a mate",
-            "Wait patiently for God’s promise",
-            "Train the next generation to know and love God",
-            "The effects of failing to discipline our children"
+            "Remember God made us in His image and likeness",
+            "Make sure everything is settled before you sleep at night",
+            "Education of children in God’s law"
           ],
           "answer": 0,
-          "explanation": "Follow God’s pattern in the choice of a mate."
+          "explanation": "“Follow God’s pattern in the choice of a mate” is a joy-and-peace suggestion. The others come from the save-the-marriage, conflict and father-responsibility lists."
         },
         {
           "id": "fl-fathers-design-01",
@@ -1890,9 +1890,9 @@
           "prompt": "God designed fathers to be what for their children?",
           "choices": [
             "The living picture of God’s likeness",
-            "Every child is God’s miracle of hope",
-            "Spiritual head of the family",
-            "Wait patiently for God’s promise"
+            "The provider and protector of the home",
+            "The final judge of every family matter",
+            "The living example of God’s patience"
           ],
           "answer": 0,
           "explanation": "Fathers are to be the living picture of God’s likeness."
@@ -2088,9 +2088,9 @@
           "prompt": "Which two habits should children understand and practice from an early age?",
           "choices": [
             "Bible reading and prayer",
-            "Wait patiently for God’s promise",
-            "Answer slowly and speak gently",
-            "Seeking God’s will"
+            "Prayer and fasting",
+            "Bible reading and church attendance",
+            "Worship and giving"
           ],
           "answer": 0,
           "explanation": "Bible reading and prayer."
@@ -2112,9 +2112,9 @@
           "prompt": "What do children need more than anything else?",
           "choices": [
             "To know the Lord personally",
-            "Wait patiently for God’s promise",
-            "Train the next generation to know and love God",
-            "Bring us safely through to where He wants us to be"
+            "To know about the Lord",
+            "To be loved by both parents",
+            "To be educated in God’s law"
           ],
           "answer": 0,
           "explanation": "To know the Lord personally."
@@ -2136,9 +2136,9 @@
           "prompt": "How did Jesus begin His life on earth?",
           "choices": [
             "As a baby",
-            "Forgiveness",
-            "A soft answer",
-            "Bible reading and prayer"
+            "As a grown man",
+            "As a carpenter",
+            "As a king"
           ],
           "answer": 0,
           "explanation": "Jesus began His life on earth as a baby."
@@ -2160,9 +2160,9 @@
           "prompt": "Why is “ordinary baby” not a correct term?",
           "choices": [
             "Every child is God’s miracle of hope",
-            "The living picture of God’s likeness",
-            "Train the next generation to know and love God",
-            "God remains patient and is prepared to show mercy if we turn to Him"
+            "Every child is God’s gift of love",
+            "Every child is a blessing to the family",
+            "Every child is born for a reason"
           ],
           "answer": 0,
           "explanation": "Every child is God’s miracle of hope."
@@ -2185,9 +2185,9 @@
           "prompt": "What do we gain from the story of Cain?",
           "choices": [
             "God remains patient and is prepared to show mercy if we turn to Him",
-            "Boundaries (rules) for the protection and control of our home, especially with children",
-            "A voluntary choice to place yourself under someone’s authority, protection, and provisions",
-            "The effects of failing to discipline our children"
+            "God accepts our offerings when we give our very best to Him",
+            "God remains silent until we confess every sin to Him",
+            "God judges quickly and gives no second chance to the guilty"
           ],
           "answer": 0,
           "explanation": "God remains patient and will show mercy if we turn to Him."
@@ -2238,9 +2238,9 @@
           "prompt": "In family life, walls refer to:",
           "choices": [
             "Boundaries (rules) for the protection and control of our home, especially with children",
-            "A voluntary choice to place yourself under someone’s authority, protection, and provisions",
-            "Respect for elders and each other",
-            "Obey God’s plan and depend on His timing"
+            "Habits (routines) for the training and discipline of our children, especially at home",
+            "Promises (vows) for the protection and faithfulness of our marriage, especially in hard times",
+            "Barriers we build to keep the world’s influence out of our home and church"
           ],
           "answer": 0,
           "explanation": "Walls are protective boundaries/rules in the home."
@@ -2290,9 +2290,9 @@
           "prompt": "From Noah we learn that God will:",
           "choices": [
             "Bring us safely through to where He wants us to be",
-            "Wait patiently for God’s promise",
-            "Train the next generation to know and love God",
-            "The effects of failing to discipline our children"
+            "Reward us with blessings for every act of obedience",
+            "Reveal every step of His plan before we begin",
+            "Remove every storm before it reaches us"
           ],
           "answer": 0,
           "explanation": "God will bring us safely through to where He wants us to be."
@@ -2316,9 +2316,9 @@
           "prompt": "The underlying principle of submission is that it is:",
           "choices": [
             "A voluntary choice to place yourself under someone’s authority, protection, and provisions",
-            "Boundaries (rules) for the protection and control of our home, especially with children",
-            "God remains patient and is prepared to show mercy if we turn to Him",
-            "The effects of failing to discipline our children"
+            "A forced choice to place yourself under someone’s authority, protection, and provisions",
+            "A duty for every wife to obey her husband in all things without question",
+            "A voluntary choice to place yourself above others to protect and provide for them"
           ],
           "answer": 0,
           "explanation": "Submission is voluntary placement under authority, protection, and provision."
@@ -2339,15 +2339,15 @@
         {
           "id": "fl-save-marriage-02",
           "type": "multiple_choice",
-          "prompt": "One way to help save a marriage is to:",
+          "prompt": "Which of these is one of the things that can help save the marriage?",
           "choices": [
-            "Pray together and never give up, keep working on the marriage",
-            "Boundaries (rules) for the protection and control of our home, especially with children",
-            "God remains patient and is prepared to show mercy if we turn to Him",
-            "Train the next generation to know and love God"
+            "Pray together",
+            "Work together",
+            "Speak gently",
+            "Respect for elders and each other"
           ],
           "answer": 0,
-          "explanation": "Pray together and never give up."
+          "explanation": "“Pray together” is on the save-the-marriage list. “Work together” is a joy-and-peace suggestion, “Speak gently” is a conflict point, and “Respect for elders and each other” is a wall of discipline."
         },
         {
           "id": "fl-conflict-01",
@@ -2365,15 +2365,15 @@
         {
           "id": "fl-conflict-02",
           "type": "multiple_choice",
-          "prompt": "When resolving conflict, you should:",
+          "prompt": "Which of these is one of the points for resolving conflict?",
           "choices": [
-            "Answer slowly and speak gently",
-            "Listen carefully",
+            "Speak gently",
             "Work together",
-            "Keep yourself pure in body"
+            "Pray together",
+            "Respect for elders and each other"
           ],
           "answer": 0,
-          "explanation": "Answer slowly and speak gently."
+          "explanation": "“Speak gently” is a conflict point. “Work together” is a joy-and-peace suggestion, “Pray together” saves the marriage, and “Respect for elders and each other” is a wall of discipline."
         },
         {
           "id": "fl-prov-151-01",
