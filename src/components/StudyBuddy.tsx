@@ -13,6 +13,7 @@ import {
   VERSE_WRITE_TAG,
   answersMatch,
   keywordsMatch,
+  missedKeywordLabels,
   pairsMatch,
   shuffleChoices,
   type ShuffledChoice,
@@ -318,6 +319,18 @@ function CourseSession({
     if (question.type === "short_answer") {
       const matchMode = question.matchMode ?? "flexible";
 
+      // Full-list recall: every keyword required; do not fall back to paraphrase.
+      if (question.requireAll && question.keywords && question.keywords.length > 0) {
+        const correct = keywordsMatch(textAnswer, question.keywords, {
+          requireAll: true,
+        });
+        finishAnswer(
+          correct,
+          shortAnswerFeedback(question, correct, textAnswer),
+        );
+        return;
+      }
+
       // Definition/link questions: term must sit with the right meaning.
       if (question.pairs && question.pairs.length > 0) {
         const correct = pairsMatch(textAnswer, question.pairs);
@@ -343,8 +356,24 @@ function CourseSession({
   function shortAnswerFeedback(
     q: Extract<Question, { type: "short_answer" }>,
     correct: boolean,
+    userAnswer?: string,
   ): string {
     if (correct) return `Nice work! ${q.explanation}`;
+    if (
+      q.requireAll &&
+      q.keywords &&
+      q.keywords.length > 0 &&
+      userAnswer !== undefined
+    ) {
+      const missed = missedKeywordLabels(
+        userAnswer,
+        q.keywords,
+        q.modelAnswer,
+      );
+      if (missed.length > 0) {
+        return `Missing: ${missed.join("; ")}. Model answer: ${q.modelAnswer}. ${q.explanation}`;
+      }
+    }
     return `Model answer: ${q.modelAnswer}. ${q.explanation}`;
   }
 

@@ -226,8 +226,17 @@ function alternativeHits(
   );
 }
 
+export type KeywordsMatchOptions = {
+  /** Require every keyword (full-list recall). Default is ~60% coverage. */
+  requireAll?: boolean;
+};
+
 /** Keywords may use alternatives with | e.g. "oath|pledge|vow". */
-export function keywordsMatch(userAnswer: string, keywords: string[]): boolean {
+export function keywordsMatch(
+  userAnswer: string,
+  keywords: string[],
+  options?: KeywordsMatchOptions,
+): boolean {
   const normalized = normalizeAnswer(userAnswer);
   if (!normalized || keywords.length === 0) return false;
 
@@ -237,7 +246,46 @@ export function keywordsMatch(userAnswer: string, keywords: string[]): boolean {
     alternativeHits(normalized, userTokens, keyword),
   );
 
+  if (options?.requireAll) {
+    return hits.length === keywords.length;
+  }
+
   return hits.length >= Math.ceil(keywords.length * 0.6);
+}
+
+/**
+ * Labels for keywords the user missed — prefer the matching modelAnswer
+ * segment, otherwise the keyword's first alternative.
+ */
+export function missedKeywordLabels(
+  userAnswer: string,
+  keywords: string[],
+  modelAnswer?: string,
+): string[] {
+  const normalized = normalizeAnswer(userAnswer);
+  const userTokens = normalized.split(" ").filter(Boolean);
+  const modelItems =
+    modelAnswer
+      ?.split(";")
+      .map((part) => part.trim())
+      .filter(Boolean) ?? [];
+
+  return keywords
+    .filter(
+      (keyword) => !alternativeHits(normalized, userTokens, keyword),
+    )
+    .map((keyword) => {
+      const firstAlt = keyword.split("|")[0]?.trim() || keyword;
+      const fromModel = modelItems.find((item) => {
+        const itemNorm = normalizeAnswer(item);
+        const itemTokens = itemNorm.split(" ").filter(Boolean);
+        return (
+          alternativeHits(itemNorm, itemTokens, keyword) ||
+          itemNorm.includes(normalizeAnswer(firstAlt))
+        );
+      });
+      return fromModel ?? firstAlt;
+    });
 }
 
 const PAIR_WINDOW = 70;

@@ -665,7 +665,8 @@
             "rejoiced"
           ],
           "explanation": "Need → instruction → believe → washed stripes (repentance) → baptized straightway → rejoiced believing in God.",
-          "matchMode": "ordered"
+          "matchMode": "ordered",
+          "requireAll": true
         },
         {
           "id": "acts-council-recall-01",
@@ -678,7 +679,8 @@
             "idols",
             "strangled"
           ],
-          "explanation": "Blood, fornication, meat offered to idols, and meat that was strangled."
+          "explanation": "Blood, fornication, meat offered to idols, and meat that was strangled.",
+          "requireAll": true
         },
         {
           "id": "acts-antioch-call-recall-01",
@@ -714,6 +716,21 @@
             }
           ],
           "explanation": "Epicureans were materialists/atheists who sought pleasure; Stoics saw God in everything; Areopagus is Mars Hill."
+        },
+        {
+          "id": "acts-council-decision-01",
+          "type": "short_answer",
+          "prompt": "What was the council's decision?",
+          "modelAnswer": "Gentile converts should not be troubled about circumcision; they should maintain purity by abstaining from blood, fornication, meat offered to idols, and meat that was strangled",
+          "keywords": [
+            "circumcision|not be troubled",
+            "blood",
+            "fornication",
+            "idols",
+            "strangled"
+          ],
+          "requireAll": true,
+          "explanation": "Gentile converts should not be troubled about circumcision; they should maintain purity by abstaining from blood, fornication, meat offered to idols, and meat that was strangled."
         }
       ],
       "shortTitle": "Acts"
@@ -1398,7 +1415,13 @@
               "meaning": "restriction|diet|restrict"
             }
           ],
-          "explanation": "Normal (no food, water ok), Absolute (no food or water), Partial (diet restriction)."
+          "explanation": "Normal (no food, water ok), Absolute (no food or water), Partial (diet restriction).",
+          "requireAll": true,
+          "keywords": [
+            "normal",
+            "absolute",
+            "partial"
+          ]
         },
         {
           "id": "ptr-attitude-areas-recall-01",
@@ -1749,6 +1772,58 @@
           "prompt": "1 Cor 15:51 says we shall all sleep.",
           "answer": false,
           "explanation": "False — it says “We shall not all sleep, but we shall all be changed” (1 Cor 15:51)."
+        },
+        {
+          "id": "ptr-prayer-blocks-recall-02",
+          "type": "short_answer",
+          "prompt": "Without looking, write the 11 things that block prayers.",
+          "modelAnswer": "Unconfessed sin; Insincerity; Carnal motives; Unbelief; Satanic Activity; Domestic Problems; Pride; Robbing God; Refusing to submit to biblical teaching; Refusing to forgive or be forgiven; Refusing to help the needy",
+          "keywords": [
+            "unconfessed sin",
+            "insincerity",
+            "carnal motives",
+            "unbelief",
+            "satanic",
+            "domestic",
+            "pride",
+            "robbing god",
+            "biblical teaching",
+            "forgive",
+            "needy"
+          ],
+          "requireAll": true,
+          "explanation": "Aim to recall all eleven prayer blockers from the course."
+        },
+        {
+          "id": "ptr-partial-fast-01",
+          "type": "fill_blank",
+          "prompt": "What is a partial fast?",
+          "answers": [
+            "a restriction of diet rather than a complete absence of food",
+            "restriction of diet rather than a complete absence of food"
+          ],
+          "explanation": "A partial fast is a restriction of diet rather than a complete absence of food."
+        },
+        {
+          "id": "ptr-attitude-ourselves-01",
+          "type": "fill_blank",
+          "prompt": "A correct attitude toward ourselves in worship means:",
+          "answers": [
+            "ensure that our worship is not for show",
+            "ensure our worship is not for show"
+          ],
+          "explanation": "Ensure that our worship is not for show."
+        },
+        {
+          "id": "ptr-attitude-circumstances-01",
+          "type": "fill_blank",
+          "prompt": "A correct attitude toward our circumstances in worship means:",
+          "answers": [
+            "worship god at all times because he's worthy",
+            "worship god at all times because he is worthy",
+            "worship god at all times because hes worthy"
+          ],
+          "explanation": "Worship God at all times because He's worthy."
         }
       ],
       "shortTitle": "Path"
@@ -1787,15 +1862,15 @@
         {
           "id": "fl-joy-peace-01",
           "type": "multiple_choice",
-          "prompt": "Which list correctly shows seven suggestions for finding joy and peace on earth, especially in marriage?",
+          "prompt": "Which of these is NOT one of the suggestions for finding joy and peace on earth, especially in marriage?",
           "choices": [
-            "Turn to God; listen to His voice; do His will; obey His word; follow God’s pattern in choosing a mate; work together; teach children biblical principles of marriage",
-            "Turn to God; listen to His voice; avoid all discipline; never pray together; quit quickly",
-            "Obey His word; seek revenge; sleep angry; refuse forgiveness; ignore scripture",
-            "Follow God’s pattern choosing a mate; refuse Bible reading; refuse prayer; build walls with no doors"
+            "Listen to His voice",
+            "Follow God's pattern in the choice of a mate",
+            "Choose a mate based only on strong feelings",
+            "Work together"
           ],
-          "answer": 0,
-          "explanation": "Those seven suggestions are from the Family Life course."
+          "answer": 2,
+          "explanation": "“Choose a mate based only on strong feelings” is not on the joy-and-peace list; follow God’s pattern in choosing a mate is."
         },
         {
           "id": "fl-joy-peace-02",
@@ -1838,15 +1913,15 @@
         {
           "id": "fl-father-duties-01",
           "type": "multiple_choice",
-          "prompt": "Which four responsibilities of fathers in Bible times are still responsibilities of fathers?",
+          "prompt": "Which of these is NOT one of the responsibilities of fathers that still apply today?",
           "choices": [
-            "Wise and loving discipline; education in God’s law; providing for the family’s needs; spiritual head of the family",
-            "Wise discipline; education in God’s law; providing needs; refusing forgiveness",
-            "Spiritual head; absolute fasting only; avoiding prayer; seeking revenge",
-            "Providing needs; building temples; writing epistles; sailing to Rome"
+            "Wise and loving discipline",
+            "Education of children in God's law",
+            "Managing every church decision alone",
+            "Spiritual head of the family"
           ],
-          "answer": 0,
-          "explanation": "Those four responsibilities remain."
+          "answer": 2,
+          "explanation": "“Managing every church decision alone” is not a listed father responsibility."
         },
         {
           "id": "fl-father-duties-02",
@@ -2109,15 +2184,15 @@
         {
           "id": "fl-discipline-walls-01",
           "type": "multiple_choice",
-          "prompt": "Which four materials belong in our walls of discipline?",
+          "prompt": "Which of these is NOT one of the materials in our walls of discipline?",
           "choices": [
-            "Respect for elders and each other (Heb 13:17); love and obedience to God and His word (John 14:15); keeping God’s temple pure (Col 3:5-6); seeking God’s will (Romans 12:1-2)",
-            "Respect for elders (Heb 13:17); revenge; pride; silence",
-            "Love and obedience (John 14:15); money; status; ease",
-            "Keeping God’s temple pure (Col 3:5-6); ignoring scripture; refusing prayer; refusing forgiveness"
+            "Respect for elders and each other",
+            "Keeping God's temple pure",
+            "Seeking praise from those around us",
+            "Seeking God's will"
           ],
-          "answer": 0,
-          "explanation": "Those four, with their scriptures, are the materials of discipline walls."
+          "answer": 2,
+          "explanation": "“Seeking praise from those around us” is not a material of discipline walls."
         },
         {
           "id": "fl-discipline-walls-02",
@@ -2135,15 +2210,15 @@
         {
           "id": "fl-noah-01",
           "type": "multiple_choice",
-          "prompt": "Which lessons can we learn from Noah’s extreme faith in God’s plan?",
+          "prompt": "Which of these is NOT a lesson from Noah's extreme faith in God's plan?",
           "choices": [
-            "Obey God’s plan and depend on His timing; trust God for direction and guidance; God will bring us safely through to where He wants us",
-            "Ignore God’s timing and trust only yourself",
-            "Refuse submission and seek revenge",
-            "Build walls with no prayer or scripture"
+            "Obey God's plan and depend on His timing",
+            "Trust in God for direction and guidance at all times",
+            "Move ahead of God when His timing feels too slow",
+            "God will bring us safely through to where He wants us to be"
           ],
-          "answer": 0,
-          "explanation": "Obey and depend on God’s timing; trust His guidance; He will bring us safely through."
+          "answer": 2,
+          "explanation": "Noah’s lessons do not include moving ahead of God’s timing."
         },
         {
           "id": "fl-noah-02",
@@ -2187,15 +2262,15 @@
         {
           "id": "fl-save-marriage-01",
           "type": "multiple_choice",
-          "prompt": "Which list correctly names things that can be done to “save the marriage”?",
+          "prompt": "Which of these is NOT one of the things that can help save the marriage?",
           "choices": [
-            "Obey God’s word; understand God’s will for marriage; remember we are made in His image; keep pure in body; know duties; always talk with God; pray together; never give up",
-            "Obey God’s word; seek revenge; sleep angry; refuse forgiveness; quit immediately",
-            "Pray together; ignore duties; refuse prayer; give up early",
-            "Keep pure; build no walls; refuse discipline; refuse Bible reading"
+            "Remember God made us in His image and likeness",
+            "Keep yourself pure in body",
+            "Leave hard conversations for another year",
+            "Never give up, keep working on the marriage"
           ],
-          "answer": 0,
-          "explanation": "Those eight points are the course’s “save the marriage” list."
+          "answer": 2,
+          "explanation": "“Leave hard conversations for another year” is not on the save-the-marriage list."
         },
         {
           "id": "fl-save-marriage-02",
@@ -2213,15 +2288,15 @@
         {
           "id": "fl-conflict-01",
           "type": "multiple_choice",
-          "prompt": "Which points belong to resolving conflict?",
+          "prompt": "Which of these is NOT one of the points for resolving conflict?",
           "choices": [
-            "Patience, calmness, listen carefully, answer slowly, speak gently, be careful when you speak, don’t worsen the problem, don’t seek revenge, don’t say everything, trust the Lord, settle before sleep",
-            "Yell first, seek revenge, say everything, sleep angry",
-            "Ignore the other person forever and refuse forgiveness",
-            "Only absolute fasting with no conversation"
+            "Listen carefully",
+            "Answer slowly",
+            "Answer quickly so nothing festers",
+            "Don't seek revenge"
           ],
-          "answer": 0,
-          "explanation": "Those eleven points are the conflict-resolution list."
+          "answer": 2,
+          "explanation": "“Answer quickly so nothing festers” is not on the conflict-resolution list; answer slowly is."
         },
         {
           "id": "fl-conflict-02",
@@ -2301,7 +2376,8 @@
             "work together",
             "teach children"
           ],
-          "explanation": "Turn to God, listen to His voice, do His will, obey His word, follow God’s pattern choosing a mate, work together, teach biblical marriage principles."
+          "explanation": "Turn to God, listen to His voice, do His will, obey His word, follow God’s pattern choosing a mate, work together, teach biblical marriage principles.",
+          "requireAll": true
         },
         {
           "id": "fl-father-duties-recall-01",
@@ -2310,12 +2386,12 @@
           "modelAnswer": "Wise and loving discipline; Education of children in God’s law; Provide for his family’s needs; Spiritual head of the family",
           "keywords": [
             "discipline",
-            "education",
-            "god's law",
+            "education|god's law|gods law",
             "provide",
             "spiritual head"
           ],
-          "explanation": "Wise and loving discipline; education in God’s law; provide for the family; spiritual head."
+          "explanation": "Wise and loving discipline; education in God’s law; provide for the family; spiritual head.",
+          "requireAll": true
         },
         {
           "id": "fl-discipline-walls-recall-01",
@@ -2323,16 +2399,13 @@
           "prompt": "List the four materials needed in our walls of discipline (include the scripture refs if you can).",
           "modelAnswer": "Respect for elders and each other (Heb 13:17); Love and obedience to God and His word (John 14:15); Keeping God’s temple pure (Col 3:5-6); Seeking God's Will (Romans 12:1-2)",
           "keywords": [
-            "respect",
-            "heb 13",
-            "love",
-            "john 14",
+            "respect|elders",
+            "love|obedience",
             "temple",
-            "col 3",
-            "god's will",
-            "romans 12"
+            "god's will|gods will|seeking"
           ],
-          "explanation": "Respect (Heb 13:17); love/obedience (John 14:15); temple pure (Col 3:5-6); seeking God’s will (Romans 12:1-2)."
+          "explanation": "Respect (Heb 13:17); love/obedience (John 14:15); temple pure (Col 3:5-6); seeking God’s will (Romans 12:1-2).",
+          "requireAll": true
         },
         {
           "id": "fl-save-marriage-recall-01",
@@ -2349,7 +2422,8 @@
             "pray together",
             "never give up"
           ],
-          "explanation": "Obey God’s word; understand His will for marriage; remember His image; keep pure; know duties; talk with God; pray together; never give up."
+          "explanation": "Obey God’s word; understand His will for marriage; remember His image; keep pure; know duties; talk with God; pray together; never give up.",
+          "requireAll": true
         },
         {
           "id": "fl-conflict-recall-01",
@@ -2369,7 +2443,8 @@
             "settled",
             "sleep"
           ],
-          "explanation": "Patience, calmness, listen carefully, answer slowly, speak gently, be careful when speaking, don’t worsen the problem, don’t seek revenge, don’t say everything, trust the Lord, settle before sleep."
+          "explanation": "Patience, calmness, listen carefully, answer slowly, speak gently, be careful when speaking, don’t worsen the problem, don’t seek revenge, don’t say everything, trust the Lord, settle before sleep.",
+          "requireAll": true
         },
         {
           "id": "fl-lam-322-recall-01",
@@ -2429,6 +2504,199 @@
           "tags": [
             "memory-verse"
           ]
+        },
+        {
+          "id": "fl-noah-recall-01",
+          "type": "short_answer",
+          "prompt": "What lessons can we learn from Noah's extreme faith in God's plan?",
+          "modelAnswer": "Obey God's plan and depend on His timing; Trust in God for direction and guidance at all times; God will bring us safely through to where He wants us to be",
+          "keywords": [
+            "obey|depend|timing",
+            "trust|direction|guidance",
+            "safely through|bring us safely"
+          ],
+          "requireAll": true,
+          "explanation": "Obey God's plan and depend on His timing; trust God for direction and guidance; He will bring us safely through to where He wants us to be."
+        },
+        {
+          "id": "fl-joy-peace-fill-01",
+          "type": "fill_blank",
+          "prompt": "Joy and peace: Listen to His ____.",
+          "answers": [
+            "voice"
+          ],
+          "explanation": "Listen to His voice."
+        },
+        {
+          "id": "fl-joy-peace-fill-02",
+          "type": "fill_blank",
+          "prompt": "Joy and peace: Follow God's pattern in the choice of a ____.",
+          "answers": [
+            "mate"
+          ],
+          "explanation": "Follow God's pattern in the choice of a mate."
+        },
+        {
+          "id": "fl-joy-peace-fill-03",
+          "type": "fill_blank",
+          "prompt": "Joy and peace: Work ____.",
+          "answers": [
+            "together"
+          ],
+          "explanation": "Work together."
+        },
+        {
+          "id": "fl-joy-peace-fill-04",
+          "type": "fill_blank",
+          "prompt": "Joy and peace: Teach children and those under you the biblical principles of ____.",
+          "answers": [
+            "marriage"
+          ],
+          "explanation": "Teach children and those under you the biblical principles of marriage."
+        },
+        {
+          "id": "fl-father-duties-fill-01",
+          "type": "fill_blank",
+          "prompt": "Father responsibilities: Wise and loving ____.",
+          "answers": [
+            "discipline"
+          ],
+          "explanation": "Wise and loving discipline."
+        },
+        {
+          "id": "fl-father-duties-fill-02",
+          "type": "fill_blank",
+          "prompt": "Father responsibilities: Education of children in God's ____.",
+          "answers": [
+            "law"
+          ],
+          "explanation": "Education of children in God's law."
+        },
+        {
+          "id": "fl-father-duties-fill-03",
+          "type": "fill_blank",
+          "prompt": "Father responsibilities: Spiritual ____ of the family.",
+          "answers": [
+            "head"
+          ],
+          "explanation": "Spiritual head of the family."
+        },
+        {
+          "id": "fl-discipline-walls-fill-01",
+          "type": "fill_blank",
+          "prompt": "Walls of discipline: Respect for ____ and each other.",
+          "answers": [
+            "elders"
+          ],
+          "explanation": "Respect for elders and each other."
+        },
+        {
+          "id": "fl-discipline-walls-fill-02",
+          "type": "fill_blank",
+          "prompt": "Walls of discipline: Keeping God's ____ pure.",
+          "answers": [
+            "temple"
+          ],
+          "explanation": "Keeping God's temple pure."
+        },
+        {
+          "id": "fl-discipline-walls-fill-03",
+          "type": "fill_blank",
+          "prompt": "Walls of discipline: Seeking God's ____.",
+          "answers": [
+            "will"
+          ],
+          "explanation": "Seeking God's will."
+        },
+        {
+          "id": "fl-save-marriage-fill-01",
+          "type": "fill_blank",
+          "prompt": "Save the marriage: Remember God made us in His ____ and likeness.",
+          "answers": [
+            "image"
+          ],
+          "explanation": "Remember God made us in His image and likeness."
+        },
+        {
+          "id": "fl-save-marriage-fill-02",
+          "type": "fill_blank",
+          "prompt": "Save the marriage: Keep yourself pure in ____.",
+          "answers": [
+            "body"
+          ],
+          "explanation": "Keep yourself pure in body."
+        },
+        {
+          "id": "fl-save-marriage-fill-03",
+          "type": "fill_blank",
+          "prompt": "Save the marriage: Know your duties and ____.",
+          "answers": [
+            "obligations"
+          ],
+          "explanation": "Know your duties and obligations."
+        },
+        {
+          "id": "fl-save-marriage-fill-04",
+          "type": "fill_blank",
+          "prompt": "Save the marriage: Never give up, keep ____ on the marriage.",
+          "answers": [
+            "working"
+          ],
+          "explanation": "Never give up, keep working on the marriage."
+        },
+        {
+          "id": "fl-conflict-fill-01",
+          "type": "fill_blank",
+          "prompt": "Resolving conflict: Listen ____.",
+          "answers": [
+            "carefully"
+          ],
+          "explanation": "Listen carefully."
+        },
+        {
+          "id": "fl-conflict-fill-02",
+          "type": "fill_blank",
+          "prompt": "Resolving conflict: Answer ____.",
+          "answers": [
+            "slowly"
+          ],
+          "explanation": "Answer slowly."
+        },
+        {
+          "id": "fl-conflict-fill-03",
+          "type": "fill_blank",
+          "prompt": "Resolving conflict: Don't seek ____.",
+          "answers": [
+            "revenge"
+          ],
+          "explanation": "Don't seek revenge."
+        },
+        {
+          "id": "fl-conflict-fill-04",
+          "type": "fill_blank",
+          "prompt": "Resolving conflict: Don't say everything that comes to ____.",
+          "answers": [
+            "mind"
+          ],
+          "explanation": "Don't say everything that comes to mind."
+        },
+        {
+          "id": "fl-conflict-fill-05",
+          "type": "fill_blank",
+          "prompt": "Resolving conflict: Trust the Lord to solve your ____.",
+          "answers": [
+            "conflicts"
+          ],
+          "explanation": "Trust the Lord to solve your conflicts."
+        },
+        {
+          "id": "fl-conflict-fill-06",
+          "type": "fill_blank",
+          "prompt": "Resolving conflict: Make sure everything is settled before you ____ at night.",
+          "answers": [
+            "sleep"
+          ],
+          "explanation": "Make sure everything is settled before you sleep at night."
         }
       ],
       "shortTitle": "Family"

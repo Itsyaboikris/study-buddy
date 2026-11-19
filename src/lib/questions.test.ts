@@ -8,6 +8,7 @@ import {
   getCourses,
   isVerseWriteQuestion,
   keywordsMatch,
+  missedKeywordLabels,
 } from "@/lib/questions";
 import { spacePairedQuestions } from "@/lib/progress";
 import type { Question, QuestionsData } from "@/lib/types";
@@ -183,5 +184,58 @@ describe("keywordsMatch", () => {
         "kill paul|killed paul|paul killed",
       ]),
     ).toBe(true);
+  });
+});
+
+describe("requireAll keyword lists", () => {
+  const prayerBlockers = [
+    "unconfessed sin",
+    "insincerity",
+    "carnal motives",
+    "unbelief",
+    "satanic",
+    "domestic",
+    "pride",
+    "robbing god",
+    "biblical teaching",
+    "forgive",
+    "needy",
+  ];
+  const modelAnswer =
+    "Unconfessed sin; Insincerity; Carnal motives; Unbelief; Satanic Activity; Domestic Problems; Pride; Robbing God; Refusing to submit to biblical teaching; Refusing to forgive or be forgiven; Refusing to help the needy";
+
+  it("fails when only 7 of 11 prayer blockers are present and names the 4 missing", () => {
+    const seven =
+      "unconfessed sin, insincerity, carnal motives, unbelief, satanic activity, domestic problems, pride";
+    expect(
+      keywordsMatch(seven, prayerBlockers, { requireAll: true }),
+    ).toBe(false);
+    expect(keywordsMatch(seven, prayerBlockers)).toBe(true);
+
+    const missed = missedKeywordLabels(seven, prayerBlockers, modelAnswer);
+    expect(missed).toHaveLength(4);
+    expect(missed.map((label) => label.toLowerCase()).join(" ")).toMatch(
+      /robbing/,
+    );
+    expect(missed.map((label) => label.toLowerCase()).join(" ")).toMatch(
+      /biblical teaching/,
+    );
+    expect(missed.map((label) => label.toLowerCase()).join(" ")).toMatch(
+      /forgive/,
+    );
+    expect(missed.map((label) => label.toLowerCase()).join(" ")).toMatch(
+      /needy/,
+    );
+  });
+
+  it("passes all 11 prayer blockers in any order with a couple of typos", () => {
+    const answer =
+      "needy help, forgive or be forgiven, biblical teaching, robbing god, pride, domestic problems, satanic activity, unbelif, carnal motives, insincerity, unconfessed sin";
+    expect(
+      keywordsMatch(answer, prayerBlockers, { requireAll: true }),
+    ).toBe(true);
+    expect(missedKeywordLabels(answer, prayerBlockers, modelAnswer)).toEqual(
+      [],
+    );
   });
 });

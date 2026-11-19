@@ -49,6 +49,11 @@ export type ShortAnswerQuestion = BaseQuestion & {
   type: "short_answer";
   modelAnswer: string;
   keywords?: string[];
+  /**
+   * When true with keywords, every keyword must match (full-list recall).
+   * Default keywordsMatch only requires ~60%.
+   */
+  requireAll?: boolean;
   /** When set, each term must appear near its correct meaning. */
   pairs?: AnswerPair[];
   matchMode?: MatchMode;
