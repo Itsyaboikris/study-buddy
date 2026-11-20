@@ -376,6 +376,13 @@ textarea {
   min-height: 5rem;
 }
 
+.answer-textarea-verse {
+  resize: none;
+  min-height: 7.5rem;
+  overflow-y: hidden;
+  field-sizing: content;
+}
+
 .answer-input:focus,
 .answer-textarea:focus {
   outline: none;
@@ -434,6 +441,36 @@ textarea {
 .feedback-body {
   margin: 0;
   line-height: 1.45;
+}
+
+.verse-feedback {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.verse-feedback-lead,
+.verse-feedback-label,
+.verse-feedback-correct,
+.verse-feedback-note {
+  margin: 0;
+}
+
+.verse-feedback-label {
+  font-weight: 650;
+  margin-top: 0.15rem;
+}
+
+.verse-feedback-correct {
+  line-height: 1.5;
+}
+
+.verse-feedback-note {
+  opacity: 0.9;
+  font-size: 0.95em;
+}
+
+.verse-feedback-diff {
+  line-height: 1.55;
 }
 
 .verse-diff {

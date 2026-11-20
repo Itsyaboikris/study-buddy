@@ -102,24 +102,27 @@ function orderedVerseFeedback(
   correct: boolean,
   hadSlips: boolean,
   ops: VerseDiffOp[],
+  acceptedAnswer: string,
   explanation: string,
 ): ReactNode {
   if (correct && !hadSlips) {
     return `Correct! ${explanation}`;
   }
 
-  if (correct && hadSlips) {
-    return (
-      <>
-        Correct — check spellings: <VerseDiffView ops={ops} /> {explanation}
-      </>
-    );
-  }
-
   return (
-    <>
-      Not quite — compare: <VerseDiffView ops={ops} /> {explanation}
-    </>
+    <div className="verse-feedback">
+      <p className="verse-feedback-lead">
+        {correct
+          ? "Correct — check spellings:"
+          : "Not quite — compare:"}
+      </p>
+      <div className="verse-feedback-diff">
+        <VerseDiffView ops={ops} />
+      </div>
+      <p className="verse-feedback-label">Correct verse:</p>
+      <p className="verse-feedback-correct">{acceptedAnswer}</p>
+      <p className="verse-feedback-note">{explanation}</p>
+    </div>
   );
 }
 
@@ -394,6 +397,7 @@ function CourseSession({
             result.correct,
             result.hadSlips,
             result.ops,
+            result.acceptedAnswer,
             question.explanation,
           ),
         );
@@ -440,6 +444,7 @@ function CourseSession({
             result.correct,
             result.hadSlips,
             result.ops,
+            result.acceptedAnswer,
             question.explanation,
           ),
         );
@@ -781,14 +786,18 @@ function CourseSession({
               <label className="sr-only" htmlFor="answer-input">
                 Your answer
               </label>
-              {question.type === "fill_blank" ? (
+              {question.type === "fill_blank" &&
+              (question.matchMode ?? "flexible") !== "ordered" ? (
                 <input
+                  key={question.id}
                   id="answer-input"
                   className="answer-input"
                   type="text"
                   enterKeyHint="done"
                   autoComplete="off"
                   autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck={false}
                   value={textAnswer}
                   onChange={(event) => setTextAnswer(event.target.value)}
                   onFocus={handleAnswerFocus}
@@ -804,14 +813,45 @@ function CourseSession({
                 />
               ) : (
                 <textarea
+                  key={question.id}
                   id="answer-input"
-                  className="answer-textarea"
+                  className={
+                    question.type === "fill_blank"
+                      ? "answer-textarea answer-textarea-verse"
+                      : "answer-textarea"
+                  }
                   value={textAnswer}
-                  onChange={(event) => setTextAnswer(event.target.value)}
+                  onChange={(event) => {
+                    setTextAnswer(event.target.value);
+                    if (question.type === "fill_blank") {
+                      const el = event.currentTarget;
+                      el.style.height = "auto";
+                      el.style.height = `${el.scrollHeight}px`;
+                    }
+                  }}
                   onFocus={handleAnswerFocus}
                   onBlur={handleAnswerBlur}
-                  placeholder="Type what you remember…"
-                  rows={3}
+                  onKeyDown={(event) => {
+                    if (
+                      question.type === "fill_blank" &&
+                      (question.matchMode ?? "flexible") === "ordered" &&
+                      event.key === "Enter" &&
+                      !event.shiftKey
+                    ) {
+                      event.preventDefault();
+                      checkTextAnswer();
+                    }
+                  }}
+                  placeholder={
+                    question.type === "fill_blank"
+                      ? "Type the verse…"
+                      : "Type what you remember…"
+                  }
+                  rows={question.type === "fill_blank" ? 5 : 3}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck={false}
                   disabled={answered}
                 />
               )}
