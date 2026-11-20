@@ -473,6 +473,22 @@ textarea {
   line-height: 1.55;
 }
 
+.list-recall-missed {
+  margin: 0.15rem 0 0;
+  padding-left: 1.2rem;
+  line-height: 1.5;
+}
+
+.list-recall-missed li {
+  margin: 0.2rem 0;
+  font-weight: 600;
+  list-style: disc;
+}
+
+.list-recall-missed li::marker {
+  color: var(--feedback-wrong-ink);
+}
+
 .verse-diff {
   display: inline;
 }

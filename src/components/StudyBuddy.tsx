@@ -15,6 +15,7 @@ import {
   keywordsMatch,
   matchOrderedAnswer,
   missedKeywordLabels,
+  missedPairLabels,
   pairsMatch,
   shuffleChoices,
   type ShuffledChoice,
@@ -95,6 +96,39 @@ function VerseDiffView({ ops }: { ops: VerseDiffOp[] }) {
         );
       })}
     </span>
+  );
+}
+
+function listRecallFeedback(
+  found: number,
+  total: number,
+  missed: string[],
+  modelAnswer: string,
+  explanation: string,
+): ReactNode {
+  if (missed.length === 0) {
+    return (
+      <>
+        <p>Model answer: {modelAnswer}</p>
+        <p className="verse-feedback-note">{explanation}</p>
+      </>
+    );
+  }
+
+  return (
+    <div className="verse-feedback list-recall-feedback">
+      <p className="verse-feedback-lead">
+        You got {found} of {total}. Still missing:
+      </p>
+      <ul className="list-recall-missed">
+        {missed.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+      <p className="verse-feedback-label">Full list:</p>
+      <p className="verse-feedback-correct">{modelAnswer}</p>
+      <p className="verse-feedback-note">{explanation}</p>
+    </div>
   );
 }
 
@@ -432,7 +466,10 @@ function CourseSession({
       // Definition/link questions: term must sit with the right meaning.
       if (question.pairs && question.pairs.length > 0) {
         const correct = pairsMatch(textAnswer, question.pairs);
-        finishAnswer(correct, shortAnswerFeedback(question, correct));
+        finishAnswer(
+          correct,
+          shortAnswerFeedback(question, correct, textAnswer),
+        );
         return;
       }
 
@@ -459,7 +496,10 @@ function CourseSession({
         answersMatch(textAnswer, [question.modelAnswer], matchMode, {
           paraphrase: true,
         });
-      finishAnswer(correct, shortAnswerFeedback(question, correct));
+      finishAnswer(
+        correct,
+        shortAnswerFeedback(question, correct, textAnswer),
+      );
     }
   }
 
@@ -467,24 +507,53 @@ function CourseSession({
     q: Extract<Question, { type: "short_answer" }>,
     correct: boolean,
     userAnswer?: string,
-  ): string {
+  ): ReactNode {
     if (correct) return `Nice work! ${q.explanation}`;
-    if (
-      q.requireAll &&
-      q.keywords &&
-      q.keywords.length > 0 &&
-      userAnswer !== undefined
-    ) {
-      const missed = missedKeywordLabels(
-        userAnswer,
-        q.keywords,
-        q.modelAnswer,
-      );
-      if (missed.length > 0) {
-        return `Missing: ${missed.join("; ")}. Model answer: ${q.modelAnswer}. ${q.explanation}`;
+
+    if (userAnswer !== undefined && userAnswer.trim().length > 0) {
+      if (q.requireAll && q.keywords && q.keywords.length > 0) {
+        const missed = missedKeywordLabels(
+          userAnswer,
+          q.keywords,
+          q.modelAnswer,
+        );
+        if (missed.length > 0) {
+          const total = q.keywords.length;
+          return listRecallFeedback(
+            total - missed.length,
+            total,
+            missed,
+            q.modelAnswer,
+            q.explanation,
+          );
+        }
+      }
+
+      if (q.pairs && q.pairs.length > 0) {
+        const missed = missedPairLabels(
+          userAnswer,
+          q.pairs,
+          q.modelAnswer,
+        );
+        if (missed.length > 0) {
+          const total = q.pairs.length;
+          return listRecallFeedback(
+            total - missed.length,
+            total,
+            missed,
+            q.modelAnswer,
+            q.explanation,
+          );
+        }
       }
     }
-    return `Model answer: ${q.modelAnswer}. ${q.explanation}`;
+
+    return (
+      <>
+        <p>Model answer: {q.modelAnswer}</p>
+        <p className="verse-feedback-note">{q.explanation}</p>
+      </>
+    );
   }
 
   function markSelfCheck(correct: boolean) {

@@ -506,44 +506,72 @@ function findPatternIndexes(normalized: string, pattern: string): number[] {
   return indexes;
 }
 
-/**
- * Require each term to appear near its correct meaning so swapped
- * definitions (Stoics ↔ Areopagus) do not pass.
- */
-export function pairsMatch(userAnswer: string, pairs: AnswerPair[]): boolean {
+/** One term linked to its meaning in the user's answer. */
+export function pairMatches(userAnswer: string, pair: AnswerPair): boolean {
   const normalized = normalizeAnswer(userAnswer);
-  if (!normalized || pairs.length === 0) return false;
+  if (!normalized) return false;
 
   const clauses = normalized
     .split(/\n|;|\.|:| - | – | — |,/g)
     .map((part) => part.trim())
     .filter(Boolean);
 
-  return pairs.every((pair) => {
-    // Prefer clause-level linking when the user writes labeled lines.
-    for (const clause of clauses) {
-      const tokens = clause.split(" ").filter(Boolean);
-      if (
-        alternativeHits(clause, tokens, pair.term) &&
-        alternativeHits(clause, tokens, pair.meaning)
-      ) {
-        return true;
-      }
+  for (const clause of clauses) {
+    const tokens = clause.split(" ").filter(Boolean);
+    if (
+      alternativeHits(clause, tokens, pair.term) &&
+      alternativeHits(clause, tokens, pair.meaning)
+    ) {
+      return true;
     }
+  }
 
-    // Fallback: term and meaning must sit in the same local window.
-    const termIndexes = findPatternIndexes(normalized, pair.term);
-    const meaningIndexes = findPatternIndexes(normalized, pair.meaning);
-    if (termIndexes.length === 0 || meaningIndexes.length === 0) {
-      return false;
-    }
+  const termIndexes = findPatternIndexes(normalized, pair.term);
+  const meaningIndexes = findPatternIndexes(normalized, pair.meaning);
+  if (termIndexes.length === 0 || meaningIndexes.length === 0) {
+    return false;
+  }
 
-    return termIndexes.some((termAt) =>
-      meaningIndexes.some(
-        (meaningAt) => Math.abs(termAt - meaningAt) <= PAIR_WINDOW,
-      ),
-    );
-  });
+  return termIndexes.some((termAt) =>
+    meaningIndexes.some(
+      (meaningAt) => Math.abs(termAt - meaningAt) <= PAIR_WINDOW,
+    ),
+  );
+}
+
+/**
+ * Require each term to appear near its correct meaning so swapped
+ * definitions (Stoics ↔ Areopagus) do not pass.
+ */
+export function pairsMatch(userAnswer: string, pairs: AnswerPair[]): boolean {
+  if (pairs.length === 0) return false;
+  const normalized = normalizeAnswer(userAnswer);
+  if (!normalized) return false;
+  return pairs.every((pair) => pairMatches(userAnswer, pair));
+}
+
+/** Human-readable term labels for pairs the user did not link correctly. */
+export function missedPairLabels(
+  userAnswer: string,
+  pairs: AnswerPair[],
+  modelAnswer?: string,
+): string[] {
+  const modelItems =
+    modelAnswer
+      ?.split(";")
+      .map((part) => part.trim())
+      .filter(Boolean) ?? [];
+
+  return pairs
+    .filter((pair) => !pairMatches(userAnswer, pair))
+    .map((pair) => {
+      const termAlt = pair.term.split("|")[0]?.trim() || pair.term;
+      const termNorm = normalizeAnswer(termAlt);
+      const fromModel = modelItems.find((item) =>
+        normalizeAnswer(item).includes(termNorm),
+      );
+      return fromModel ?? termAlt;
+    });
 }
 
 export type ShuffledChoice = {
