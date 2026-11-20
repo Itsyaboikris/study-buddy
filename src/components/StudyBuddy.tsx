@@ -17,6 +17,7 @@ import {
   missedKeywordLabels,
   missedPairLabels,
   pairsMatch,
+  referenceTextsRedundant,
   shuffleChoices,
   type ShuffledChoice,
   type VerseDiffOp,
@@ -107,6 +108,9 @@ function listRecallFeedback(
   explanation: string,
 ): ReactNode {
   if (missed.length === 0) {
+    if (referenceTextsRedundant(modelAnswer, explanation)) {
+      return <p>Model answer: {modelAnswer}</p>;
+    }
     return (
       <>
         <p>Model answer: {modelAnswer}</p>
@@ -127,7 +131,9 @@ function listRecallFeedback(
       </ul>
       <p className="verse-feedback-label">Full list:</p>
       <p className="verse-feedback-correct">{modelAnswer}</p>
-      <p className="verse-feedback-note">{explanation}</p>
+      {!referenceTextsRedundant(modelAnswer, explanation) ? (
+        <p className="verse-feedback-note">{explanation}</p>
+      ) : null}
     </div>
   );
 }
@@ -143,6 +149,9 @@ function orderedVerseFeedback(
     return `Correct! ${explanation}`;
   }
 
+  const showAcceptedLine =
+    correct || referenceTextsRedundant(explanation, acceptedAnswer);
+
   return (
     <div className="verse-feedback">
       <p className="verse-feedback-lead">
@@ -153,9 +162,15 @@ function orderedVerseFeedback(
       <div className="verse-feedback-diff">
         <VerseDiffView ops={ops} />
       </div>
-      <p className="verse-feedback-label">Correct verse:</p>
-      <p className="verse-feedback-correct">{acceptedAnswer}</p>
-      <p className="verse-feedback-note">{explanation}</p>
+      {showAcceptedLine ? (
+        <>
+          <p className="verse-feedback-label">Correct verse:</p>
+          <p className="verse-feedback-correct">{acceptedAnswer}</p>
+        </>
+      ) : null}
+      {!referenceTextsRedundant(acceptedAnswer, explanation) ? (
+        <p className="verse-feedback-note">{explanation}</p>
+      ) : null}
     </div>
   );
 }
@@ -439,11 +454,14 @@ function CourseSession({
       }
 
       const correct = answersMatch(textAnswer, question.answers, matchMode);
+      const expected = question.answers[0] ?? "";
       finishAnswer(
         correct,
         correct
           ? `Correct! ${question.explanation}`
-          : `Close — expected something like: ${question.answers[0]}. ${question.explanation}`,
+          : referenceTextsRedundant(expected, question.explanation)
+            ? `Close — expected something like: ${expected}.`
+            : `Close — expected something like: ${expected}. ${question.explanation}`,
       );
       return;
     }
@@ -546,6 +564,10 @@ function CourseSession({
           );
         }
       }
+    }
+
+    if (referenceTextsRedundant(q.modelAnswer, q.explanation)) {
+      return <p>Model answer: {q.modelAnswer}</p>;
     }
 
     return (

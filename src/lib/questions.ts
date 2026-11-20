@@ -126,6 +126,16 @@ export function normalizeAnswer(value: string): string {
     .trim();
 }
 
+/** True when two answer/explanation strings say the same thing (avoid duplicate feedback). */
+export function referenceTextsRedundant(a: string, b: string): boolean {
+  const na = normalizeAnswer(a);
+  const nb = normalizeAnswer(b);
+  if (!na || !nb) return false;
+  if (na === nb) return true;
+  if (na.includes(nb) || nb.includes(na)) return true;
+  return fuzz.token_set_ratio(na, nb) >= 88;
+}
+
 function tokensClose(a: string, b: string): boolean {
   if (a === b) return true;
   if (a.startsWith(b) || b.startsWith(a)) {
